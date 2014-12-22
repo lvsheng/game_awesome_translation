@@ -7,6 +7,7 @@ define(['./Cars'], function (Cars) {
             this.init();
 
             this.cars = new Cars();
+            alert("game layer constructed")
         }
     });
 });

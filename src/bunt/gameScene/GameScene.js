@@ -1,14 +1,16 @@
 define([
     './BackgroundLayer',
-    './GuideLayer'
-], function (BackgroundLayer, GuideLayer) {
+    './GuideLayer',
+    './gameLayer/GameLayer'
+], function (BackgroundLayer, GuideLayer, GameLayer) {
     return cc.Scene.extend({
         onEnter: function () {
-            this._super();
+            var self = this;
+            self._super();
 
-            this.addChild(new BackgroundLayer());
-            this.addChild(new GuideLayer(function () {
-                alert("游戏开始！")
+            self.addChild(new BackgroundLayer());
+            self.addChild(new GuideLayer(function () {
+                self.addChild(new GameLayer());
             }));
         }
     });
