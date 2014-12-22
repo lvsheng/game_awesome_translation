@@ -6,5 +6,15 @@
  * @date 2014/12/22
  */
 define([], function () {
+    return cc.Layer.extend({
+        /**
+         * @param result
+         */
+        ctor: function (result) {
+            this._super();
+            this.init();
 
+            alert("游戏结束。你的分数是：" + result.score);
+        }
+    });
 });

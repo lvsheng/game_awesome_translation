@@ -32,20 +32,12 @@ define([
         enterAGame: function  (name, SceneClass) {
             var self = this;
             cc.LoaderScene.preload(resourceFileList[name], function () {
-                self._curGame = {
-                    name: name,
-                    sceneClass: SceneClass,
-                    sceneInstance: new SceneClass()
-                };
+                self._curGame = { name: name, sceneClass: SceneClass, sceneInstance: new SceneClass() };
                 cc.director.runScene(self._curGame.sceneInstance);
             }, cc.game);
         }
     });
 
     //本文件加载执行时cocos还没有完成初始化(cc.game.run还没被执行)，还不能直接实例场景对象，故不直接返回实例，而是提供个getInstance方法
-    return {
-        getInstance: function () {
-            return instance ? instance : (instance = new MainScene());
-        }
-    };
+    return { getInstance: function(){ return instance ? instance : (instance = new MainScene()); } };
 });

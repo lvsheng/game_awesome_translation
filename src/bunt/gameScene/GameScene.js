@@ -1,8 +1,9 @@
 define([
     './BackgroundLayer',
     './GuideLayer',
-    './gameLayer/GameLayer'
-], function (BackgroundLayer, GuideLayer, GameLayer) {
+    './gameLayer/GameLayer',
+    '../../commonClass/FinishLayer'
+], function (BackgroundLayer, GuideLayer, GameLayer, FinishLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             var self = this;
@@ -10,9 +11,12 @@ define([
 
             self.addChild(new BackgroundLayer());
             self.addChild(new GuideLayer(function(){
+                // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
-                    alert("游戏结束。你的分数是：" + result.score);
+                    // 用户完成游戏的回调
+                    self.addChild(new FinishLayer(result));
                 }));
+                //TODO:创建边栏层
             }));
         }
     });
