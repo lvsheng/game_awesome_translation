@@ -23,13 +23,13 @@ define([
 
             //TODO:展示所有游戏。根据选择进入相应游戏
             //这里先就进入bunt这个
-            this._enterScene('bunt', GameScene);
+            this.enterAGame('bunt', GameScene);
         },
 
         //管理当前进行着的游戏的数据
         getCurGame: function () { return this._curGame; },
 
-        _enterScene: function  (name, SceneClass) {
+        enterAGame: function  (name, SceneClass) {
             var self = this;
             cc.LoaderScene.preload(resourceFileList[name], function () {
                 self._curGame = {
