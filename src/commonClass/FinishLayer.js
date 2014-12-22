@@ -8,12 +8,13 @@
 define([], function () {
     return cc.Layer.extend({
         /**
-         * @param result
+         * @param result 应包括分数、成就、提示文案等
          */
         ctor: function (result) {
             this._super();
             this.init();
 
+            //TODO: 使用文案、分数等生成展示内容
             alert("游戏结束。你的分数是：" + result.score);
         }
     });
