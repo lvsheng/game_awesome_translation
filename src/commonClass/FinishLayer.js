@@ -14,7 +14,7 @@ define([], function () {
             this._super();
             this.init();
 
-            //TODO: 使用文案、分数等生成展示内容
+            //TODO: 使用文案、分数等生成展示内容。展示面板及其上按钮、相关功能。
             alert("游戏结束。你的分数是：" + result.score);
         }
     });

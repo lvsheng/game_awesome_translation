@@ -15,4 +15,6 @@ require([
         }, this);
     };
     cc.game.run("gameCanvas");
+
+    //TODO: 用户旋转屏幕的处理、对水平屏幕的要求
 });
