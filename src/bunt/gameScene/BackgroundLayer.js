@@ -5,11 +5,9 @@ define([
         ctor: function () {
             this._super();
             this.init();
-            var windowSize = cc.director.getWinSize();
 
-            var centerPosition = cc.p(windowSize.width / 2, windowSize.height / 2);
             var backgroundSprite = new cc.Sprite(resourceFileMap.bunt.bg);
-            backgroundSprite.setPosition(centerPosition.x, centerPosition.y);
+            backgroundSprite.setPosition(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2);
             this.addChild(backgroundSprite);
         }
     });
