@@ -15,11 +15,12 @@
             background-color: black;
         }
     </style>
-    <script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>
 </head>
 <body>
-    <canvas id="gameCanvas" width="1136" height="640"></canvas>
+<canvas id="gameCanvas" width="1136" height="640"></canvas>
 
-    <script data-main="src/main" src="require.js"></script>
+<!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），所以在require之前先加载cocos-->
+<script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>
+<script data-main="src/main" src="require.js"></script>
 </body>
 </html>
