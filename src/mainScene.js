@@ -29,9 +29,15 @@ define([
         //管理当前进行着的游戏的数据
         getCurGame: function () { return this._curGame; },
 
-        _enterScene: function  (name, klass) {
+        _enterScene: function  (name, SceneClass) {
+            var self = this;
             cc.LoaderScene.preload(resourceFileList[name], function () {
-                cc.director.runScene(new klass());
+                self._curGame = {
+                    name: name,
+                    sceneClass: SceneClass,
+                    sceneInstance: new SceneClass()
+                };
+                cc.director.runScene(self._curGame.sceneInstance);
             }, cc.game);
         }
     });

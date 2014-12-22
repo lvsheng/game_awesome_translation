@@ -4,11 +4,9 @@
  * @date 2014/12/22
  */
 define([
-    '../mainScene'
-], function (mainScene) {
+], function () {
     return function () {
-        var curGameScene = mainScene.getCurGame().sceneInstance;
-        curGameScene.pause();
+        cc.director.pause();
 
         //增加遮罩层以屏幕用户触摸事件
         //TODO
