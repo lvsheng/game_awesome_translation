@@ -19,8 +19,10 @@
 <body>
 <canvas id="gameCanvas" width="1136" height="640"></canvas>
 
-<!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），所以在require之前先加载cocos-->
+<!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），故需在require之前先加载cocos-->
 <script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>
+<!--语言增强型基础库，认为还是应该作为全局引入-->
+<script src="underscore.js"></script>
 <script data-main="src/main" src="require.js"></script>
 </body>
 </html>
