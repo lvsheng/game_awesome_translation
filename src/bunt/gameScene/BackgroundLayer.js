@@ -7,7 +7,7 @@ define([
             this.init();
 
             var backgroundSprite = new cc.Sprite(resourceFileMap.bunt.bg);
-            backgroundSprite.setPosition(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2);
+            backgroundSprite.attr({ anchorX: 0.5, anchorY: 0, x: cc.director.getWinSize().width / 2, y: 0 });
             this._scaleToCoverWindow(backgroundSprite);
             this.addChild(backgroundSprite);
         },
