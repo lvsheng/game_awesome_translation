@@ -5,7 +5,10 @@
  * @author lvsheng
  * @date 2014/12/22
  */
-define([], function () {
+define([
+    'require',
+    '../mainScene'
+], function (require) {
     return cc.Layer.extend({
         /**
          * @param result 应包括分数、成就、提示文案等
@@ -15,7 +18,13 @@ define([], function () {
             this.init();
 
             //TODO: 使用文案、分数等生成展示内容。展示面板及其上按钮、相关功能。
-            alert("游戏结束。\n" + result);
+            if (confirm(result + "\n是否重来？")) { this._rePlay(); }
+        },
+
+        _rePlay: function () {
+            var mainScene = require('../mainScene').getInstance();
+            var curGame = mainScene.getCurGame();
+            mainScene.enterAGame(curGame.name, curGame.sceneClass);
         }
     });
 });
