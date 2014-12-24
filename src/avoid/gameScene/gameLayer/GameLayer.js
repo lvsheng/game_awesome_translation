@@ -91,10 +91,10 @@ define([
             this.addChild(ultraman);
             this._ultramans.push(ultraman);
         },
-        passAUltraman: function (ultraman) {
-            ++this._passedAmount;
-            this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1);
-        },
+        removeAUltraman: function (ultraman) { this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1); },
+        passAUltraman: function () { ++this._passedAmount; },
+
+        getTeenager: function () { return this._teenager; },
 
         //判断是不是有奥特曼撞上了00后
         _judgeCrash: function () {

@@ -83,10 +83,7 @@ define([
          */
         comingClosest: function (ultramans, noJump) {
             var self = this;
-            var tempArr = _.filter(ultramans, function (each) {
-                //coming
-                return (each.getDirection() === 'left' && each.x > self.x) || (each.getDirection() === 'right' && each.x < self.x);
-            });
+            var tempArr = _.filter(ultramans, function (each) { return each.faceToTeenager(); });
             if (noJump) { tempArr = _.filter(tempArr, function (each) { return !each.isJumping(); }) }
             if (tempArr.length > 0) {
                 //找最近
