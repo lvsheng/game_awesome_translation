@@ -47,7 +47,12 @@ define([
             );
         },
         jump: function () {
-
-        }
+            var distance = 900;
+            var height = 300;
+            var time = distance / this._speed;
+            this.runAction(new cc.JumpBy(time, {x: 0, y: 0}, height, 1));
+        },
+        getDirection: function () { return this._direction; },
+        isJumping: function () { return this.y > this._flyY; }
     });
 });

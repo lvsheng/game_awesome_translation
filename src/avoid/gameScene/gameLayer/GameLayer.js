@@ -15,8 +15,8 @@ define([
     var L = 'left', R = 'right';
     return cc.Layer.extend({
         _ultramanConfList: [ //奥特曼配置列表
-            [0.5, R, 300, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
-            [0.5, L, 300, 5]
+            [0.5, R, 800, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
+            [1, L, 1000, 500]
         ],
         _ultramans: [],
         _teenager: null,

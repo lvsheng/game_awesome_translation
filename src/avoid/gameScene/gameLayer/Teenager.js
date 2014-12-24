@@ -23,7 +23,7 @@ define([
             this._moveRangeRight = cc.director.getWinSize().width - this._moveRangeMargin;
             this._crashRangeWidth = 252;
             this._crashRangeHeight = this.height;
-            this._speed = 148;
+            this._speed = 108;
 
             //TODO: 后面有必要时，看把anchorX放在女孩身体中央，这样翻转时看起来可能效果好些。然后_crashRangeWidth分成left与right
             this.attr({ anchorX: 0.42, x: this._moveRangeRight, anchorY: 0, y: 0 }); //anchor放在男孩女孩中间
@@ -63,18 +63,28 @@ define([
          * 找到向自己冲过来的最近的奥特曼
          * @param ultramans
          * @return {Object} 奥特曼
+         * @param [noJump]
          */
-        comingClosest: function (ultramans) {
-
+        comingClosest: function (ultramans, noJump) {
+            var self = this;
+            var tempArr = _.filter(ultramans, function (each) {
+                //coming
+                return (each.getDirection() === 'left' && each.x > self.x) || (each.getDirection() === 'right' && each.x < self.x);
+            });
+            if (noJump) { tempArr = _.filter(tempArr, function (each) { return !each.isJumping(); }) }
+            if (tempArr.length > 0) {
+                //找最近
+                return _.min(tempArr, function (each) { return Math.abs(each.x - self.x); });
+            } else {
+                return null;
+            }
         },
         /**
          * 找到向自己冲过来并且不在跳跃状态的最近的奥特曼
          * @param ultramans
          * @return {Object} 奥特曼
          */
-        comingNoJumpCloset: function (ultramans) {
-
-        },
+        comingNoJumpCloset: function (ultramans) { return this.comingClosest(ultramans, true); },
 
         stopMove: function () { this.stopAllActions(); }
     });
