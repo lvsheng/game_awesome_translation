@@ -14,12 +14,10 @@ define([
 ], function (pauseGame, Teenager, Ultraman) {
     var L = 'left', R = 'right';
     return cc.Layer.extend({
-        _ultramanConfList: [ //奥特曼配置列表
-            [0.5, R, 800, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
-            [1, L, 1000, 500]
-        ],
-        _ultramans: [],
+        _ultramanConfList: null, //奥特曼配置列表
+        _ultramans: null,
         _teenager: null,
+
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
          */
@@ -27,9 +25,16 @@ define([
             this._super(); this.init();
 
             this._endCallback = endCallback;
+            this._ultramanConfList = [
+                [0.5, R, 800, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
+                [1, R, 1000, 2]
+            ];
+            this._ultramans = [];
             this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
+
+            this.schedule(_.bind(this._judgeCrash, this));
             //TODO: for debug
             window.avoidLayer = this;
         },
@@ -42,7 +47,12 @@ define([
             function launchOne () {
                 if (remainedAmount === 0) { //上一个配置的已经发完
                     curConf = self._getNextUltraManConf();
-                    if (!curConf || curConf.amount == 0) { return; } //已经全部发射完，结束递归schedule
+                    if (!curConf || curConf.amount == 0) { //已经全部发射完
+                        //开始判断成功通过
+                        self.schedule(function(){ self._ultramans.length === 0 && self._endGame(true); });
+                        //结束递归schedule
+                        return;
+                    }
                     remainedAmount = curConf.amount;
                 }
 
@@ -68,10 +78,22 @@ define([
             this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1);
         },
 
-        _onLoose: function () {
-
+        //判断是不是有奥特曼撞上了00后
+        _judgeCrash: function () {
+            var self = this;
+            _.forEach(self._ultramans, function (each) {
+                if (self._teenager.ifCrash(each)) { self._endGame(false); }
+            });
         },
-        _onWinning: function () {},
+
+        _endGame: function (winning) {
+            pauseGame();
+            this._endCallback({
+                winning: winning,
+                time: 0, //TODO
+                passAmount: 0 //TODO
+            });
+        },
 
         _jumpUltramanOnTouch: function () {
             var self = this;

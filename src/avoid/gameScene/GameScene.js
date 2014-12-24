@@ -18,7 +18,15 @@ define([
             self.addChild(new GuideLayer(function(){
                 // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
-                    alert(result);
+                    self.addChild(new FinishLayer(_.template([
+                        "花费了<%= Math.round(time) %>s",
+                        "避开了<%= passAmount %>个00后~",
+                        "<% if (winning) { %>",
+                        "你终于赢了~",
+                        "<% } else { %>",
+                        "你还是输了",
+                        "<% } %>"
+                    ].join(''))(result)));
                 }));
                 //TODO:创建边栏层
             }));
