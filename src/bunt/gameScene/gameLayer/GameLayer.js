@@ -9,12 +9,13 @@
  */
 define([
     './Cars',
-    '../../../gameUtil/pauseGame'
-], function (Cars, pauseGame) {
+    '../../../gameUtil/pauseGame',
+    '../../../commonClass/TimerNode'
+], function (Cars, pauseGame, TimerNode) {
     return cc.Layer.extend({
         _cars: null,
+        _timer: null,
         _endCallback: function(){},
-        _gameTime: 0,
 
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理
@@ -24,8 +25,7 @@ define([
 
             this._endCallback = endCallback;
             this.addChild(this._cars = new Cars(_.bind(this._endGame, this)));
-
-            this._scheduleTimer();
+            this.addChild(this._timer = (new TimerNode()).start());
         },
 
         /**
@@ -37,14 +37,9 @@ define([
             //result应包括胜负信息、用了多少时间、用户点击了多少下
             this._endCallback({
                 winning: winning,
-                time: this._gameTime,
+                time: this._timer.get(),
                 hitCount: this._cars.getUserHitCount()
             });
-        },
-
-        _scheduleTimer: function () {
-            var self = this;
-            self.schedule(function(dt){ self._gameTime += dt; });
         }
     });
 });
