@@ -12,6 +12,7 @@ define([
         _leftX: 0,
         _rightX: 0,
         _flyY: 209,
+        _innerCrashRect: cc.rect(42, 18, 103, 96),
 
         ctor: function (direction, speed, gameLayer) {
             this._super(resourceFileMap.avoid.ultraman);
@@ -53,6 +54,7 @@ define([
             this.runAction(new cc.JumpBy(time, {x: 0, y: 0}, height, 1));
         },
         getDirection: function () { return this._direction; },
-        isJumping: function () { return this.y > this._flyY; }
+        isJumping: function () { return this.y - this._flyY > 50; },
+        getInnerCrashRect: function () { return this._innerCrashRect; }
     });
 });
