@@ -26,8 +26,21 @@ define([
 
             this._endCallback = endCallback;
             this._ultramanConfList = [
-                [0.5, R, 800, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
-                [1, R, 1000, 2]
+                //[每一个与下一个的出现间隔，方向，速度, 数量]
+                //第一波
+                [0.5, R, 800, 2],
+                [1, R, 1000, 4],
+                [0.5, R, 1000, 1],
+                [3, R, 1000, 1],
+                //第二波
+                [0.3, L, 1300, 9],
+                [2, L, 1300, 1],
+                //第三波
+                [0.2, R, 1500, 12],
+                [1.3, R, 1500, 1],
+                //最后两个
+                [0.01, R, 1500, 1],
+                [0, L, 1500, 1]
             ];
             this._ultramans = [];
             this.addChild(this._teenager = new Teenager());
@@ -87,11 +100,13 @@ define([
         },
 
         _endGame: function (winning) {
+            //TODO: 先把各其他奥特曼停下，再把撞到的奥特曼执行摔倒动画
             pauseGame();
             this._endCallback({
                 winning: winning,
                 time: 0, //TODO
-                passAmount: 0 //TODO
+                passAmount: 0, //TODO
+                remainedAmount: 0
             });
         },
 
