@@ -11,7 +11,7 @@ define([
         _gameLayer: null,
         _leftX: 0,
         _rightX: 0,
-        _flyY: 271,
+        _flyY: 209,
 
         ctor: function (direction, speed, gameLayer) {
             this._super(resourceFileMap.avoid.ultraman);
@@ -31,10 +31,10 @@ define([
 
             self.attr({ y: self._flyY });
             if (self._direction === 'right') {
-                self.attr({ x: self._leftX, flippedX: true }); //图片默认是向左的，向右时flip一下
+                self.attr({ x: self._leftX }); //图片默认是向左的，向右时flip一下
                 moveAction = new cc.MoveTo(time, self._rightX, self.y);
             } else if (self._direction === 'left') {
-                self.attr({ x: self._rightX });
+                self.attr({ x: self._rightX, flippedX: true });
                 moveAction = new cc.MoveTo(time, self._leftX, self.y);
             }
 
@@ -47,7 +47,7 @@ define([
             );
         },
         jump: function () {
-            var distance = 900;
+            var distance = 700;
             var height = 300;
             var time = distance / this._speed;
             this.runAction(new cc.JumpBy(time, {x: 0, y: 0}, height, 1));
