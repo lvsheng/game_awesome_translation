@@ -9,14 +9,16 @@
  */
 define([
     '../../../gameUtil/pauseGame',
+    '../../../commonClass/TimerNode',
     './Teenager',
     './Ultraman'
-], function (pauseGame, Teenager, Ultraman) {
+], function (pauseGame,TimerNode, Teenager, Ultraman) {
     var L = 'left', R = 'right';
     return cc.Layer.extend({
         _ultramanConfList: null, //奥特曼配置列表
         _ultramans: null,
         _teenager: null,
+        _timer: null,
 
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
@@ -47,6 +49,7 @@ define([
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
 
+            this.addChild(this._timer = (new TimerNode()).start());
             this.schedule(_.bind(this._judgeCrash, this));
             //TODO: for debug
             window.avoidLayer = this;
@@ -104,7 +107,7 @@ define([
             pauseGame();
             this._endCallback({
                 winning: winning,
-                time: 3, //TODO
+                time: this._timer.get(),
                 passAmount: 2, //TODO
                 remainedWave: 1 //TODO
             });

@@ -1,10 +1,9 @@
 /**
  * 计时器
  * 使用方式：
- * var timer;
- * this.addChild(timer = (new TimerNode()).start());
+ * this.addChild(this._timer = (new TimerNode()).start());
  * ...
- * timer.get()
+ * this._timer.get()
  *
  * 注：为了在director或场景暂停时能同步暂停计时，故作为Node并且使用时需添加到需要计时的元素（典型为layer）上
  * @author lvsheng
