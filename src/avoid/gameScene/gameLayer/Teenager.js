@@ -24,8 +24,6 @@ define([
             this._crashRangeWidth = 252;
             this._crashRangeHeight = this.height;
             this._speed = 148;
-            //TODO: for test
-            this._speed = this._speed * 4;
 
             //TODO: 后面有必要时，看把anchorX放在女孩身体中央，这样翻转时看起来可能效果好些。然后_crashRangeWidth分成left与right
             this.attr({ anchorX: 0.42, x: this._moveRangeRight, anchorY: 0, y: 0 }); //anchor放在男孩女孩中间

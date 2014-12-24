@@ -9,21 +9,67 @@
  */
 define([
     '../../../gameUtil/pauseGame',
-    './Teenager'
-], function (pauseGame, Teenager) {
+    './Teenager',
+    './Ultraman'
+], function (pauseGame, Teenager, Ultraman) {
     var L = 'left', R = 'right';
     return cc.Layer.extend({
-        _ULTRAMAN_CONF_LIST: [ //奥特曼配置列表
-            [0, R, ] //TODO: speed
+        _ultramanConfList: [ //奥特曼配置列表
+            [0.5, R, 300, 2], //[每一个与下一个的出现间隔，方向，速度, 数量]
+            [0.5, L, 300, 5]
         ],
+        _ultramans: [],
         /**
-         * @param endCallback 回调函数。游戏结束时调用此函数进行处理
+         * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
          */
         ctor: function (endCallback) {
             this._super(); this.init();
 
             this._endCallback = endCallback;
             this.addChild(new Teenager());
-        }
+            this._launchUltramanList();
+
+            //TODO: for debug
+            window.avoidLayer = this;
+        },
+
+        _launchUltramanList: function () {
+            var self = this;
+            var remainedAmount = 0; //当前前配置还剩的个数
+            var curConf = null;
+
+            function launchOne () {
+                if (remainedAmount === 0) { //上一个配置的已经发完
+                    curConf = self._getNextUltraManConf();
+                    if (!curConf || curConf.amount == 0) { return; } //已经全部发射完，结束递归schedule
+                    remainedAmount = curConf.amount;
+                }
+
+                //从上方逻辑执行到这里，remainedAmount应一定不为0
+                self._addAUltraman(curConf.direction, curConf.speed);
+                --remainedAmount;
+                self.scheduleOnce(function(){ launchOne(); }, curConf.interval);
+            }
+
+            launchOne();
+        },
+        _getNextUltraManConf: function () {
+            var arr = this._ultramanConfList.shift();
+            if (!arr) { return null; }
+            else { return { interval: arr[0], direction: arr[1], speed: arr[2], amount: arr[3] }; }
+        },
+        _addAUltraman: function (direction, speed) {
+            var ultraman = new Ultraman(direction, speed, this);
+            this.addChild(ultraman);
+            this._ultramans.push(ultraman);
+        },
+        removeAUltraman: function (ultraman) {
+            this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1);
+        },
+
+        _onLoose: function () {
+
+        },
+        _onWinning: function () {}
     });
 });
