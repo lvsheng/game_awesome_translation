@@ -45,6 +45,9 @@ define([
                     self._gameLayer.removeAUltraman(self);
                 }))
             );
+        },
+        jump: function () {
+
         }
     });
 });

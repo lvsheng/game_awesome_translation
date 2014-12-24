@@ -19,6 +19,7 @@ define([
             [0.5, L, 300, 5]
         ],
         _ultramans: [],
+        _teenager: null,
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
          */
@@ -26,9 +27,9 @@ define([
             this._super(); this.init();
 
             this._endCallback = endCallback;
-            this.addChild(new Teenager());
+            this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
-
+            this._jumpUltramanOnTouch();
             //TODO: for debug
             window.avoidLayer = this;
         },
@@ -70,6 +71,19 @@ define([
         _onLoose: function () {
 
         },
-        _onWinning: function () {}
+        _onWinning: function () {},
+
+        _jumpUltramanOnTouch: function () {
+            var self = this;
+
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
+                swallowTouches: false,
+                onTouchBegan: function () {
+                    var ultraman = self._teenager.comingNoJumpCloset(self._ultramans);
+                    if (ultraman) { ultraman.jump(); }
+                }
+            }, self);
+        }
     });
 });
