@@ -6,24 +6,28 @@ define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Sprite.extend({
-        _move_range_margin: 0, //左右移动时，锚点离屏幕多远就停下来反向
-        _move_range_left: 0,
-        _move_range_right: 0,
-        _crashRangeWidth: 252, //可被撞击的范围的宽度
+        _moveRangeMargin: 0, //左右移动时，锚点离屏幕多远就停下来反向
+        _moveRangeLeft: 0,
+        _moveRangeRight: 0,
+        _crashRangeWidth: 0, //可被撞击的范围的宽度
+        _crashRangeHeight: 0,
+        _moveDirection: '', //'left' | 'right
 
         ctor: function () {
             this._super(resourceFileMap.avoid.teenager);
 
             var borderMargin = 250; //可被撞击的边界离窗口两边的最近距离
-            this._move_range_margin = borderMargin + this._crashRangeWidth / 2; //锚点离窗口两边的最近距离
-            this._move_range_left = this._move_range_margin;
-            this._move_range_right = cc.director.getWinSize().width - this._move_range_margin;
+            this._moveRangeMargin = borderMargin + this._crashRangeWidth / 2; //锚点离窗口两边的最近距离
+            this._moveRangeLeft = this._moveRangeMargin;
+            this._moveRangeRight = cc.director.getWinSize().width - this._moveRangeMargin;
+            this._crashRangeWidth = 252;
+            this._crashRangeHeight = this.height;
             this._oneTripTime = 4.5; //从一端走到另一端需要的时间
             //TODO: for test
             this._oneTripTime = this._oneTripTime / 4; //从一端走到另一端需要的时间
 
             //TODO: 后面有必要时，看把anchorX放在女孩身体中央，这样翻转时看起来可能效果好些。然后_crashRangeWidth分成left与right
-            this.attr({ anchorX: 0.42, x: this._move_range_right, anchorY: 0, y: 0 }); //anchor放在男孩女孩中间
+            this.attr({ anchorX: 0.42, x: this._moveRangeRight, anchorY: 0, y: 0 }); //anchor放在男孩女孩中间
 
             this._startMove();
 
@@ -33,14 +37,17 @@ define([
 
         _startMove: function () {
             var self = this;
+            self._moveDirection = 'left';
             self.runAction(new cc.RepeatForever(new cc.Sequence(
-                new cc.MoveTo(self._oneTripTime, self._move_range_left, self.y), //认为一定是从_move_range_right开始移动的
+                new cc.MoveTo(self._oneTripTime, self._moveRangeLeft, self.y), //认为一定是从_moveRangeRight开始移动的
                 new cc.CallFunc(function(){
+                    self._moveDirection = 'right';
                     self.flippedX = true;
                     self.anchorX = 1 - self.anchorX; //flip只是让绘制的内容翻转、不影响位置与anchor。这里把anchor跟随做翻转
                 }),
-                new cc.MoveTo(self._oneTripTime, self._move_range_right, self.y),
+                new cc.MoveTo(self._oneTripTime, self._moveRangeRight, self.y),
                 new cc.CallFunc(function(){
+                    self._moveDirection = 'left';
                     self.anchorX = 1 - self.anchorX;
                     self.flippedX = false;
                 })
@@ -69,8 +76,6 @@ define([
 
         },
 
-        stopMove: function () {
-
-        }
+        stopMove: function () { this.stopAllActions(); }
     });
 });
