@@ -11,7 +11,11 @@ define([
     '../../../gameUtil/pauseGame',
     './Teenager'
 ], function (pauseGame, Teenager) {
+    var L = 'left', R = 'right';
     return cc.Layer.extend({
+        _ULTRAMAN_CONF_LIST: [ //奥特曼配置列表
+            [0, R, ] //TODO: speed
+        ],
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理
          */

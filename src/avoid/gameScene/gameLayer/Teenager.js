@@ -12,6 +12,7 @@ define([
         _crashRangeWidth: 0, //可被撞击的范围的宽度
         _crashRangeHeight: 0,
         _moveDirection: '', //'left' | 'right
+        _speed: 0, //px为单位
 
         ctor: function () {
             this._super(resourceFileMap.avoid.teenager);
@@ -22,9 +23,9 @@ define([
             this._moveRangeRight = cc.director.getWinSize().width - this._moveRangeMargin;
             this._crashRangeWidth = 252;
             this._crashRangeHeight = this.height;
-            this._oneTripTime = 4.5; //从一端走到另一端需要的时间
+            this._speed = 148;
             //TODO: for test
-            this._oneTripTime = this._oneTripTime / 4; //从一端走到另一端需要的时间
+            this._speed = this._speed * 4;
 
             //TODO: 后面有必要时，看把anchorX放在女孩身体中央，这样翻转时看起来可能效果好些。然后_crashRangeWidth分成left与right
             this.attr({ anchorX: 0.42, x: this._moveRangeRight, anchorY: 0, y: 0 }); //anchor放在男孩女孩中间
@@ -37,15 +38,16 @@ define([
 
         _startMove: function () {
             var self = this;
+            var oneTripTime = (self._moveRangeRight - self._moveRangeLeft) / self._speed;
             self._moveDirection = 'left';
             self.runAction(new cc.RepeatForever(new cc.Sequence(
-                new cc.MoveTo(self._oneTripTime, self._moveRangeLeft, self.y), //认为一定是从_moveRangeRight开始移动的
+                new cc.MoveTo(oneTripTime, self._moveRangeLeft, self.y), //认为一定是从_moveRangeRight开始移动的
                 new cc.CallFunc(function(){
                     self._moveDirection = 'right';
                     self.flippedX = true;
                     self.anchorX = 1 - self.anchorX; //flip只是让绘制的内容翻转、不影响位置与anchor。这里把anchor跟随做翻转
                 }),
-                new cc.MoveTo(self._oneTripTime, self._moveRangeRight, self.y),
+                new cc.MoveTo(oneTripTime, self._moveRangeRight, self.y),
                 new cc.CallFunc(function(){
                     self._moveDirection = 'left';
                     self.anchorX = 1 - self.anchorX;
