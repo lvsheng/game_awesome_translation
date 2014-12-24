@@ -43,7 +43,7 @@ define([
             self.runAction(new cc.Sequence(
                 moveAction,
                 new cc.CallFunc(function () {
-                    if (this._jumpOverTeenager()) { self._gameLayer.passAUltraman(); } //应对没跳完就飞出了的
+                    if (self._jumpOverTeenager()) { self._gameLayer.passAUltraman(); } //应对没跳完就飞出了的
                     self._gameLayer.removeAUltraman(self);
                 }))
             );
