@@ -5,7 +5,7 @@
 define([], function () {
     return cc.Node.extend({
         _STEP_DISTANCE: 24,
-        END_WIDTH: 480, //设计的分辨率为1180.考虑到iphone4为960，这里使用其一半480
+        END_WIDTH: 480, //设计的分辨率为1180.考虑到iphone4为960，这里使用其一半480。TODO:不过其实这个值不对，因为整个游戏窗口应该会绽放的。应该推算出缩放的比例再来
         _offset: 0,
         _onWinnerArise: function(){},
 
