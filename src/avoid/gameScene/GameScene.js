@@ -19,6 +19,7 @@ define([
                 // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
                     self.addChild(new FinishLayer(_.template([
+                        //只完成了第一波~ 还剩几波~ 只剩几波~
                         "花费了<%= Math.round(time) %>s",
                         "避开了<%= passAmount %>个00后~",
                         "<% if (winning) { %>",

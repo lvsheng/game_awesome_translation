@@ -106,7 +106,7 @@ define([
                 winning: winning,
                 time: 0, //TODO
                 passAmount: 0, //TODO
-                remainedAmount: 0
+                remainedWave: 0 //TODO
             });
         },
 
