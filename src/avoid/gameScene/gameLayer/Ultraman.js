@@ -43,7 +43,7 @@ define([
                 moveAction,
                 new cc.CallFunc(function () {
                     //安全飞过
-                    self._gameLayer.removeAUltraman(self);
+                    self._gameLayer.passAUltraman(self);
                 }))
             );
         },

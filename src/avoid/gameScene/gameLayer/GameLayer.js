@@ -19,6 +19,7 @@ define([
         _ultramans: null,
         _teenager: null,
         _timer: null,
+        _passedAmount: 0,
 
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
@@ -90,7 +91,8 @@ define([
             this.addChild(ultraman);
             this._ultramans.push(ultraman);
         },
-        removeAUltraman: function (ultraman) {
+        passAUltraman: function (ultraman) {
+            ++this._passedAmount;
             this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1);
         },
 
@@ -108,7 +110,7 @@ define([
             this._endCallback({
                 winning: winning,
                 time: this._timer.get(),
-                passAmount: 2, //TODO
+                passAmount: this._passedAmount, //TODO
                 remainedWave: 1 //TODO
             });
         },
