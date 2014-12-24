@@ -20,6 +20,7 @@ define([
         _teenager: null,
         _timer: null,
         _passedAmount: 0,
+        _passedWave: 0,
 
         /**
          * @param endCallback 回调函数。游戏结束时调用此函数进行处理（没有奥特曼了为成功，还有奥特曼为失败）
@@ -30,22 +31,23 @@ define([
             this._endCallback = endCallback;
             this._ultramanConfList = [
                 //[每一个与下一个的出现间隔，方向，速度, 数量]
-                //第一波
+                "wave 1",
                 [0.5, R, 800, 2],
                 [1, R, 1000, 4],
                 [0.5, R, 1000, 1],
                 [3, R, 1000, 1],
-                //第二波
+                "wave 2",
                 [0.3, L, 1300, 9],
                 [2, L, 1300, 1],
-                //第三波
+                "wave 3",
                 [0.2, R, 1500, 12],
                 [1.3, R, 1500, 1],
-                //最后两个
+                "wave 4",
                 [0.01, R, 1500, 1],
                 [0, L, 1500, 1]
             ];
             this._ultramans = [];
+            this._passedWave = 0;
             this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
@@ -82,7 +84,10 @@ define([
             launchOne();
         },
         _getNextUltraManConf: function () {
-            var arr = this._ultramanConfList.shift();
+            var arr;
+            while (typeof (arr = this._ultramanConfList.shift()) === 'string') { //"wave xx"
+                ++this._passedWave;
+            }
             if (!arr) { return null; }
             else { return { interval: arr[0], direction: arr[1], speed: arr[2], amount: arr[3] }; }
         },
@@ -110,8 +115,9 @@ define([
             this._endCallback({
                 winning: winning,
                 time: this._timer.get(),
-                passAmount: this._passedAmount, //TODO
-                remainedWave: 1 //TODO
+                passedAmount: this._passedAmount,
+                remainedWave: this._getRemainedWave(),
+                passedWave: this._passedWave
             });
         },
 
@@ -126,6 +132,9 @@ define([
                     if (ultraman) { ultraman.jump(); }
                 }
             }, self);
+        },
+        _getRemainedWave: function () {
+            return _.filter(this._ultramanConfList, function (each) { return typeof each === 'string'; }).length;
         }
     });
 });
