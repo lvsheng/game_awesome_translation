@@ -96,7 +96,10 @@ define([
             this.addChild(ultraman);
             this._ultramans.push(ultraman);
         },
-        removeAUltraman: function (ultraman) { this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1); },
+        removeAUltraman: function (ultraman) {
+            this._ultramans.splice(_.indexOf(this._ultramans, ultraman), 1);
+            this.removeChild(ultraman);
+        },
         passAUltraman: function () { ++this._passedAmount; },
 
         getTeenager: function () { return this._teenager; },
