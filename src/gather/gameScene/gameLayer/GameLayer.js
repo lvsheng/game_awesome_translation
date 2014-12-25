@@ -25,7 +25,7 @@ define([
                 INIT_DISTANCE,
                 INIT_SPEED
             );
-            self._heartConfs = [].concat(HEART_CONFS);
+            self._heartConfs = _.map(HEART_CONFS, _.clone);
             self._hearts = [];
             self._endCallback = endCallback;
             self._timer = (new TimerNode()).start();
