@@ -10,20 +10,23 @@ define([
 
     return cc.Layer.extend({
         ctor: function (endCallback) {
-            this._super(); this.init();
+            var self = this;
+            self._super(); self.init();
 
-            this._couple = new Couple(_.bind(this._win, this), _.bind(this._loose, this), INIT_DISTANCE, INIT_SPEED);
-            this._hearts = [];
-            this._endCallback = endCallback;
-            this._timer = (new TimerNode()).start();
+            self._couple = new Couple(
+                function(result){ result === 'meet' ? self._endGame(true) : self._endGame(false); },
+                INIT_DISTANCE,
+                INIT_SPEED
+            );
+            self._hearts = [];
+            self._endCallback = endCallback;
+            self._timer = (new TimerNode()).start();
 
-            this.addChild(this._couple);
-            this.addChild(this._timer);
+            self.addChild(self._couple);
+            self.addChild(self._timer);
         },
 
 
-        _win: function () { this._endGame(true); },
-        _loose: function () { this._endGame(false); },
         /**
          * @param winning {boolean}
          * @private
