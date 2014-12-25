@@ -5,14 +5,16 @@ define([
     '../../../commonClass/TimerNode'
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
-    var INIT_DISTANCE = 0.4; //两个小人之间初始距离
+    var INIT_DISTANCE = 0.3; //两个小人之间初始距离
     var INIT_SPEED = 0.2;
     var HEART_CONFS = [
         //x, nextTime, lifeTime, closeUpDistance, separateDistance
-        [0.2, 0.1, 1, 0.2, 0.3],
-        [0.8],
+        //TODO: 加couple移开的速度
+        [0.2, 0.4, 1, 0.05, 0.1],
+        [0.4],
         [0.6],
-        [0.4]
+        [0.8],
+        [0.2, 0.2, 0.5, 0.04, 0.3]
     ];
 
     return cc.Layer.extend({
@@ -29,6 +31,8 @@ define([
             self._hearts = [];
             self._endCallback = endCallback;
             self._timer = (new TimerNode()).start();
+            this._gatherAmount = 0;
+            this._dropAmount = 0;
 
             self.addChild(self._couple);
             self.addChild(self._timer);
@@ -74,10 +78,12 @@ define([
         },
         //这两个方法由heart对象在其自身被点击或移出屏幕时调用
         _heartHit: function (heart) {
+            ++this._gatherAmount;
             this._couple.closeUp(heart.closeUpDistance);
             this._removeHeart(heart);
         },
         _heartOut: function (heart) {
+            ++this._dropAmount;
             this._couple.separate(heart.separateDistance);
             this._removeHeart(heart);
         },
@@ -90,10 +96,14 @@ define([
             //result应包括胜负信息、用了多少时间、用户点击了多少下
             this._endCallback({
                 winning: winning,
-                heartAmount: 0
+                gather: this._gatherAmount,
+                drop: this._dropAmount
             });
         },
 
-        _removeHeart: function (heart) { this._hearts.splice(_.indexOf(this._hearts, heart), 1); }
+        _removeHeart: function (heart) {
+            //只是从记录里删除，并不从展示上删除
+            this._hearts.splice(_.indexOf(this._hearts, heart), 1);
+        }
     });
 });

@@ -23,7 +23,10 @@ define([
             self._onOut = onOut;
 
             self.attr({ x: x * winWidth, y: winHeight + self.height / 2});
-            self.runAction(new cc.MoveTo(lifeTime, x * winWidth, -self.height / 2));
+            self.runAction(new cc.Sequence(
+                new cc.MoveTo(lifeTime, x * winWidth, 0),
+                new cc.CallFunc(function(){ onOut(self); }))
+            );
         }
     });
 });
