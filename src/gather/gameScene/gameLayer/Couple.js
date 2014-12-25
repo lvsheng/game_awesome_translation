@@ -16,7 +16,8 @@ define([
         ctor: function(meetCallback, outCallback, initDistance, initSpeed){
             this._super(); this.init();
 
-            //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
+            this._meetCallback = meetCallback;
+            this._outCallback = outCallback;
             this._speed = initSpeed;
             this._distance = initDistance; //双方之间的距离，0~1
             this._left = new cc.Sprite(resourceFileMap.gather.left);
@@ -37,7 +38,9 @@ define([
             var self = this;
             self.schedule(function (dt) {
                 self._distance += self._speed * dt;
-                self._updatePosition();
+
+                if (self._distance < 1) { self._updatePosition(); }
+                else { self.unschedule(arguments.callee); self._outCallback(); }
             });
         },
         _updatePosition: function () {

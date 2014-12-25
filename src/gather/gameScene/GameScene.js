@@ -17,21 +17,17 @@ define([
 
             self.addChild(new BackgroundLayer());
             self.addChild(new GuideLayer(function(){
-                // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
-                    self.addChild(new FinishLayer(_.template([
-                        "<% if (winning) { %>",
-                        "花费了<%= Math.round(time) %>s",
-                        "<% } else { %>",
-                        "坚持了<%= Math.round(time) %>s",
-                        "<% } %>",
-                        "狂点了<%= hitCount %>下，",
-                        "<% if (winning) { %>",
-                        "终于赢了~",
-                        "<% } else { %>",
-                        "还是输了..",
-                        "<% } %>"
-                    ].join(''))(result)));
+                    var info;
+                    if (result.winning) {
+                        info = "收集了" + result.heartAmount + "颗心之后，" +
+                            "你终于成功挽救了单身狗，使他与女神相遇了！"
+                    } else {
+                        self.addChild(new FinishLayer([
+                            "你成功收集了" + result.heartAmount + "颗心，",
+                            "但还不足以挽留住女神~"
+                        ].join('\n')));
+                    }
                 }));
             }));
         }
