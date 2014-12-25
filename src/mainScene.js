@@ -9,8 +9,9 @@
 define([
     './gameUtil/resourceFileList',
     './bunt/gameScene/GameScene',
-    './avoid/gameScene/GameScene'
-], function (resourceFileList, Bunt, Avoid) {
+    './avoid/gameScene/GameScene',
+    './gather/gameScene/GameScene'
+], function (resourceFileList, Bunt, Avoid, Gather) {
     var instance = null;
     var MainScene = cc.Scene.extend({
         _curGame: {
@@ -24,7 +25,8 @@ define([
 
             //TODO:展示所有游戏。根据选择进入相应游戏
             //this.enterAGame('bunt', Bunt);
-            this.enterAGame('avoid', Avoid);
+            //this.enterAGame('avoid', Avoid);
+            this.enterAGame('gather', Gather);
         },
 
         //管理当前进行着的游戏的数据

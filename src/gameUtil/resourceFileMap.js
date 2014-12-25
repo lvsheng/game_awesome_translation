@@ -10,5 +10,11 @@ define({
         bang: 'res/avoid/bang.png',
         teenager: 'res/avoid/teenager.png',
         ultraman: 'res/avoid/ultraman.png'
+    },
+    gather: {
+        bg: 'res/gather/bg.png',
+        heart: 'res/gather/heart.png',
+        left: 'res/gather/left.png',
+        right: 'res/gather/right.png'
     }
 });
