@@ -32,8 +32,8 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: function (touch) {
-                    if (cc.rectContainsPoint(getRect(self.x, self.y, self.width * 1.5, self.height * 1.5), touch.getLocation())) {
-                        cc.eventManager.removeListeners(self);
+                    //要不要把心的图片调大一点呀？
+                    if (cc.rectContainsPoint(getRect(self.x, self.y, self.width * 2, self.height * 2), touch.getLocation())) {
                         onHit(self);
                     }
                 }

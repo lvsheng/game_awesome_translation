@@ -6,14 +6,15 @@ define([
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.3; //两个小人之间初始距离
-    var INIT_SPEED = 0;
+    var INIT_SPEED = 0.02;
     var HEART_CONFS = [
         //x, nextTime, lifeTime, closeUpDistance, separateDistance
         //TODO: 加couple移开的速度
-        [0.2, 0.4, 1, 0.01, 0],
+        //TODO: 心都限制在0.25~0.75的范围里可以么？
+        [0.25, 0.4, 1, 0.01, 0],
         [0.4],
         [0.6],
-        [0.8]
+        [0.75, 0.2, 0.5]
     ];
 
     return cc.Layer.extend({
@@ -64,7 +65,7 @@ define([
             add('separateDistance');
 
             //其他属性可以没有，即使用旧值。但x必需每次有一个新值
-            if (_.isUndefined(conf.x)) { conf.x = Math.random(); }
+            if (_.isUndefined(conf.x)) { conf.x = 0.5 * Math.random() + 0.25; }
             conf = _.extend(this._lastConf, conf); //为支持配置时可以省略，这里extend以对本次没有指明的属性取上次值
             return conf;
         },
@@ -101,7 +102,7 @@ define([
         },
 
         _removeHeart: function (heart) {
-            //只是从记录里删除，并不从展示上删除
+            this.removeChild(heart);
             this._hearts.splice(_.indexOf(this._hearts, heart), 1);
         }
     });
