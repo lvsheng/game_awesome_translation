@@ -34,24 +34,25 @@ define([
             this._setDistance(this._distance - distance);
             if (this._isMeet()) {
                 this._setDistance(this._getMeetDistance());
-                this._endCallback('meet');
+                //TODO:
+                this.scheduleOnce(function(){ this._endCallback('meet'); }, 0.001); //为了绘制完之后再结束游戏，加个回调
             }
         },
         separate: function (distance) {
             this._setDistance(this._distance + distance);
             if (this._distance > 1) {
                 this._setDistance(1);
-                this._endCallback('out');
+                this.scheduleOnce(function(){ this._endCallback('out'); }, 0.001);
             }
         },
 
-        _isMeet: function () { return this._distance <= this._getMeetDistance; },
+        _isMeet: function () { return this._distance <= this._getMeetDistance(); },
         _getMeetDistance: function () {
             var px = (this._left.width / 2 + this._right.width / 2) * 0.8;
             return px / cc.director.getWinSize().width;
         },
         _setDistance: function (distance) {
-            this._distance = distance;
+            this._distance = Math.abs(distance);
             this._updatePosition();
         },
         _updatePosition: function () {

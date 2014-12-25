@@ -20,14 +20,15 @@ define([
                 self.addChild(new GameLayer(function(result){
                     var info;
                     if (result.winning) {
-                        info = "收集了" + result.gather + "颗心之后，" +
+                        info = "收集了" + result.gather + "颗心之后，\n" +
                             "你终于成功挽救了单身狗，使他与女神相遇了！"
                     } else {
-                        self.addChild(new FinishLayer([
+                        info = [
                             "你成功收集了" + result.gather + "颗心，",
                             "但还不足以挽留住女神~"
-                        ].join('\n')));
+                        ].join('\n');
                     }
+                    self.addChild(new FinishLayer(info));
                 }));
             }));
         }

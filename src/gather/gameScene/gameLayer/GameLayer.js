@@ -6,15 +6,14 @@ define([
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.3; //两个小人之间初始距离
-    var INIT_SPEED = 0.2;
+    var INIT_SPEED = 0;
     var HEART_CONFS = [
         //x, nextTime, lifeTime, closeUpDistance, separateDistance
         //TODO: 加couple移开的速度
-        [0.2, 0.4, 1, 0.05, 0.1],
+        [0.2, 0.4, 1, 0.01, 0],
         [0.4],
         [0.6],
-        [0.8],
-        [0.2, 0.2, 0.5, 0.04, 0.3]
+        [0.8]
     ];
 
     return cc.Layer.extend({
