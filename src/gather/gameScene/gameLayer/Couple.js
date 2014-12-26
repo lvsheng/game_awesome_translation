@@ -6,7 +6,7 @@ define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     var B = 0.05;
-    var HIT_INTERVAL_MAP = {10: B, 9: B, 8: B, 7: B, 6: B, 5: B, 4: B + 0.01, 3: B + 0.02, 2: B + 0.035, 1: B + 0.04};
+    var HIT_INTERVAL_MAP = {10: B, 9: B, 8: B, 7: B, 6: B, 5: B, 4: B + 0.01, 3: B + 0.02, 2: B + 0.04, 1: B + 0.05};
 
     return cc.Node.extend({
         /**

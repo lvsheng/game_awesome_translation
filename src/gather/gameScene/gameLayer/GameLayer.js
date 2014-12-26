@@ -6,17 +6,17 @@ define([
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
-    var CLOSE_UP_DISTENCE = 0.02;
+    var CLOSE_UP_DISTENCE = 0.03;
     var HEART_CONFS = [
         //amount, nextTime, lifeTime
         [5, 0.5, 1.2],
-        [10, 0.3, 1.2],
-        [15, 0.25, 0.9],
+        [10, 0.4, 1.2],
+        [15, 0.3, 0.9],
         [5, 0.3, 0.9],
         [5, 0.3, 0.85],
-        [30, 0.2, 0.85],
-        [30, 0.15, 0.75],
-        [10, 0.13, 0.55]
+        [30, 0.3, 0.85],
+        [30, 0.3, 0.75],
+        [10, 0.3, 0.55]
     ];
 
 
@@ -52,7 +52,7 @@ define([
 
         _examHit: function (touch) {
             var self = this;
-            _.forEach(this._hearts, function (heart) {
+            _.forEach(self._hearts, function (heart) {
                 if (heart.judgeHit(touch.getLocation())) {
                     self._heartHit(heart);
                 }
@@ -88,7 +88,8 @@ define([
                 //其他属性可以没有，即使用旧值。但x必需每次有一个新值
                 conf = _.extend(this._lastConf, conf); //为支持配置时可以省略，这里extend以对本次没有指明的属性取上次值
             }
-            conf.x = 0.25 * Math.random() + 0.385;
+            //conf.x = 0.25 * Math.random() + 0.385;
+            conf.x = 0.8 * Math.random() + 0.1;
             return conf;
         },
         _addHeart: function (conf) {
