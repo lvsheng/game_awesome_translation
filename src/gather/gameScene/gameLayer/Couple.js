@@ -29,7 +29,8 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                self._speed = HIT_INTERVAL_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
+                var matchSpeed = HIT_INTERVAL_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
+                (matchSpeed > self._speed) && (self._speed = matchSpeed);
                 self.separate(self._speed * dt);
             });
         },
