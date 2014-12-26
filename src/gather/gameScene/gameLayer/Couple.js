@@ -6,7 +6,7 @@ define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     var B = 0.3;
-    var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3};
+    var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
 
     return cc.Node.extend({
         /**
@@ -29,27 +29,17 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                var matchSpeed = SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
-                //(matchSpeed > self._speed) && (self._speed = matchSpeed);
-                self._speed = matchSpeed;
-                self.separate(self._speed * dt);
+                self.separate(SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] * dt);
+            });
+            self.schedule(function () {
+                function execNext (fn) { self.scheduleOnce(fn); }
+                if (self._distance >= 1) { self.scheduleOnce(function(){ self._endCallback('out'); }); }
+                else if (self._isMeet()) { self.scheduleOnce(function(){ self._endCallback('meet'); }); }
             });
         },
 
-        //setSpeed: function (speed) { this._speed = speed },
-        closeUp: function (distance) {
-            this._setDistance(this._distance - distance);
-            if (this._isMeet()) {
-                //TODO:
-                this.scheduleOnce(function(){ this._endCallback('meet'); }, 0.001); //为了绘制完之后再结束游戏，加个回调
-            }
-        },
-        separate: function (distance) {
-            this._setDistance(this._distance + distance);
-            if (this._distance === 1) {
-                this.scheduleOnce(function(){ this._endCallback('out'); }, 0.001);
-            }
-        },
+        closeUp: function (distance) { this._setDistance(this._distance - distance); },
+        separate: function (distance) { this._setDistance(this._distance + distance); },
 
         _isMeet: function () { return this._distance <= this._getMeetDistance(); },
         _getMeetDistance: function () {
@@ -57,8 +47,8 @@ define([
             return px / cc.director.getWinSize().width;
         },
         _setDistance: function (distance) {
-            if (distance < this._getMeetDistance) { distance = this._getMeetDistance(); }
-            if (distance > 1) { distance = 1; }
+            if (distance < this._getMeetDistance()) { distance = this._getMeetDistance(); }
+            else if (distance > 1) { distance = 1; }
             this._distance = distance;
             this._updatePosition();
         },

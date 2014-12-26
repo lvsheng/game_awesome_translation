@@ -7,13 +7,54 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
     var HEART_CONFS = [
-        //amount, nextTime, lifeTime, closeUpDistance
-        [3, 0.5, 1.2, 0.2],
-        [3, 0.4, 0.7],
-        [3, 0.4, 0.6, 0.18],
-        [5, 0.4, 0.5],
-        [5, 0.4, 0.45],
-        [20, 0.3, 0.4, 0.185],
+        //x, nextTime, lifeTime, closeUpDistance
+        [0.3, 0.5, 1.2, 0.2],
+        [0.5],
+        [0.7],
+
+        [0.7, 0.4, 0.7],
+        [0.5],
+        [0.3],
+
+        [0.5, 0.4, 0.6, 0.18],
+        [0.5],
+        [0.5],
+        [0.5],
+        [0.5],
+
+        [0.1, 0.4, 0.5, 0.175],
+        [0.2],
+        [0.3],
+        [0.4],
+        [0.5],
+
+        [0.5, 0.4, 0.4],
+        [0.6],
+        [0.7],
+        [0.8],
+        [0.9],
+
+        [0.5, 0.3, 0.4, 0.185], //20个
+        [0.4],
+        [0.3],
+        [0.2],
+        [0.1],
+        [0.1],
+        [0.2],
+        [0.3],
+        [0.4],
+        [0.5],
+        [0.5],
+        [0.6],
+        [0.7],
+        [0.8],
+        [0.9],
+        [0.9],
+        [0.8],
+        [0.7],
+        [0.6],
+        [0.5],
+
         [30, 0.25, 0.38, 0.19],
         [30, 0.25, 0.35]
     ];
@@ -56,23 +97,19 @@ define([
             if (!this._lastConf) { this._lastConf = {}; } //for first call
 
             var conf = {};
-            if (this._lastConf.amount > 0) {
-                conf = this._lastConf;
-            } else {
-                var arr = this._heartConfs.shift() || [];
+            var arr = this._heartConfs.shift() || [];
 
+            if (arr.length) {
                 function add (name) { arr.length > 0 && (conf[name] = arr.shift()); }
-                add('amount');
+                add('x');
                 add('nextTime');
                 add('lifeTime');
                 add('closeUpDistance');
-
-                //其他属性可以没有，即使用旧值。但x必需每次有一个新值
-                conf = _.extend(this._lastConf, conf); //为支持配置时可以省略，这里extend以对本次没有指明的属性取上次值
+            } else {
+                conf.x = 0.6 * Math.random() + 0.2;
             }
-            //conf.x = 0.25 * Math.random() + 0.385;
-            conf.x = 0.8 * Math.random() + 0.1;
-            --this._lastConf.amount;
+
+            conf = _.extend(this._lastConf, conf);
             return conf;
         },
         _addHeart: function (conf) {
