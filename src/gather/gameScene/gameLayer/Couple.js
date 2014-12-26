@@ -6,7 +6,7 @@ define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     var B = 0.3;
-    var SPEED_MAP = {10: B, 9: B - 0.15, 8: B - 0.1, 7: B - 0.05, 6: B, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3};
+    var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3};
 
     return cc.Node.extend({
         /**
@@ -40,15 +40,13 @@ define([
         closeUp: function (distance) {
             this._setDistance(this._distance - distance);
             if (this._isMeet()) {
-                this._setDistance(this._getMeetDistance());
                 //TODO:
                 this.scheduleOnce(function(){ this._endCallback('meet'); }, 0.001); //为了绘制完之后再结束游戏，加个回调
             }
         },
         separate: function (distance) {
             this._setDistance(this._distance + distance);
-            if (this._distance > 1) {
-                this._setDistance(1);
+            if (this._distance === 1) {
                 this.scheduleOnce(function(){ this._endCallback('out'); }, 0.001);
             }
         },
@@ -59,7 +57,9 @@ define([
             return px / cc.director.getWinSize().width;
         },
         _setDistance: function (distance) {
-            this._distance = Math.abs(distance);
+            if (distance < this._getMeetDistance) { distance = this._getMeetDistance(); }
+            if (distance > 1) { distance = 1; }
+            this._distance = distance;
             this._updatePosition();
         },
         _updatePosition: function () {
