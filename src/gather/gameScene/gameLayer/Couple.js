@@ -32,9 +32,6 @@ define([
                 self.separate(SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] * dt);
             });
             self.schedule(function () {
-                function execNext (fn) { self.scheduleOnce(fn); }
-                if (self._distance >= 1) { self.scheduleOnce(function(){ self._endCallback('out'); }); }
-                else if (self._isMeet()) { self.scheduleOnce(function(){ self._endCallback('meet'); }); }
             });
         },
 
@@ -47,10 +44,17 @@ define([
             return px / cc.director.getWinSize().width;
         },
         _setDistance: function (distance) {
-            if (distance < this._getMeetDistance()) { distance = this._getMeetDistance(); }
+            var self = this;
+            if (distance < self._getMeetDistance()) { distance = self._getMeetDistance(); }
             else if (distance > 1) { distance = 1; }
-            this._distance = distance;
-            this._updatePosition();
+
+            self._distance = distance;
+
+            function execNext (fn) { self.scheduleOnce(fn); }
+            if (self._distance >= 1) { self.scheduleOnce(function(){ self._endCallback('out'); }); }
+            else if (self._isMeet()) { self.scheduleOnce(function(){ self._endCallback('meet'); }); }
+
+            self._updatePosition();
         },
         _updatePosition: function () {
             var winWidth = cc.director.getWinSize().width;
