@@ -5,18 +5,20 @@
 define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
+    var B = 0.05;
+    var HIT_INTERVAL_MAP = {10: B, 9: B, 8: B, 7: B, 6: B, 5: B, 4: B + 0.01, 3: B + 0.02, 2: B + 0.035, 1: B + 0.04};
+
     return cc.Node.extend({
         /**
          * @param endCallback {Function} 调用时传入参数: 'meet'|'out'
          * @param initDistance {number} 0~1的数字，1代表整个屏幕的长度
-         * @param initSpeed {number} 0~1的数字，1代表整个屏幕的长度
          */
-        ctor: function(endCallback, initDistance, initSpeed){
+        ctor: function(endCallback, initDistance){
             var self = this;
             self._super(); self.init();
 
             self._endCallback = endCallback;
-            self._speed = initSpeed;
+            self._speed = 0;
             self._distance = initDistance; //双方之间的距离。距离与left、right的位置绑定，每次更新distance，同步更新left、right位置
             self._left = new cc.Sprite(resourceFileMap.gather.left);
             self._right = new cc.Sprite(resourceFileMap.gather.right);
@@ -26,10 +28,13 @@ define([
             self.addChild(self._right);
             self._updatePosition();
 
-            self.schedule(function (dt) { self.separate(self._speed * dt); });
+            self.schedule(function (dt) {
+                self._speed = HIT_INTERVAL_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
+                self.separate(self._speed * dt);
+            });
         },
 
-        setSpeed: function (speed) { this._speed = speed },
+        //setSpeed: function (speed) { this._speed = speed },
         closeUp: function (distance) {
             this._setDistance(this._distance - distance);
             if (this._isMeet()) {
