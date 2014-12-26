@@ -32,7 +32,7 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: function (touch) {
-                    if (cc.rectContainsPoint(getRect(self.x, self.y, self.width * 2, self.height * 2), touch.getLocation())) {
+                    if (cc.rectContainsPoint(getRect(self.x, self.y, self.width * 2, self.height * 3), touch.getLocation())) {
                         onHit(self);
                     }
                 }

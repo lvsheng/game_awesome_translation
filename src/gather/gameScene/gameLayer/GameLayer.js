@@ -6,16 +6,16 @@ define([
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
-    var CLOSE_UP_DISTENCE = 0.03;
     var HEART_CONFS = [
-        //amount, nextTime, lifeTime
-        [5, 0.5, 1.2],
-        [10, 0.4, 1.2],
-        [15, 0.3, 0.9],
-        [5, 0.3, 0.9],
-        [30, 0.4, 0.85],
-        [30, 0.4, 0.75],
-        [10, 0.4, 0.55]
+        //amount, nextTime, lifeTime, closeUpDistance
+        [3, 0.5, 1.2, 0.2],
+        [3, 0.4, 0.7],
+        [3, 0.4, 0.6, 0.18],
+        [5, 0.4, 0.5, 0.19],
+        [15, 0.4, 0.45, 0.18],
+        [15, 0.3, 0.4, 0.17],
+        [15, 0.25, 0.35, 0.17],
+        [30, 0.4, 5.45]
     ];
 
 
@@ -57,7 +57,6 @@ define([
 
             var conf = {};
             if (this._lastConf.amount > 0) {
-                --this._lastConf.amount;
                 conf = this._lastConf;
             } else {
                 var arr = this._heartConfs.shift() || [];
@@ -66,23 +65,26 @@ define([
                 add('amount');
                 add('nextTime');
                 add('lifeTime');
+                add('closeUpDistance');
 
                 //其他属性可以没有，即使用旧值。但x必需每次有一个新值
                 conf = _.extend(this._lastConf, conf); //为支持配置时可以省略，这里extend以对本次没有指明的属性取上次值
             }
             //conf.x = 0.25 * Math.random() + 0.385;
             conf.x = 0.8 * Math.random() + 0.1;
+            --this._lastConf.amount;
             return conf;
         },
         _addHeart: function (conf) {
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
+            heart.closeUpDistance = conf.closeUpDistance;
             this._hearts.push(heart);
             this.addChild(heart);
         },
         //这两个方法由heart对象在其自身被点击或移出屏幕时调用
         _heartHit: function (heart) {
             ++this._gatherAmount;
-            this._couple.closeUp(CLOSE_UP_DISTENCE);
+            this._couple.closeUp(heart.closeUpDistance);
             this._removeHeart(heart);
         },
         _heartOut: function (heart) {

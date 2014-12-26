@@ -5,8 +5,8 @@
 define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
-    var B = 0.05;
-    var HIT_INTERVAL_MAP = {10: B, 9: B, 8: B, 7: B, 6: B, 5: B, 4: B + 0.01, 3: B + 0.02, 2: B + 0.04, 1: B + 0.05};
+    var B = 0.3;
+    var SPEED_MAP = {10: B, 9: B - 0.15, 8: B - 0.1, 7: B - 0.05, 6: B, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3};
 
     return cc.Node.extend({
         /**
@@ -29,8 +29,9 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                var matchSpeed = HIT_INTERVAL_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
-                (matchSpeed > self._speed) && (self._speed = matchSpeed);
+                var matchSpeed = SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)];
+                //(matchSpeed > self._speed) && (self._speed = matchSpeed);
+                self._speed = matchSpeed;
                 self.separate(self._speed * dt);
             });
         },
