@@ -33,13 +33,30 @@ define([
             self._hearts = [];
             self._endCallback = endCallback;
             self._timer = (new TimerNode()).start();
-            this._gatherAmount = 0;
-            this._dropAmount = 0;
+            self._gatherAmount = 0;
+            self._dropAmount = 0;
 
             self.addChild(self._couple);
             self.addChild(self._timer);
 
             self._launchHearts();
+
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: false,
+                //onTouchBegan: function () { return true; },
+                //onTouchMoved: _.bind(self._examHit, self)
+                onTouchBegan: _.bind(self._examHit, self)
+            }, self);
+        },
+
+        _examHit: function (touch) {
+            var self = this;
+            _.forEach(this._hearts, function (heart) {
+                if (heart.judgeHit(touch.getLocation())) {
+                    self._heartHit(heart);
+                }
+            });
         },
 
         _launchHearts: function () {
@@ -63,17 +80,10 @@ define([
             } else {
                 var arr = this._heartConfs.shift() || [];
 
-                if (arr.length) { //for test
-                    cc.director.pause();
-                    alert('next:' + (this._wave ? ++this._wave : (this._wave = 1)));
-                    cc.director.resume();
-                }
-
                 function add (name) { arr.length > 0 && (conf[name] = arr.shift()); }
                 add('amount');
                 add('nextTime');
                 add('lifeTime');
-                //add('coupleSpeed');
 
                 //其他属性可以没有，即使用旧值。但x必需每次有一个新值
                 conf = _.extend(this._lastConf, conf); //为支持配置时可以省略，这里extend以对本次没有指明的属性取上次值
@@ -83,7 +93,6 @@ define([
         },
         _addHeart: function (conf) {
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
-            //this._couple.setSpeed(conf.coupleSpeed);
             this._hearts.push(heart);
             this.addChild(heart);
         },

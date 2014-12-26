@@ -24,9 +24,9 @@ define([
             this._super();
 
             //TODO:展示所有游戏。根据选择进入相应游戏
-            this.enterAGame('bunt', Bunt);
+            //this.enterAGame('bunt', Bunt);
             //this.enterAGame('avoid', Avoid);
-            //this.enterAGame('gather', Gather);
+            this.enterAGame('gather', Gather);
         },
 
         //管理当前进行着的游戏的数据
