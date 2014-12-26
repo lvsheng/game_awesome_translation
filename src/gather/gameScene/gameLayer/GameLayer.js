@@ -40,23 +40,6 @@ define([
             self.addChild(self._timer);
 
             self._launchHearts();
-
-            cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: false,
-                //onTouchBegan: function () { return true; },
-                //onTouchMoved: _.bind(self._examHit, self)
-                onTouchBegan: _.bind(self._examHit, self)
-            }, self);
-        },
-
-        _examHit: function (touch) {
-            var self = this;
-            _.forEach(self._hearts, function (heart) {
-                if (heart.judgeHit(touch.getLocation())) {
-                    self._heartHit(heart);
-                }
-            });
         },
 
         _launchHearts: function () {
