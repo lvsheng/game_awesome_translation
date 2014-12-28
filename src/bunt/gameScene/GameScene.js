@@ -20,8 +20,6 @@ define([
                 // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
-                    //TODO: 这里根据不同分数创建不同的文案吧、
-                    //比如花费了xx时间、还是输了。仅用了xx秒、轻点xx下，即赢得了胜利等等
                     self.addChild(new FinishLayer(_.template([
                         "<% if (!winning) { %>",
                         "<% } %>",

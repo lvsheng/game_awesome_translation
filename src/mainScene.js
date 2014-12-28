@@ -21,12 +21,35 @@ define([
         },
 
         onEnter: function () {
-            this._super();
+            var self = this;
+            self._super();
 
-            //TODO:展示所有游戏。根据选择进入相应游戏
-            //this.enterAGame('bunt', Bunt);
-            //this.enterAGame('avoid', Avoid);
-            this.enterAGame('gather', Gather);
+            function getGameNumber () {
+                return parseInt(prompt([
+                    "请选择要进行的游戏(输入游戏编号)：",
+                    "1. 蓝翔挖掘机",
+                    "2. 躲避00后",
+                    "3. 拯救单身狗"
+                ].join("\n")));
+            }
+
+            function enterGame () {
+                switch (getGameNumber()) {
+                    case 1:
+                        self.enterAGame('bunt', Bunt);
+                        break;
+                    case 2:
+                        self.enterAGame('avoid', Avoid);
+                        break;
+                    case 3:
+                        self.enterAGame('gather', Gather);
+                        break;
+                    default :
+                        alert("请输入正确游戏编号~");
+                        enterGame();
+                }
+            }
+            enterGame();
         },
 
         //管理当前进行着的游戏的数据
