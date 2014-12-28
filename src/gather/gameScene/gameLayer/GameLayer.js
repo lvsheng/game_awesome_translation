@@ -7,59 +7,21 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
     var HEART_CONFS = [
-        //x, nextTime, lifeTime, closeUpDistance
-        [0.3, 0.5, 1.2, 0.02],
-        //[0.3, 0.5, 1.2, 0.2, 0],
-        [0.5],
-        [0.7]
-        ,
-        [0.7, 0.6, 0.7],
-        [0.5],
-        [0.3],
-
-        //[0.5, 0.4, 0.6, 0.18],
-        [0.5, 0.6, 0.6, 0.04],
-        [0.5],
-        [0.5],
-        [0.5],
-        [0.5],
-
-        [0.1, 0.6, 0.5, 0.035],
-        [0.2],
-        [0.3],
-        [0.4],
-        [0.5],
-
-        [0.5, 0.6, 0.4],
-        [0.6],
-        [0.7],
-        [0.8],
-        [0.9],
-
-        [0.5, 0.6, 0.4, 0.03], //20个
-        [0.4],
-        [0.3],
-        [0.2],
-        [0.1],
-        [0.1],
-        [0.2],
-        [0.3],
-        [0.4],
-        [0.5],
-        [0.5],
-        [0.6],
-        [0.7],
-        [0.8],
-        [0.9],
-        [0.9],
-        [0.8],
-        [0.7],
-        [0.6],
-        [0.5],
-
-        [30, 0.6, 0.38, 0.02],
-        [30, 0.6, 0.35]
+        //amount, lifeTime, closeUpDistance
+        [3, 1.2, 0.025],
+        [3, 0.7],
+        [3, 0.5],
+        //[5, 0.5, 0.035],
+        [5, 0.4],
+        //[20, 0.4, 0.03],
+        [15, 0.38, 0.03],
+        //[1, 0.38, 0.02],
+        [1, 0.33],
+        [1]
     ];
+
+    var AUTO_HIT_FOR_DEBUG = false;
+    var AUTO_HIT_REACT_TIME = 0.3;
 
     return cc.Layer.extend({
         ctor: function (endCallback) {
@@ -110,37 +72,42 @@ define([
         },
 
         _getAConf: function () {
-            if (!this._lastConf) { this._lastConf = {}; } //for first call
-
+            if (!this._lastConf) { this._lastConf = {}; this._remainedAmount = 0; } //for first call
             var conf = {};
-            var arr = this._heartConfs.shift() || [];
 
-            if (arr.length) {
-                function add (name) { arr.length > 0 && (conf[name] = arr.shift()); }
-                add('x');
-                add('nextTime');
-                conf.nextTime = 0.5;
-                add('lifeTime');
-                add('closeUpDistance');
+            if (this._remainedAmount > 0) {
+                conf = this._lastConf;
+                --this._remainedAmount;
+            } else {
+                var arr = this._heartConfs.shift() || [];
+                this._remainedAmount = arr.shift() - 1;
+
+                if (arr.length) {
+                    function add (name) { arr.length > 0 && (conf[name] = arr.shift()); } //防止_.extend把undefined值也扩展到lastConf
+                    add('lifeTime');
+                    add('closeUpDistance');
+                }
+
+                conf = _.extend(this._lastConf, conf);
             }
-            conf.x = 0.6 * Math.random() + 0.2;
 
-            conf = _.extend(this._lastConf, conf);
+            conf.x = 0.6 * Math.random() + 0.2;
             return conf;
         },
         _addHeart: function () {
             var conf = this._getAConf();
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
-            this._hitNothingSeparateDistance = conf.closeUpDistance * 0.5;
+            this._hitNothingSeparateDistance = conf.closeUpDistance * 0.7;
             this._hearts.push(heart);
             this.addChild(heart);
+
+            if (AUTO_HIT_FOR_DEBUG) { this.scheduleOnce(function(){ this._heartHit(heart); }, AUTO_HIT_REACT_TIME) }
         },
-        //这两个方法由heart对象在其自身被点击或移出屏幕时调用
         _heartHit: function (heart) {
             ++this._gatherAmount;
             this._couple.closeUp(heart.closeUpDistance);
-            this._removeHeart(heart);
+            this._removeHeart(heart, true);
         },
         _heartOut: function (heart) {
             ++this._dropAmount;
@@ -160,10 +127,25 @@ define([
             });
         },
 
-        _removeHeart: function (heart) {
-            this.removeChild(heart);
-            this._hearts.splice(_.indexOf(this._hearts, heart), 1);
-            this._addHeart(); //去掉一个就加一个。
+        _removeHeart: function (heart, animate) {
+            var self = this;
+            function clear () { self.removeChild(heart); }
+
+            if (animate) {
+                heart.stopAllActions();
+                heart.runAction(new cc.Sequence(
+                    new cc.Spawn(
+                        new cc.ScaleBy(0.08, 1.2, 1.2).easing(cc.easeBackIn()).easing(cc.easeOut(10)),
+                        new cc.FadeOut(0.08)
+                    ),
+                    new cc.CallFunc(clear)
+                ));
+            } else {
+                clear();
+            }
+
+            self._hearts.splice(_.indexOf(self._hearts, heart), 1);
+            self._addHeart(); //去掉一个就加一个。
         }
     });
 });

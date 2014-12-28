@@ -8,7 +8,7 @@ define([
     //var B = 0.3;
     //var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
     var B = 0.05;
-    var SPEED_MAP = {};
+    var SPEED_MAP = {10: B - 0.04, 9: B - 0.03, 8: B - 0.02};
 
     return cc.Node.extend({
         /**
