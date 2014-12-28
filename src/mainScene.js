@@ -26,11 +26,11 @@ define([
 
             function getGameNumber () {
                 return parseInt(prompt([
-                    "请选择要进行的游戏(输入游戏编号)：",
-                    "1. 蓝翔挖掘机",
-                    "2. 躲避00后",
+                    "请选择要进行的游戏(输入游戏编号)：\n",
+                    "1. 蓝翔挖掘机 ",
+                    "2. 躲避00后 ",
                     "3. 拯救单身狗"
-                ].join("\n")));
+                ].join("")));
             }
 
             function enterGame () {
