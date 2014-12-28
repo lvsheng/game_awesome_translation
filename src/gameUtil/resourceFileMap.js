@@ -16,5 +16,20 @@ define({
         heart: 'res/gather/heart.png',
         left: 'res/gather/left.png',
         right: 'res/gather/right.png'
+    },
+    common: {
+        leftBar: {
+            bg: 'res/common/leftBar/bg.png',
+            main: 'res/common/leftBar/main.png',
+            mainActive: 'res/common/leftBar/mainActive.png',
+            pause: 'res/common/leftBar/pause.png',
+            pauseActive: 'res/common/leftBar/pauseActive.png',
+            restore: 'res/common/leftBar/restore.png',
+            restoreActive: 'res/common/leftBar/restoreActive.png',
+            retry: 'res/common/leftBar/retry.png',
+            retryActive: 'res/common/leftBar/retryActive.png',
+            wechat: 'res/common/leftBar/wechat.png',
+            wechatActive: 'res/common/leftBar/wechatActive.png'
+        }
     }
 });
