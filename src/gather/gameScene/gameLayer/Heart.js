@@ -10,16 +10,14 @@ define([
         /**
          * @param x
          * @param lifeTime
-         * @param onHit
          * @param onOut
          */
-        ctor: function(x, lifeTime, onHit, onOut){
+        ctor: function(x, lifeTime, onOut){
             var self = this;
             var winHeight = cc.director.getWinSize().height;
             var winWidth = cc.director.getWinSize().width;
             self._super(resourceFileMap.gather.heart);
 
-            self._onHit = onHit;
             self._onOut = onOut;
 
             self.attr({ x: x * winWidth, y: winHeight + self.height / 2});

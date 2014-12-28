@@ -100,10 +100,10 @@ define([
         },
         _addHeart: function () {
             var conf = this._getAConf();
-            var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
+            var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
             heart.createTime = (new Date).getTime();
-            this._hitNothingSeparateDistance = conf.closeUpDistance * 0.7;
+            this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;
             this._hearts.push(heart);
             this.addChild(heart);
 
@@ -129,7 +129,7 @@ define([
                 time: this._timer.get(),
                 gather: this._gatherAmount,
                 drop: this._dropAmount,
-                rightRate: 100 - Math.round(this._hitNothingAmount / (this._gatherAmount + this._dropAmount) * 100)
+                rightRate: Math.round(this._gatherAmount / (this._gatherAmount + this._hitNothingAmount) * 100)
             };
             pauseGame();
 
