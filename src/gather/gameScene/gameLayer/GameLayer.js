@@ -82,7 +82,7 @@ define([
             self.addChild(self._couple);
             self.addChild(self._timer);
 
-            self._launchHearts();
+            self._addHeart();
 
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -109,17 +109,6 @@ define([
             }
         },
 
-        _launchHearts: function () {
-            var self = this;
-
-            function each () {
-                var conf = self._getAConf();
-                self._addHeart(conf);
-                self.scheduleOnce(function () { each(); }, conf.nextTime);
-            }
-            each();
-        },
-
         _getAConf: function () {
             if (!this._lastConf) { this._lastConf = {}; } //for first call
 
@@ -139,7 +128,8 @@ define([
             conf = _.extend(this._lastConf, conf);
             return conf;
         },
-        _addHeart: function (conf) {
+        _addHeart: function () {
+            var conf = this._getAConf();
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
             this._hitNothingSeparateDistance = conf.closeUpDistance * 0.5;
@@ -173,6 +163,7 @@ define([
         _removeHeart: function (heart) {
             this.removeChild(heart);
             this._hearts.splice(_.indexOf(this._hearts, heart), 1);
+            this._addHeart(); //去掉一个就加一个。
         }
     });
 });
