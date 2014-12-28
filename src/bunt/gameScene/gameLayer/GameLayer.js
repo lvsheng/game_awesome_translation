@@ -38,7 +38,8 @@ define([
             this._endCallback({
                 winning: winning,
                 time: this._timer.get(),
-                hitCount: this._cars.getUserHitCount()
+                hitCount: this._cars.getUserHitCount(),
+                rate: Math.round(this._cars.getUserHitCount() / this._timer.get())
             });
         }
     });

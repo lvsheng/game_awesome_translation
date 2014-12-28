@@ -23,16 +23,13 @@ define([
                     //TODO: 这里根据不同分数创建不同的文案吧、
                     //比如花费了xx时间、还是输了。仅用了xx秒、轻点xx下，即赢得了胜利等等
                     self.addChild(new FinishLayer(_.template([
-                        "<% if (winning) { %>",
-                        "花费了<%= time %>s",
-                        "<% } else { %>",
-                        "坚持了<%= time %>s",
+                        "<% if (!winning) { %>",
                         "<% } %>",
-                        "狂点了<%= hitCount %>下，",
+                        "以<%= rate %>下/秒的手速狂点了<%= hitCount %>下，",
                         "<% if (winning) { %>",
                         "终于赢了~",
                         "<% } else { %>",
-                        "还是输了..",
+                        "你坚持了<%= time %>s却还是输了..",
                         "<% } %>"
                     ].join(''))(result)));
                 }));
