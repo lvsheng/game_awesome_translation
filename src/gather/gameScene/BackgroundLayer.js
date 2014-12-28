@@ -13,13 +13,6 @@ define([
             this.addChild(this._backgroundSprite);
         },
 
-        tint: function () {
-            this._backgroundSprite.runAction(new cc.Sequence(
-                new cc.TintTo(.2, 255, 0, 0),
-                new cc.TintTo(0.5, 255, 255, 255)
-            ));
-        },
-
         _scaleToCoverWindow: function (sprite) {
             //先试着以等高进行缩放
             var scale = cc.director.getWinSize().height / sprite.height;

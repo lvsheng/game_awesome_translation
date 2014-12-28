@@ -39,6 +39,15 @@ define([
         closeUp: function (distance) { this._setDistance(this._distance - distance); },
         separate: function (distance) { this._setDistance(this._distance + distance); },
 
+        tint: function () {
+            var action = new cc.Sequence(
+                new cc.TintTo(0.1, 255, 200, 200),
+                new cc.TintTo(0.2, 255, 255, 255)
+            );
+            this._left.runAction(action);
+            this._right.runAction(action.clone());
+        },
+
         _isMeet: function () { return this._distance <= this._getMeetDistance(); },
         _getMeetDistance: function () {
             var px = (this._left.width / 2 + this._right.width / 2) * 0.8;

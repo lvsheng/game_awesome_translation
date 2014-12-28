@@ -9,6 +9,7 @@ define([
     var HEART_CONFS = [
         //x, nextTime, lifeTime, closeUpDistance, separateDistance
         [0.3, 0.5, 1.2, 0.01, 0.05],
+        //[0.3, 0.5, 1.2, 0.2, 0],
         [0.5],
         [0.7]
         //,
@@ -61,7 +62,7 @@ define([
 
 
     return cc.Layer.extend({
-        ctor: function (tintBackground, endCallback) {
+        ctor: function (endCallback) {
             var self = this;
             self._super(); self.init();
 
@@ -72,7 +73,7 @@ define([
             self._heartConfs = _.map(HEART_CONFS, _.clone);
             self._hearts = [];
             self._endCallback = endCallback;
-            self._tintBackground = tintBackground;
+            self._tint = _.bind(self._couple.tint, self._couple);
             self._timer = (new TimerNode()).start();
             self._gatherAmount = 0;
             self._dropAmount = 0;
@@ -103,7 +104,7 @@ define([
                 }
             });
             if (!hit) {
-                self._tintBackground();
+                self._tint();
                 self._couple.separate(self._hitNothingSeparateDistance);
             }
         },
