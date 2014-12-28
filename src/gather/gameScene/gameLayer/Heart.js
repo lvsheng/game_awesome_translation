@@ -29,7 +29,7 @@ define([
             ));
         },
         judgeHit: function (position) {
-            return cc.rectContainsPoint(this._getRect(this.x, this.y, this.width * 1.5, this.height * 1.5), position);
+            return cc.rectContainsPoint(this._getRect(this.x, this.y, this.width * 1.5, this.height * 5), position);
         },
         _getRect: function (centerX, centerY, width, height) {
             return new cc.Rect(centerX - width / 2, centerY - height / 2, width, height);

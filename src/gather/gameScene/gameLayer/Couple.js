@@ -7,7 +7,7 @@ define([
 ], function (resourceFileMap) {
     //var B = 0.3;
     //var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
-    var B = 0;
+    var B = 0.05;
     var SPEED_MAP = {};
 
     return cc.Node.extend({
@@ -41,7 +41,7 @@ define([
 
         tint: function () {
             var action = new cc.Sequence(
-                new cc.TintTo(0.1, 255, 200, 200),
+                new cc.TintTo(0.1, 255, 150, 150),
                 new cc.TintTo(0.2, 255, 255, 255)
             );
             this._left.runAction(action);

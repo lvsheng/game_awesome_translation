@@ -7,59 +7,59 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
     var HEART_CONFS = [
-        //x, nextTime, lifeTime, closeUpDistance, separateDistance
-        [0.3, 0.5, 1.2, 0.01, 0.05],
+        //x, nextTime, lifeTime, closeUpDistance
+        [0.3, 0.5, 1.2, 0.02],
         //[0.3, 0.5, 1.2, 0.2, 0],
         [0.5],
         [0.7]
-        //,
-        //[0.7, 0.4, 0.7],
-        //[0.5],
-        //[0.3],
-        //
-        //[0.5, 0.4, 0.6, 0.18],
-        //[0.5],
-        //[0.5],
-        //[0.5],
-        //[0.5],
-        //
-        //[0.1, 0.4, 0.5, 0.175],
-        //[0.2],
-        //[0.3],
-        //[0.4],
-        //[0.5],
-        //
-        //[0.5, 0.4, 0.4],
-        //[0.6],
-        //[0.7],
-        //[0.8],
-        //[0.9],
-        //
-        //[0.5, 0.3, 0.4, 0.185], //20个
-        //[0.4],
-        //[0.3],
-        //[0.2],
-        //[0.1],
-        //[0.1],
-        //[0.2],
-        //[0.3],
-        //[0.4],
-        //[0.5],
-        //[0.5],
-        //[0.6],
-        //[0.7],
-        //[0.8],
-        //[0.9],
-        //[0.9],
-        //[0.8],
-        //[0.7],
-        //[0.6],
-        //[0.5],
-        //
-        //[30, 0.25, 0.38, 0.19],
-        //[30, 0.25, 0.35]
-    ];
+        ,
+        [0.7, 0.6, 0.7],
+        [0.5],
+        [0.3],
 
+        //[0.5, 0.4, 0.6, 0.18],
+        [0.5, 0.6, 0.6, 0.04],
+        [0.5],
+        [0.5],
+        [0.5],
+        [0.5],
+
+        [0.1, 0.6, 0.5, 0.035],
+        [0.2],
+        [0.3],
+        [0.4],
+        [0.5],
+
+        [0.5, 0.6, 0.4],
+        [0.6],
+        [0.7],
+        [0.8],
+        [0.9],
+
+        [0.5, 0.6, 0.4, 0.03], //20个
+        [0.4],
+        [0.3],
+        [0.2],
+        [0.1],
+        [0.1],
+        [0.2],
+        [0.3],
+        [0.4],
+        [0.5],
+        [0.5],
+        [0.6],
+        [0.7],
+        [0.8],
+        [0.9],
+        [0.9],
+        [0.8],
+        [0.7],
+        [0.6],
+        [0.5],
+
+        [30, 0.6, 0.38, 0.02],
+        [30, 0.6, 0.35]
+    ];
 
     return cc.Layer.extend({
         ctor: function (endCallback) {
@@ -130,12 +130,11 @@ define([
                 function add (name) { arr.length > 0 && (conf[name] = arr.shift()); }
                 add('x');
                 add('nextTime');
+                conf.nextTime = 0.5;
                 add('lifeTime');
                 add('closeUpDistance');
-                add('separateDistance');
-            } else {
-                conf.x = 0.6 * Math.random() + 0.2;
             }
+            conf.x = 0.6 * Math.random() + 0.2;
 
             conf = _.extend(this._lastConf, conf);
             return conf;
@@ -143,7 +142,7 @@ define([
         _addHeart: function (conf) {
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
-            this._hitNothingSeparateDistance = conf.separateDistance;
+            this._hitNothingSeparateDistance = conf.closeUpDistance * 0.5;
             this._hearts.push(heart);
             this.addChild(heart);
         },
