@@ -39,7 +39,10 @@ define([
             self._timer = (new TimerNode()).start();
             self._gatherAmount = 0;
             self._dropAmount = 0;
+            self._hitNothingAmount = 0;
+            self._reactTime = [];
             self._hitNothingSeparateDistance = 0;
+            this.addChild(this._timer = (new TimerNode()).start());
 
             self.addChild(self._couple);
             self.addChild(self._timer);
@@ -66,6 +69,7 @@ define([
                 }
             });
             if (!hit) {
+                ++this._hitNothingAmount;
                 self._tint();
                 self._couple.separate(self._hitNothingSeparateDistance);
             }
@@ -98,6 +102,7 @@ define([
             var conf = this._getAConf();
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
+            heart.createTime = (new Date).getTime();
             this._hitNothingSeparateDistance = conf.closeUpDistance * 0.7;
             this._hearts.push(heart);
             this.addChild(heart);
@@ -106,6 +111,7 @@ define([
         },
         _heartHit: function (heart) {
             ++this._gatherAmount;
+            this._reactTime.push((new Date()).getTime() - heart.createTime);
             this._couple.closeUp(heart.closeUpDistance);
             this._removeHeart(heart, true);
         },
@@ -118,13 +124,23 @@ define([
          * @private
          */
         _endGame: function (winning) {
-            pauseGame();
-            //result应包括胜负信息、用了多少时间、用户点击了多少下
-            this._endCallback({
+            var result = {
                 winning: winning,
+                time: this._timer.get(),
                 gather: this._gatherAmount,
-                drop: this._dropAmount
-            });
+                drop: this._dropAmount,
+                rightRate: 100 - Math.round(this._hitNothingAmount / (this._gatherAmount + this._dropAmount) * 100)
+            };
+            pauseGame();
+
+            if (this._reactTime.length > 0) {
+                var min = Math.round(_.min(this._reactTime));
+                var average = Math.round(_.reduce(this._reactTime, function(sum, v){ return sum + v; }) / this._reactTime.length);
+                result.minReactTime = min;
+                result.averageReactTime = average;
+            }
+
+            this._endCallback(result);
         },
 
         _removeHeart: function (heart, animate) {

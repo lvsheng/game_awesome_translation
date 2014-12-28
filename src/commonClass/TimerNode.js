@@ -19,6 +19,6 @@ define([], function () {
             self.schedule(function(dt){ self._time += dt; });
             return self;
         },
-        get: function () { return this._time; }
+        get: function () { return Math.round(this._time); }
     })
 });

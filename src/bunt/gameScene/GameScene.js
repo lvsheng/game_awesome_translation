@@ -24,9 +24,9 @@ define([
                     //比如花费了xx时间、还是输了。仅用了xx秒、轻点xx下，即赢得了胜利等等
                     self.addChild(new FinishLayer(_.template([
                         "<% if (winning) { %>",
-                        "花费了<%= Math.round(time) %>s",
+                        "花费了<%= time %>s",
                         "<% } else { %>",
-                        "坚持了<%= Math.round(time) %>s",
+                        "坚持了<%= time %>s",
                         "<% } %>",
                         "狂点了<%= hitCount %>下，",
                         "<% if (winning) { %>",

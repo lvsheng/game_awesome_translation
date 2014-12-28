@@ -19,16 +19,23 @@ define([
             self.addChild(self._backgroundLayer);
             self.addChild(new GuideLayer(function(){
                 self.addChild(new GameLayer(function(result){
-                    var info;
+                    var info = '你以';
+
+                    if (result.minReactTime && result.averageReactTime) {
+                        info += "平均" + result.minReactTime/1000 + "s的反应时间，";
+                    }
+                    info += result.rightRate + "%的正确率\n";
+                    info += "在" + result.time + "s内";
+                    info += "成功收集了" + result.gather + "颗心,\n";
+
                     if (result.winning) {
-                        info = "收集了" + result.gather + "颗心之后，\n" +
-                            "你终于成功挽救了单身狗，使他与女神相遇了！"
+                        info += "终于成功挽救了单身狗，使他与女神相遇了！"
                     } else {
-                        info = [
-                            "你成功收集了" + result.gather + "颗心，",
+                        info += [
                             "但还不足以挽留住女神~"
                         ].join('\n');
                     }
+
                     self.addChild(new FinishLayer(info));
                 }));
             }));
