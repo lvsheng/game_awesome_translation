@@ -5,8 +5,10 @@
 define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
-    var B = 0.3;
-    var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
+    //var B = 0.3;
+    //var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
+    var B = 0;
+    var SPEED_MAP = {};
 
     return cc.Node.extend({
         /**
@@ -22,6 +24,7 @@ define([
             self._distance = initDistance; //双方之间的距离。距离与left、right的位置绑定，每次更新distance，同步更新left、right位置
             self._left = new cc.Sprite(resourceFileMap.gather.left);
             self._right = new cc.Sprite(resourceFileMap.gather.right);
+            this._ended = false;
 
             self._left.anchorY = self._right.anchorY = 0;
             self.addChild(self._left);
@@ -29,9 +32,7 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                self.separate(SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] * dt);
-            });
-            self.schedule(function () {
+                self.separate((SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] || B) * dt);
             });
         },
 
@@ -50,9 +51,8 @@ define([
 
             self._distance = distance;
 
-            function execNext (fn) { self.scheduleOnce(fn); }
-            if (self._distance >= 1) { self.scheduleOnce(function(){ self._endCallback('out'); }); }
-            else if (self._isMeet()) { self.scheduleOnce(function(){ self._endCallback('meet'); }); }
+            if (self._distance >= 1) { self.scheduleOnce(function(){ self._endGame('out'); }); } //直接end会导致运行结果的下一帧不被绘制，故加个schedule
+            else if (self._isMeet()) { self.scheduleOnce(function(){ self._endGame('meet'); }); }
 
             self._updatePosition();
         },
@@ -62,6 +62,17 @@ define([
             var offset = this._distance / 2 * winWidth;
             this._left.x = centerX - offset;
             this._right.x = centerX + offset;
+        },
+        /**
+         * @param result {string} 'out'|'meet'
+         * @private
+         */
+        _endGame: function (result) {
+            //防止结束后再次autoSeparate导致再次执行_endGame,(unschedule也无效。。）
+            if (!this._ended) {
+                this._endCallback(result);
+                this._ended = true;
+            }
         }
     });
 });

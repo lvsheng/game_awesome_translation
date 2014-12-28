@@ -7,61 +7,61 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
     var HEART_CONFS = [
-        //x, nextTime, lifeTime, closeUpDistance
-        [0.3, 0.5, 1.2, 0.2],
+        //x, nextTime, lifeTime, closeUpDistance, separateDistance
+        [0.3, 0.5, 1.2, 0.01, 0.05],
         [0.5],
-        [0.7],
-
-        [0.7, 0.4, 0.7],
-        [0.5],
-        [0.3],
-
-        [0.5, 0.4, 0.6, 0.18],
-        [0.5],
-        [0.5],
-        [0.5],
-        [0.5],
-
-        [0.1, 0.4, 0.5, 0.175],
-        [0.2],
-        [0.3],
-        [0.4],
-        [0.5],
-
-        [0.5, 0.4, 0.4],
-        [0.6],
-        [0.7],
-        [0.8],
-        [0.9],
-
-        [0.5, 0.3, 0.4, 0.185], //20个
-        [0.4],
-        [0.3],
-        [0.2],
-        [0.1],
-        [0.1],
-        [0.2],
-        [0.3],
-        [0.4],
-        [0.5],
-        [0.5],
-        [0.6],
-        [0.7],
-        [0.8],
-        [0.9],
-        [0.9],
-        [0.8],
-        [0.7],
-        [0.6],
-        [0.5],
-
-        [30, 0.25, 0.38, 0.19],
-        [30, 0.25, 0.35]
+        [0.7]
+        //,
+        //[0.7, 0.4, 0.7],
+        //[0.5],
+        //[0.3],
+        //
+        //[0.5, 0.4, 0.6, 0.18],
+        //[0.5],
+        //[0.5],
+        //[0.5],
+        //[0.5],
+        //
+        //[0.1, 0.4, 0.5, 0.175],
+        //[0.2],
+        //[0.3],
+        //[0.4],
+        //[0.5],
+        //
+        //[0.5, 0.4, 0.4],
+        //[0.6],
+        //[0.7],
+        //[0.8],
+        //[0.9],
+        //
+        //[0.5, 0.3, 0.4, 0.185], //20个
+        //[0.4],
+        //[0.3],
+        //[0.2],
+        //[0.1],
+        //[0.1],
+        //[0.2],
+        //[0.3],
+        //[0.4],
+        //[0.5],
+        //[0.5],
+        //[0.6],
+        //[0.7],
+        //[0.8],
+        //[0.9],
+        //[0.9],
+        //[0.8],
+        //[0.7],
+        //[0.6],
+        //[0.5],
+        //
+        //[30, 0.25, 0.38, 0.19],
+        //[30, 0.25, 0.35]
     ];
 
 
     return cc.Layer.extend({
-        ctor: function (endCallback) {
+        ctor: function (tintBackground, endCallback) {
             var self = this;
             self._super(); self.init();
 
@@ -72,9 +72,11 @@ define([
             self._heartConfs = _.map(HEART_CONFS, _.clone);
             self._hearts = [];
             self._endCallback = endCallback;
+            self._tintBackground = tintBackground;
             self._timer = (new TimerNode()).start();
             self._gatherAmount = 0;
             self._dropAmount = 0;
+            self._hitNothingSeparateDistance = 0;
 
             self.addChild(self._couple);
             self.addChild(self._timer);
@@ -92,11 +94,18 @@ define([
 
         _examHit: function (touch) {
             var self = this;
-            _.forEach(this._hearts, function (heart) {
+            var hit = false;
+            var hearts = _.clone(self._hearts); //因为遍历的judgeHit中有可能删除_hearts中的元素，复制一份，以使遍历不会乱掉
+            _.forEach(hearts, function (heart) {
                 if (heart.judgeHit(touch.getLocation())) {
                     self._heartHit(heart);
+                    hit = true;
                 }
             });
+            if (!hit) {
+                self._tintBackground();
+                self._couple.separate(self._hitNothingSeparateDistance);
+            }
         },
 
         _launchHearts: function () {
@@ -122,6 +131,7 @@ define([
                 add('nextTime');
                 add('lifeTime');
                 add('closeUpDistance');
+                add('separateDistance');
             } else {
                 conf.x = 0.6 * Math.random() + 0.2;
             }
@@ -132,6 +142,7 @@ define([
         _addHeart: function (conf) {
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartHit, this), _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
+            this._hitNothingSeparateDistance = conf.separateDistance;
             this._hearts.push(heart);
             this.addChild(heart);
         },

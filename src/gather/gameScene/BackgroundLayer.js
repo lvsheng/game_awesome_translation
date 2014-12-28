@@ -6,11 +6,18 @@ define([
             this._super();
             this.init();
 
-            var backgroundSprite = new cc.Sprite(resourceFileMap.gather.bg);
+            this._backgroundSprite = new cc.Sprite(resourceFileMap.gather.bg);
             var winSize = cc.director.getWinSize();
-            backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
-            this._scaleToCoverWindow(backgroundSprite);
-            this.addChild(backgroundSprite);
+            this._backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
+            this._scaleToCoverWindow(this._backgroundSprite);
+            this.addChild(this._backgroundSprite);
+        },
+
+        tint: function () {
+            this._backgroundSprite.runAction(new cc.Sequence(
+                new cc.TintTo(.2, 255, 0, 0),
+                new cc.TintTo(0.5, 255, 255, 255)
+            ));
         },
 
         _scaleToCoverWindow: function (sprite) {

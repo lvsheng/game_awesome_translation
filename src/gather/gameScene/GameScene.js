@@ -15,9 +15,10 @@ define([
             var self = this;
             self._super();
 
-            self.addChild(new BackgroundLayer());
+            self._backgroundLayer = new BackgroundLayer();
+            self.addChild(self._backgroundLayer);
             self.addChild(new GuideLayer(function(){
-                self.addChild(new GameLayer(function(result){
+                self.addChild(new GameLayer(_.bind(self._backgroundLayer.tint, self._backgroundLayer), function(result){
                     var info;
                     if (result.winning) {
                         info = "收集了" + result.gather + "颗心之后，\n" +
