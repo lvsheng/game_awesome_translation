@@ -8,8 +8,9 @@ define([
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
-    '../../commonClass/FinishLayer'
-], function (BackgroundLayer, GuideLayer, GameLayer, FinishLayer) {
+    '../../commonClass/FinishLayer',
+    '../../commonClass/MenuLayer'
+], function (BackgroundLayer, GuideLayer, GameLayer, FinishLayer,MenuLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             var self = this;
@@ -32,6 +33,7 @@ define([
                     ].join(''))(result)));
                 }));
                 //TODO:创建边栏层
+                self.addChild(new MenuLayer());
             }));
         }
     });

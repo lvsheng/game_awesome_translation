@@ -6,6 +6,55 @@
  * @author lvsheng
  * @date 2014/12/22
  */
-define([], function () {
+define([
+    'require',
+    '../gameUtil/resourceFileMap',
+    '../gameUtil/pauseGame',
+    '../mainScene'
+], function (require, resourceFileMap, pauseGame) {
+    return cc.Layer.extend({
+        ctor: function () {
+            var self = this;
+            self._super(); self.init();
 
+            var pauseMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.leftBar.pause),
+                new cc.Sprite(resourceFileMap.common.leftBar.pauseActive),
+                null,
+                function () { showLeftMenu(); pauseGame(); },
+                null
+            );
+            pauseMenuItem.attr({ x: 87.5, y: 532.5 });
+            var pauseMenu = new cc.Menu(pauseMenuItem);
+            pauseMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
+            self.addChild(pauseMenu);
+
+            var leftBar = new cc.Sprite(resourceFileMap.common.leftBar.bg);
+            leftBar.attr({ x: -leftBar.width, y: 0, anchorX: 0, anchorY: 0 });
+            self.addChild(leftBar);
+
+            var restoreMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.leftBar.resume),
+                new cc.Sprite(resourceFileMap.common.leftBar.resumeActive),
+                null,
+                function () { cc.director.resume(); hideLeftMenu(); }
+            );
+            restoreMenuItem.attr({ x: 87.5, y: 532.5 });
+
+            var leftMenu = new cc.Menu(
+                restoreMenuItem
+            );
+            leftMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
+            leftBar.addChild(leftMenu);
+
+            function showLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, 0, 0)); }
+            function hideLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, -leftBar.width, 0)); }
+        },
+
+        _rePlay: function () {
+            var mainScene = require('../mainScene').getInstance();
+            var curGame = mainScene.getCurGame();
+            mainScene.enterAGame(curGame.name, curGame.sceneClass);
+        }
+    });
 });
