@@ -21,7 +21,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.pause),
                 new cc.Sprite(resourceFileMap.common.leftBar.pauseActive),
                 null,
-                function () { showLeftMenu(); pauseGame(); },
+                function () { showLeftMenu(); pauseGame.pause(); },
                 null
             );
             pauseMenuItem.attr({ x: 87.5, y: 532.5 });
@@ -37,7 +37,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.resume),
                 new cc.Sprite(resourceFileMap.common.leftBar.resumeActive),
                 null,
-                function () { cc.director.resume(); hideLeftMenu(); }
+                function () { hideLeftMenu(); pauseGame.resume(); }
             );
             restoreMenuItem.attr({ x: 87.5, y: 532.5 });
 
@@ -50,6 +50,8 @@ define([
             function showLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, 0, 0)); }
             function hideLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, -leftBar.width, 0)); }
         },
+
+        isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
 
         _rePlay: function () {
             var mainScene = require('../mainScene').getInstance();

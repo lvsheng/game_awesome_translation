@@ -131,7 +131,7 @@ define([
                 drop: this._dropAmount,
                 rightRate: Math.round(this._gatherAmount / (this._gatherAmount + this._hitNothingAmount) * 100)
             };
-            pauseGame();
+            pauseGame.pause();
 
             if (this._reactTime.length > 0) {
                 var min = Math.round(_.min(this._reactTime));
