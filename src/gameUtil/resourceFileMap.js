@@ -31,5 +31,11 @@ define({
             wechat: 'res/common/leftBar/wechat.png',
             wechatActive: 'res/common/leftBar/wechatActive.png'
         }
+    },
+    pipeline: {
+        bg: 'res/pipeline/bg.png',
+        body: 'res/pipeline/body.png',
+        head: 'res/pipeline/head.png',
+        man: 'res/pipeline/man.png'
     }
 });

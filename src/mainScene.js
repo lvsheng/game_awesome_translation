@@ -11,8 +11,9 @@ define([
     './gameUtil/pauseGame',
     './bunt/gameScene/GameScene',
     './avoid/gameScene/GameScene',
-    './gather/gameScene/GameScene'
-], function (resourceFileList, pauseGame, Bunt, Avoid, Gather) {
+    './gather/gameScene/GameScene',
+    './pipeline/gameScene/GameScene'
+], function (resourceFileList, pauseGame, Bunt, Avoid, Gather, Pipeline) {
     var instance = null;
     var MainScene = cc.Scene.extend({
         _curGame: {
@@ -50,7 +51,10 @@ define([
                         enterGame();
                 }
             }
-            enterGame();
+            //enterGame();
+
+            //self.enterAGame('gather', Gather);
+            self.enterAGame('pipeline', Pipeline);
         },
 
         //管理当前进行着的游戏的数据
