@@ -41,8 +41,35 @@ define([
             );
             restoreMenuItem.attr({ x: 87.5, y: 532.5 });
 
+            var retryMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.leftBar.retry),
+                new cc.Sprite(resourceFileMap.common.leftBar.retryActive),
+                null,
+                self._retry
+            );
+            retryMenuItem.attr({ x: 87.5, y: 402.5 });
+
+            var homeMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.leftBar.home),
+                new cc.Sprite(resourceFileMap.common.leftBar.homeActive),
+                null,
+                self._returnHome
+            );
+            homeMenuItem.attr({ x: 87.5, y: 265.5 });
+
+            var shareMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.leftBar.wechat),
+                new cc.Sprite(resourceFileMap.common.leftBar.wechatActive),
+                null,
+                self._share
+            );
+            shareMenuItem.attr({ x: 87.5, y: 119.5 });
+
             var leftMenu = new cc.Menu(
-                restoreMenuItem
+                restoreMenuItem,
+                retryMenuItem,
+                homeMenuItem,
+                shareMenuItem
             );
             leftMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             leftBar.addChild(leftMenu);
@@ -53,10 +80,19 @@ define([
 
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
 
-        _rePlay: function () {
+        _retry: function () {
             var mainScene = require('../mainScene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name, curGame.sceneClass);
+        },
+        _returnHome: function () {
+            cc.director.runScene(require('../mainScene').getInstance());
+        },
+        _share: function () {
+            //TODO
+            cc.director.pause();
+            alert("TODO...");
+            cc.director.resume();
         }
     });
 });

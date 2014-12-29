@@ -20,8 +20,8 @@ define({
     common: {
         leftBar: {
             bg: 'res/common/leftBar/bg.png',
-            main: 'res/common/leftBar/main.png',
-            mainActive: 'res/common/leftBar/mainActive.png',
+            home: 'res/common/leftBar/home.png',
+            homeActive: 'res/common/leftBar/homeActive.png',
             pause: 'res/common/leftBar/pause.png',
             pauseActive: 'res/common/leftBar/pauseActive.png',
             resume: 'res/common/leftBar/resume.png',
