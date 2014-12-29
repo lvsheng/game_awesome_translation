@@ -18,8 +18,7 @@ require([
     var running = false;
     function runAndCancelInform () {
         if (running) {
-            var curGame = mainScene.getInstance().getCurGame().sceneInstance;
-            if (curGame && _.isFunction(curGame.resumeGame)) { curGame.resumeGame(); }
+            //do nothing. (now should be paused state)
         } else {
             running = true;
             cc.game.run("gameCanvas");
