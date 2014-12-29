@@ -115,7 +115,7 @@ define([
         _endGame: function (winning) {
             //TODO: 先把各其他奥特曼停下，再把撞到的奥特曼执行摔倒动画，最后才真地结束游戏。
             //TODO: 后面要不为了简单就先只给被撞到的奥特曼头顶加一个叹号吧
-            pauseGame.pause();
+            pauseGame.pauseGame();
             this._endCallback({
                 winning: winning,
                 time: this._timer.get(),

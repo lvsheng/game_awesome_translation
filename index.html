@@ -14,10 +14,23 @@
         html, body {
             background-color: black;
         }
+        .horizontal_needed {
+            display: none;
+            color: white;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            font-size: 5em;
+            top: 0;
+        }
     </style>
 </head>
 <body>
 <canvas id="gameCanvas" width="1136" height="640"></canvas>
+
+<div id="j_horizontal_needed" class="horizontal_needed">
+    请旋转屏幕后玩耍 : )
+</div>
 
 <!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），故需在require之前先加载cocos-->
 <script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>

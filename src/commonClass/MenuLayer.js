@@ -17,11 +17,13 @@ define([
             var self = this;
             self._super(); self.init();
 
+            self._paused = false;
+
             var pauseMenuItem = new cc.MenuItemSprite(
                 new cc.Sprite(resourceFileMap.common.leftBar.pause),
                 new cc.Sprite(resourceFileMap.common.leftBar.pauseActive),
                 null,
-                function () { showLeftMenu(); pauseGame.pause(); },
+                _.bind(self.pauseGame, self),
                 null
             );
             pauseMenuItem.attr({ x: 87.5, y: 532.5 });
@@ -29,7 +31,7 @@ define([
             pauseMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             self.addChild(pauseMenu);
 
-            var leftBar = new cc.Sprite(resourceFileMap.common.leftBar.bg);
+            var leftBar = self._leftBar = new cc.Sprite(resourceFileMap.common.leftBar.bg);
             leftBar.attr({ x: -leftBar.width, y: 0, anchorX: 0, anchorY: 0 });
             self.addChild(leftBar);
 
@@ -37,7 +39,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.resume),
                 new cc.Sprite(resourceFileMap.common.leftBar.resumeActive),
                 null,
-                function () { hideLeftMenu(); pauseGame.resume(); }
+                _.bind(self.resumeGame, self)
             );
             restoreMenuItem.attr({ x: 87.5, y: 532.5 });
 
@@ -45,7 +47,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.retry),
                 new cc.Sprite(resourceFileMap.common.leftBar.retryActive),
                 null,
-                self._retry
+                _.bind(self._retry, self)
             );
             retryMenuItem.attr({ x: 87.5, y: 402.5 });
 
@@ -53,7 +55,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.home),
                 new cc.Sprite(resourceFileMap.common.leftBar.homeActive),
                 null,
-                self._returnHome
+                _.bind(self._returnHome, self)
             );
             homeMenuItem.attr({ x: 87.5, y: 265.5 });
 
@@ -61,7 +63,7 @@ define([
                 new cc.Sprite(resourceFileMap.common.leftBar.wechat),
                 new cc.Sprite(resourceFileMap.common.leftBar.wechatActive),
                 null,
-                self._share
+                _.bind(self._share, self)
             );
             shareMenuItem.attr({ x: 87.5, y: 119.5 });
 
@@ -73,9 +75,6 @@ define([
             );
             leftMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             leftBar.addChild(leftMenu);
-
-            function showLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, 0, 0)); }
-            function hideLeftMenu () { leftBar.runAction(new cc.MoveTo(0.2, -leftBar.width, 0)); }
         },
 
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
@@ -93,6 +92,21 @@ define([
             cc.director.pause();
             alert("TODO...");
             cc.director.resume();
-        }
+        },
+
+        pauseGame: function () {
+            this._showLeftMenu();
+            pauseGame.pauseGame();
+            self._paused = true;
+        },
+        resumeGame: function () {
+            if (self._paused) {
+                this._hideLeftMenu();
+                pauseGame.resumeGame();
+                self._paused = false;
+            }
+        },
+        _showLeftMenu: function () { this._leftBar.runAction(new cc.MoveTo(0.2, 0, 0)); },
+        _hideLeftMenu: function () { this._leftBar.runAction(new cc.MoveTo(0.2, -this._leftBar.width, 0)); }
     });
 });

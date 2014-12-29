@@ -39,6 +39,8 @@ define([
                     self.addChild(new FinishLayer(info));
                 }));
             }));
-        }
+        },
+        pauseGame: function () { this._menuLayer && this._menuLayer.pauseGame(); },
+        resumeGame: function () { this._menuLayer && this._menuLayer.resumeGame(); }
     });
 });

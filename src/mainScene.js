@@ -58,7 +58,7 @@ define([
 
         enterAGame: function  (name, SceneClass) {
             var self = this;
-            pauseGame.resume(); //应对前面在结束上一个小游戏时的pause()
+            pauseGame.resumeGame(); //应对前面在结束上一个小游戏时的pause()
             cc.LoaderScene.preload(resourceFileList[name].concat(resourceFileList['common']), function () {
                 self._curGame = { name: name, sceneClass: SceneClass, sceneInstance: new SceneClass() };
                 cc.director.runScene(self._curGame.sceneInstance);

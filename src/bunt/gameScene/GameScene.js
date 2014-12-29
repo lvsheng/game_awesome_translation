@@ -32,9 +32,12 @@ define([
                         "<% } %>"
                     ].join(''))(result)));
                 }));
-                //TODO:创建边栏层
-                self.addChild(new MenuLayer());
+                self.addChild(self._menuLayer = new MenuLayer());
             }));
-        }
+        },
+        pauseGame: function () {
+            this._menuLayer && this._menuLayer.pauseGame();
+        },
+        resumeGame: function () { this._menuLayer && this._menuLayer.resumeGame(); }
     });
 });

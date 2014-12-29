@@ -42,6 +42,10 @@ define([
                 }));
                 //TODO:创建边栏层
             }));
-        }
+        },
+        pauseGame: function () {
+            this._menuLayer && this._menuLayer.pauseGame();
+        },
+        resumeGame: function () { this._menuLayer && this._menuLayer.resumeGame(); }
     });
 });

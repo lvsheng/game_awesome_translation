@@ -8,13 +8,13 @@ define([
     '../mainScene'
 ], function (require) {
     return {
-        pause: function () {
+        pauseGame: function () {
             this._handleRecursively(require("../mainScene").getInstance().getCurGame().sceneInstance, 'pause');
 
             //增加遮罩层以屏幕用户触摸事件
             //TODO
         },
-        resume: function () {
+        resumeGame: function () {
             this._handleRecursively(require("../mainScene").getInstance().getCurGame().sceneInstance, 'resume');
 
             //增加遮罩层以屏幕用户触摸事件

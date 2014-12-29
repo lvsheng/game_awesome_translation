@@ -33,7 +33,7 @@ define([
          * @private
          */
         _endGame: function (winning) {
-            pauseGame.pause();
+            pauseGame.pauseGame();
             //result应包括胜负信息、用了多少时间、用户点击了多少下
             this._endCallback({
                 winning: winning,
