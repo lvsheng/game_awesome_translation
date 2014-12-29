@@ -6,8 +6,9 @@ define([
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
-    '../../commonClass/FinishLayer'
-], function (BackgroundLayer, GuideLayer, GameLayer, FinishLayer) {
+    '../../commonClass/FinishLayer',
+    '../../commonClass/MenuLayer'
+], function (BackgroundLayer, GuideLayer, GameLayer, FinishLayer, MenuLayer) {
     //TODO: 看是不是能把GameScene的创建抽出来一个基类，每个子类指定其四个层、指定其展示结果的方法
     return cc.Scene.extend({
         onEnter: function () {
@@ -40,7 +41,7 @@ define([
 
                     self.addChild(new FinishLayer(info));
                 }));
-                //TODO:创建边栏层
+                self.addChild(self._menuLayer = new MenuLayer());
             }));
         },
         pauseGame: function () {
