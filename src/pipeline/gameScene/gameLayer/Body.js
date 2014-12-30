@@ -9,6 +9,11 @@ define([
         _hitCount: 0,
         ctor: function(x, lifeTime, onOut){
             var self = this;
-        }
+            self._super(resourceFileMap.pipeline.body);
+
+            self._head = null;
+        },
+        setBodyPosition: function (x) { this.x = x; this._head && (this._head.x = x); },
+        addHead: function (head) { this._head = head; }
     });
 });

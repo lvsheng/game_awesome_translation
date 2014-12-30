@@ -5,14 +5,30 @@
 define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
-    return cc.Node.extend({
-        /**
-         * @param endCallback {Function} 调用时传入参数: 'meet'|'out'
-         * @param initDistance {number} 0~1的数字，1代表整个屏幕的长度
-         */
-        ctor: function(endCallback, initDistance){
+    return cc.Sprite.extend({
+        ctor: function(){
             var self = this;
-            self._super(); self.init();
+            self._super(resourceFileMap.pipeline.head);
+
+        },
+        tryAssemble: function (pipeline) {
+            var bodyList = pipeline.getBodyList();
+            for (var i = 0, assembled = false; !assembled && i < bodyList.length; ++i) {
+                if (this._positionIsFit(bodyList[i])) {
+                    this._assemble(bodyList[i]);
+                    assembled = true;
+                }
+            }
+            if (!assembled) { this._drop(); }
+        },
+        _positionIsFit: function (body) {
+
+        },
+        _assemble: function (body) {
+            //TODO: run action
+            body.addHead(this);
+        },
+        _drop: function () {
 
         }
     });
