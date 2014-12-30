@@ -17,7 +17,7 @@ define([
         addHead: function (head) { this._head = head; },
         remove: function () {
             this.parent.removeChild(this);
-            this.parent.removeChild(this._head);
+            this._head && this._head.parent.removeChild(this._head);
         }
     });
 });

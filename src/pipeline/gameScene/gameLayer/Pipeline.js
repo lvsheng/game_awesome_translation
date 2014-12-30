@@ -15,10 +15,10 @@ define([
             self._speed = 0;
             self._speedList = [
                 //[speed, time]
-                [100, 3],
-                [120, 2],
-                [150, 1],
-                [200, 1]
+                [100, 1],
+                [200, 1],
+                [300, 1],
+                [400, 1]
             ];
             self._conf = null;
             self._oldConf = null;
@@ -29,19 +29,15 @@ define([
                 self._judgeAddBody(dt);
                 self._judgeBodyOut(dt);
             });
+
+            //TODO: for test
+            window.pipeline = this;
         },
         getBodyList: function () { return this._bodyList; },
         _updateSpeed: function (dt) {
             if (!this._conf || this._conf.time <= 0) { this._conf = this._getNextConf(); }
             this._conf.time -= dt;
             this._speed = this._conf.speed;
-        },
-        _getNextConf: function () {
-            var arr = this._speedList.shift();
-            if (!arr) { return _.clone(this._oldConf); }
-            var conf = { speed: arr[0], time: arr[1] };
-            this._oldConf = _.clone(conf);
-            return conf;
         },
         _updateBodyPosition: function (dt) {
             var self = this;
@@ -60,14 +56,12 @@ define([
 
             if (needAdd) { this._addBody(); }
         },
-        _getNewBodyPosition: function () { return cc.director.getWinSize().width + this._getBodyWidth() / 2; },
-        _getBodyWidth: function () {
-            if (!this._bodyWidth) { this._bodyWidth = (new Body()).width; }
-            return this._bodyWidth;
-        },
         _judgeBodyOut: function () {
-
+            var firstBody = this._bodyList[0];
+            var needOut = firstBody && firstBody.x < -firstBody.width / 2;
+            if (needOut) { this._removeFirstBody(); }
         },
+
         _addBody: function () {
             var body = new Body();
             body.attr({
@@ -77,8 +71,19 @@ define([
             this._bodyList.push(body);
             this.addChild(body)
         },
-        _removeBody: function () {
+        _removeFirstBody: function () { this._bodyList.shift().remove(); },
 
+        _getNextConf: function () {
+            var arr = this._speedList.shift();
+            if (!arr) { return _.clone(this._oldConf); }
+            var conf = { speed: arr[0], time: arr[1] };
+            this._oldConf = _.clone(conf);
+            return conf;
+        },
+        _getNewBodyPosition: function () { return cc.director.getWinSize().width + this._getBodyWidth() / 2; },
+        _getBodyWidth: function () {
+            if (!this._bodyWidth) { this._bodyWidth = (new Body()).width; }
+            return this._bodyWidth;
         }
     });
 });
