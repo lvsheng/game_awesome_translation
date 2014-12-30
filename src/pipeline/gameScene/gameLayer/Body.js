@@ -15,6 +15,7 @@ define([
         },
         setBodyPosition: function (x) { this.x = x; this._head && (this._head.x = x); },
         addHead: function (head) { this._head = head; },
+        hasHead: function () { return !!this._head; },
         remove: function () {
             this.parent.removeChild(this);
             this._head && this._head.parent.removeChild(this._head);

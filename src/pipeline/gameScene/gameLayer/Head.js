@@ -18,6 +18,7 @@ define([
          * 尝试安装自己到流水线的身子上
          * @param pipeline
          * @returns {boolean} 是否安装成功
+         * @param assembleOrDropDoneCallback
          */
         tryAssemble: function (pipeline, assembleOrDropDoneCallback) {
             var bodyList = pipeline.getBodyList();
@@ -37,7 +38,7 @@ define([
 
             return assembled;
         },
-        _positionIsFit: function (body) { return Math.abs(body.x - this.x) <= DISTANCE; },
+        _positionIsFit: function (body) { return !body.hasHead() && Math.abs(body.x - this.x) <= DISTANCE; },
         _assemble: function (body) {
             body.addHead(this);
             var bodyUpperBound = body.y + body.height * body.anchorY;
