@@ -6,7 +6,7 @@ define([
     './Body'
 ], function (Body) {
     var INTERVAL_DISTANCE = 200; //body间前一个右边与后一个左边的距离
-    var INTERVAL_DISTANCE_RANDOM_RANGE = 150;
+    var INTERVAL_DISTANCE_RANDOM_RANGE = 300;
     var DEFAULT_TIME = 1;
     return cc.Layer.extend({
         ctor: function () {
@@ -26,12 +26,11 @@ define([
                 [350],
                 [400],
                 [500],
-                [550],
                 [600],
-                [650],
                 [700],
-                [800, 3],
-                [1000, 3]
+                [800],
+                [900],
+                [1000]
             ];
             self._conf = null;
             self._oldConf = null;
@@ -44,6 +43,7 @@ define([
             });
         },
         getBodyList: function () { return this._bodyList; },
+        getSpeed: function () { return this._speed; },
         _updateSpeed: function (dt) {
             if (!this._conf || this._conf.time <= 0) { this._conf = this._getNextConf(); }
             this._conf.time -= dt;

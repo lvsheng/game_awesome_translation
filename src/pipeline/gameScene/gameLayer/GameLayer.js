@@ -4,7 +4,7 @@ define([
     '../../../gameUtil/pauseGame',
     '../../../commonClass/TimerNode'
 ], function (Pipeline, Head, pauseGame, TimerNode) {
-    var GAME_TIME = 45;
+    var GAME_TIME = 30;
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;
@@ -27,7 +27,7 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: function(){
-                    var assembled = self._head.tryAssemble(self._pipeline, function(){ self._addNewHead(); });
+                    var assembled = self._head.tryAssemble(function(){ self._addNewHead(); });
                     if (assembled) { ++self._assembledAmount }
                     else { ++self._dropedAmount; }
                 }
@@ -35,7 +35,7 @@ define([
         },
         _addNewHead: function () {
             var newZIndex = this._head ? this._head.getLocalZOrder() - 1 : 0;
-            this.addChild(this._head = new Head(), newZIndex);
+            this.addChild(this._head = new Head(this._pipeline), newZIndex);
         },
         _endGame: function () {
             pauseGame.pauseGame();

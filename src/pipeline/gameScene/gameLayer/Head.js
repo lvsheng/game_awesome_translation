@@ -6,22 +6,23 @@ define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     var DISTANCE = 150;
+    var ASSEMBLE_TIME = 0.005;
     return cc.Sprite.extend({
-        ctor: function(){
+        ctor: function (pipeline) {
             var HEAD_X = cc.director.getWinSize().width / 3;
             this._super(resourceFileMap.pipeline.head);
             this.attr({ x: HEAD_X, y: 342 });
             this._assemblingOrDropping = false;
+            this._pipeline = pipeline;
             this._assembleOrDropDoneCallback = function(){};
         },
         /**
          * 尝试安装自己到流水线的身子上
-         * @param pipeline
          * @returns {boolean} 是否安装成功
          * @param assembleOrDropDoneCallback
          */
-        tryAssemble: function (pipeline, assembleOrDropDoneCallback) {
-            var bodyList = pipeline.getBodyList();
+        tryAssemble: function (assembleOrDropDoneCallback) {
+            var bodyList = this._pipeline.getBodyList();
             var assembled = false;
             this._assembleOrDropDoneCallback = assembleOrDropDoneCallback;
 
@@ -38,13 +39,16 @@ define([
 
             return assembled;
         },
-        _positionIsFit: function (body) { return !body.hasHead() && Math.abs(body.x - this.x) <= DISTANCE; },
+        _positionIsFit: function (body) {
+            var bodyPositionOnHeadDropped = body.x - this._pipeline.getSpeed() * ASSEMBLE_TIME;
+            return !body.hasHead() && Math.abs(bodyPositionOnHeadDropped - this.x) <= DISTANCE;
+        },
         _assemble: function (body) {
             body.addHead(this);
             var bodyUpperBound = body.y + body.height * body.anchorY;
             var selfUnderBound = this.y - this.height * this.anchorY;
             this.runAction(new cc.Sequence(
-                new cc.MoveBy(0.05, 0, bodyUpperBound - selfUnderBound - 30),
+                new cc.MoveBy(ASSEMBLE_TIME, 0, bodyUpperBound - selfUnderBound - 30),
                 new cc.CallFunc(this._assembleOrDropDoneCallback)
             ));
         },
