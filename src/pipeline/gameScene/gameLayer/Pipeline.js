@@ -6,6 +6,7 @@ define([
     './Body'
 ], function (Body) {
     var INTERVAL_DISTANCE = 80; //body间前一个右边与后一个左边的距离
+    var DEFAULT_TIME = 0.1;
     return cc.Layer.extend({
         ctor: function () {
             var self = this;
@@ -15,10 +16,20 @@ define([
             self._speed = 0;
             self._speedList = [
                 //[speed, time]
-                [100, 1],
-                [200, 1],
-                [300, 1],
-                [400, 1]
+                [150, 5.1],
+                [200, 2],
+                [300, 2],
+                [400, 1],
+                [500],
+                [300],
+                [500],
+                [300],
+                [500],
+                [200],
+                [500],
+                [100],
+                [600, 3],
+                [700, 4]
             ];
             self._conf = null;
             self._oldConf = null;
@@ -29,9 +40,6 @@ define([
                 self._judgeAddBody(dt);
                 self._judgeBodyOut(dt);
             });
-
-            //TODO: for test
-            window.pipeline = this;
         },
         getBodyList: function () { return this._bodyList; },
         _updateSpeed: function (dt) {
@@ -77,6 +85,7 @@ define([
             var arr = this._speedList.shift();
             if (!arr) { return _.clone(this._oldConf); }
             var conf = { speed: arr[0], time: arr[1] };
+            if (!conf.time) { conf.time = DEFAULT_TIME; }
             this._oldConf = _.clone(conf);
             return conf;
         },

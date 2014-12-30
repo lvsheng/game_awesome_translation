@@ -32,9 +32,6 @@ define([
                     else { ++self._dropedAmount; }
                 }
             }, self);
-
-            //TODO: for test
-            window.layer = this;
         },
         _addNewHead: function () {
             var newZIndex = this._head ? this._head.getLocalZOrder() - 1 : 0;
