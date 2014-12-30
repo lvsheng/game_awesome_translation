@@ -11,21 +11,29 @@ define([
             var HEAD_X = cc.director.getWinSize().width / 3;
             this._super(resourceFileMap.pipeline.head);
             this.attr({ x: HEAD_X, y: 342 });
+            this._assemblingOrDropping = false;
+            this._assembleOrDropDoneCallback = function(){};
         },
         /**
          * 尝试安装自己到流水线的身子上
          * @param pipeline
          * @returns {boolean} 是否安装成功
          */
-        tryAssemble: function (pipeline) {
+        tryAssemble: function (pipeline, assembleOrDropDoneCallback) {
             var bodyList = pipeline.getBodyList();
-            for (var i = 0, assembled = false; !assembled && i < bodyList.length; ++i) {
-                if (this._positionIsFit(bodyList[i])) {
-                    this._assemble(bodyList[i]);
-                    assembled = true;
+            var assembled = false;
+            this._assembleOrDropDoneCallback = assembleOrDropDoneCallback;
+
+            if (!this._assemblingOrDropping) {
+                for (var i = 0; !assembled && i < bodyList.length; ++i) {
+                    if (this._positionIsFit(bodyList[i])) {
+                        this._assemble(bodyList[i]);
+                        assembled = true;
+                    }
                 }
+                if (!assembled) { this._drop(); }
+                this._assemblingOrDropping = true; //若!assembled前面if中drop。若assembled，前面for循环里assemble
             }
-            if (!assembled) { this._drop(); }
 
             return assembled;
         },
@@ -34,13 +42,16 @@ define([
             body.addHead(this);
             var bodyUpperBound = body.y + body.height * body.anchorY;
             var selfUnderBound = this.y - this.height * this.anchorY;
-            this.runAction(new cc.MoveBy( 0.2, 0, bodyUpperBound - selfUnderBound - 30 ));
+            this.runAction(new cc.Sequence(
+                new cc.MoveBy(0.05, 0, bodyUpperBound - selfUnderBound - 30),
+                new cc.CallFunc(this._assembleOrDropDoneCallback)
+            ));
         },
         _drop: function () {
             var self = this;
             self.runAction(new cc.Sequence(
-                new cc.MoveTo(0.2, self.x, -(self.height * self.anchorY)),
-                new cc.CallFunc(function() { self._remove(); })
+                new cc.MoveTo(0.4, self.x, -(self.height * self.anchorY)),
+                new cc.CallFunc(function() { self._assembleOrDropDoneCallback(); self._remove(); })
             ));
         },
         _remove: function () { this.parent.removeChild(this); }

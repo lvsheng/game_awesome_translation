@@ -27,10 +27,9 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: function(){
-                    var assembled = self._head.tryAssemble(self._pipeline);
+                    var assembled = self._head.tryAssemble(self._pipeline, function(){ self._addNewHead(); });
                     if (assembled) { ++self._assembledAmount }
                     else { ++self._dropedAmount; }
-                    self._addNewHead();
                 }
             }, self);
 
