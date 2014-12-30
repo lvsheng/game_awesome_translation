@@ -51,7 +51,7 @@ define([
         _drop: function () {
             var self = this;
             self.runAction(new cc.Sequence(
-                new cc.MoveTo(0.4, self.x, -(self.height * self.anchorY)),
+                new cc.MoveTo(0.4, self.x, -(self.height * self.anchorY)).easing(cc.easeIn(1.8)),
                 new cc.CallFunc(function() { self._assembleOrDropDoneCallback(); self._remove(); })
             ));
         },
