@@ -20,7 +20,7 @@ define([
             self._addNewHead();
 
             //游戏定时结束
-            self.schedule(_.bind(self._endGame, self), GAME_TIME);
+            self.scheduleOnce(_.bind(self._endGame, self), GAME_TIME);
 
             //点击时将旧的头尝试安装到流水线上，并增加一个新的头
             cc.eventManager.addListener({
@@ -41,6 +41,7 @@ define([
             this.addChild(this._head = new Head(), newZIndex);
         },
         _endGame: function () {
+            pauseGame.pauseGame();
             this._endCallback({
                 assemble: this._assembledAmount,
                 drop: this._dropedAmount,
