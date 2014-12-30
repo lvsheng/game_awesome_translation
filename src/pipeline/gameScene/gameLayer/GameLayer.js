@@ -4,7 +4,7 @@ define([
     '../../../gameUtil/pauseGame',
     '../../../commonClass/TimerNode'
 ], function (Pipeline, Head, pauseGame, TimerNode) {
-    var GAME_TIME = 30;
+    var GAME_TIME = 45;
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;

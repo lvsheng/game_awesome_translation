@@ -5,7 +5,7 @@
 define([
     '../../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
-    var DISTANCE = 80;
+    var DISTANCE = 150;
     return cc.Sprite.extend({
         ctor: function(){
             var HEAD_X = cc.director.getWinSize().width / 3;

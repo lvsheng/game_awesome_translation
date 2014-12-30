@@ -5,8 +5,9 @@
 define([
     './Body'
 ], function (Body) {
-    var INTERVAL_DISTANCE = 80; //body间前一个右边与后一个左边的距离
-    var DEFAULT_TIME = 0.1;
+    var INTERVAL_DISTANCE = 200; //body间前一个右边与后一个左边的距离
+    var INTERVAL_DISTANCE_RANDOM_RANGE = 150;
+    var DEFAULT_TIME = 1;
     return cc.Layer.extend({
         ctor: function () {
             var self = this;
@@ -16,20 +17,21 @@ define([
             self._speed = 0;
             self._speedList = [
                 //[speed, time]
-                [150, 5.1],
-                [200, 2],
-                [300, 2],
-                [400, 1],
-                [500],
-                [300],
-                [500],
-                [300],
-                [500],
+                [150, 3],
+                [165],
+                [180],
                 [200],
+                [250],
+                [300],
+                [350],
+                [400],
                 [500],
-                [100],
-                [600, 3],
-                [700, 4]
+                [550],
+                [600],
+                [650],
+                [700],
+                [800, 3],
+                [1000, 3]
             ];
             self._conf = null;
             self._oldConf = null;
@@ -72,8 +74,9 @@ define([
 
         _addBody: function () {
             var body = new Body();
+            var offset = Math.random() * INTERVAL_DISTANCE_RANDOM_RANGE * 2 - INTERVAL_DISTANCE_RANDOM_RANGE;
             body.attr({
-                x: this._getNewBodyPosition(),
+                x: this._getNewBodyPosition() + offset,
                 y: body.height * body.anchorY //恰好body的底与layer的底重合
             });
             this._bodyList.push(body);
