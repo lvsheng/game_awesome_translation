@@ -14,6 +14,10 @@ define([
             self._head = null;
         },
         setBodyPosition: function (x) { this.x = x; this._head && (this._head.x = x); },
-        addHead: function (head) { this._head = head; }
+        addHead: function (head) { this._head = head; },
+        remove: function () {
+            this.parent.removeChild(this);
+            this.parent.removeChild(this._head);
+        }
     });
 });

@@ -5,6 +5,7 @@
 define([
     './Body'
 ], function (Body) {
+    var INTERVAL_DISTANCE = 80;
     return cc.Layer.extend({
         ctor: function () {
             var self = this;
@@ -23,6 +24,7 @@ define([
                 self._updateSpeed();
                 self._updateBodyPosition();
                 self._judgeAddBody();
+                self._judgeBodyOut();
             });
         },
         getBodyList: function () { return this._bodyList; },
@@ -35,7 +37,13 @@ define([
         _judgeAddBody: function () {
 
         },
+        _judgeBodyOut: function () {
+
+        },
         _addBody: function () {
+
+        },
+        _removeBody: function () {
 
         }
     });

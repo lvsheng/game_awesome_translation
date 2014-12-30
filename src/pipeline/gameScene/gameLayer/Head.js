@@ -30,6 +30,7 @@ define([
         },
         _drop: function () {
 
-        }
+        },
+        _remove: function () { this.parent.removeChild(this); }
     });
 });
