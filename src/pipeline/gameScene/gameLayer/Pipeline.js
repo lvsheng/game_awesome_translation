@@ -42,7 +42,7 @@ define([
         _updateBodyPosition: function (dt) {
             var self = this;
             var delta = self._speed * dt;
-            _.forEach(self._bodyList, function (eachBody) { eachBody.x -= delta; });
+            _.forEach(self._bodyList, function (eachBody) { eachBody.setBodyPosition(eachBody.x - delta); });
         },
         _judgeAddBody: function () {
             var needAdd;

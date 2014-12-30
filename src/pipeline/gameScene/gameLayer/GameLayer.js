@@ -21,6 +21,7 @@ define([
 
             //游戏定时结束
             self.schedule(_.bind(self._endGame, self), GAME_TIME);
+
             //点击时将旧的头尝试安装到流水线上，并增加一个新的头
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -32,14 +33,17 @@ define([
                     self._addNewHead();
                 }
             }, self);
-        },
-        _addNewHead: function () {
-            var HEAD_X = cc.director.getWinSize().width / 3;
-            this.addChild(this._head = new Head());
-            this._head.attr({ x: HEAD_X, y: 342 });
-        },
-        _endGame: function () {
 
+            //TODO: for test
+            window.layer = this;
+        },
+        _addNewHead: function () { this.addChild(this._head = new Head()); },
+        _endGame: function () {
+            this._endCallback({
+                assemble: this._assembledAmount,
+                drop: this._dropedAmount,
+                time: Math.round(this._timer.get())
+            });
         }
     });
 });
