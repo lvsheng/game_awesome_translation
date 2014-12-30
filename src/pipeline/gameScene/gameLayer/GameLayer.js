@@ -36,7 +36,10 @@ define([
             //TODO: for test
             window.layer = this;
         },
-        _addNewHead: function () { this.addChild(this._head = new Head()); },
+        _addNewHead: function () {
+            var newZIndex = this._head ? this._head.getLocalZOrder() - 1 : 0;
+            this.addChild(this._head = new Head(), newZIndex);
+        },
         _endGame: function () {
             this._endCallback({
                 assemble: this._assembledAmount,
