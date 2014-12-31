@@ -32,6 +32,11 @@ define({
             wechatActive: 'res/common/leftBar/wechatActive.png'
         }
     },
+    loading: {
+        loading1: 'res/common/loading_1.png',
+        loading2: 'res/common/loading_2.png',
+        loadingBg: 'res/common/loadingBg.png'
+    },
     pipeline: {
         bg: 'res/pipeline/bg.png',
         body: 'res/pipeline/body.png',

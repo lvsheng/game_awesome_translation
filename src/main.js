@@ -3,14 +3,15 @@
  */
 require([
     './gameUtil/resourceFileList',
+    './gameUtil/preload',
     './mainScene'
-], function (resourceFileList, mainScene) {
+], function (resourceFileList, preload, mainScene) {
     cc.game.onStart = function(){
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
         cc._loaderImage = null;
 
-        cc.LoaderScene.preload(resourceFileList['main'], function () {
+        preload(resourceFileList['main'], function () {
             cc.director.runScene(mainScene.getInstance());
         }, this);
     };

@@ -9,11 +9,12 @@
 define([
     './gameUtil/resourceFileList',
     './gameUtil/pauseGame',
+    './gameUtil/preload',
     './bunt/gameScene/GameScene',
     './avoid/gameScene/GameScene',
     './gather/gameScene/GameScene',
     './pipeline/gameScene/GameScene'
-], function (resourceFileList, pauseGame, Bunt, Avoid, Gather, Pipeline) {
+], function (resourceFileList, pauseGame, preload, Bunt, Avoid, Gather, Pipeline) {
     var instance = null;
     var MainScene = cc.Scene.extend({
         _curGame: {
@@ -64,7 +65,8 @@ define([
         enterAGame: function  (name, SceneClass) {
             var self = this;
             pauseGame.resumeGame(); //应对前面在结束上一个小游戏时的pause()
-            cc.LoaderScene.preload(resourceFileList[name].concat(resourceFileList['common']), function () {
+
+            preload(resourceFileList[name].concat(resourceFileList['common']), function () {
                 self._curGame = { name: name, sceneClass: SceneClass, sceneInstance: new SceneClass() };
                 cc.director.runScene(self._curGame.sceneInstance);
             }, cc.game);
