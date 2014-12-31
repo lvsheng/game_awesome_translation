@@ -31,7 +31,8 @@ define([
                     "请选择要进行的游戏(输入游戏编号)：\n",
                     "1. 蓝翔挖掘机 ",
                     "2. 躲避00后 ",
-                    "3. 拯救单身狗"
+                    "3. 拯救单身狗",
+                    "4. 装配机器人女友"
                 ].join("")));
             }
 
@@ -46,15 +47,15 @@ define([
                     case 3:
                         self.enterAGame('gather', Gather);
                         break;
+                    case 4:
+                        self.enterAGame('pipeline', Pipeline);
+                        break;
                     default :
                         alert("请输入正确游戏编号~");
                         enterGame();
                 }
             }
-            //enterGame();
-
-            //self.enterAGame('gather', Gather);
-            self.enterAGame('pipeline', Pipeline);
+            enterGame();
         },
 
         //管理当前进行着的游戏的数据
