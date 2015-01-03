@@ -4,15 +4,15 @@
 require([
     './gameUtil/resourceFileList',
     './gameUtil/preload',
-    './mainScene'
-], function (resourceFileList, preload, mainScene) {
+    './home/HomeScene'
+], function (resourceFileList, preload, HomeScene) {
     cc.game.onStart = function(){
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
         cc._loaderImage = null;
 
         preload(resourceFileList['main'], function () {
-            cc.director.runScene(mainScene.getInstance());
+            cc.director.runScene(new HomeScene());
         }, this);
     };
 
@@ -32,7 +32,7 @@ require([
     }
     function stopAndInformNeedHorizontal () {
         if (running) {
-            var curGame = mainScene.getInstance().getCurGame().sceneInstance;
+            var curGame = HomeScene.getInstance().getCurGame().sceneInstance;
             if (curGame && _.isFunction(curGame.pauseGame)) { curGame.pauseGame(); }
         }
         document.getElementById("gameCanvas").style.display = "none";

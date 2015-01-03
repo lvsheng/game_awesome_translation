@@ -42,5 +42,8 @@ define({
         body: 'res/pipeline/body.png',
         head: 'res/pipeline/head.png',
         man: 'res/pipeline/man.png'
+    },
+    home: {
+        bg: 'res/home/bg.png'
     }
 });
