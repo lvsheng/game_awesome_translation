@@ -9,7 +9,7 @@ define([
     'require',
     '../gameUtil/resourceFileMap',
     '../gameUtil/share',
-    '../list/_listScene'
+    '../list/Scene'
 ], function (require, resourceFileMap,share) {
     return cc.Layer.extend({
         isResultLayer: true,
@@ -60,12 +60,12 @@ define([
             sprite.scaleY = cc.director.getWinSize().height / sprite.height;
         },
         _rePlay: function () {
-            var mainScene = require('../list/_listScene').getInstance();
+            var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
-            cc.director.runScene(require('../list/_listScene').getInstance());
+            cc.director.runScene(require('../list/Scene').getInstance());
         },
         _share: function () {
             share();

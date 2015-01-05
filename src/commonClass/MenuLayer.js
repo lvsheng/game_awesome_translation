@@ -11,7 +11,7 @@ define([
     '../gameUtil/resourceFileMap',
     '../gameUtil/pauseGame',
     '../gameUtil/share',
-    '../list/_listScene'
+    '../list/Scene'
 ], function (require, resourceFileMap, pauseGame, share) {
     return cc.Layer.extend({
         ctor: function () {
@@ -81,12 +81,12 @@ define([
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
 
         _retry: function () {
-            var mainScene = require('../list/_listScene').getInstance();
+            var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
-            cc.director.runScene(require('../list/_listScene').getInstance());
+            cc.director.runScene(require('../list/Scene').getInstance());
         },
         _share: function () {
             share();

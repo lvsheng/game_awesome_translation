@@ -6,7 +6,7 @@
 define([
     '../gameUtil/resourceFileList',
     '../gameUtil/preload',
-    '../list/_listScene',
+    '../list/Scene',
     './AnimateLayer',
     './BackgroundLayer'
 ], function (resourceFileList, preload, listScene, AnimateLayer, BackgroundLayer) {
