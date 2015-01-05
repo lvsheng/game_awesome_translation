@@ -38,9 +38,11 @@ define([
             this._animate();
         },
         _animate: function () {
-            var self = this;
-            var dialogLayer = self._dialogLayer;
-            //TODO: 加初态、动画
+            var dialogLayer = this._dialogLayer;
+            dialogLayer.scale = 0.4;
+            dialogLayer.runAction(new cc.Sequence(
+                new cc.ScaleTo(0.2, 1).easing(cc.easeBackIn())//.easing(cc.easeCircleActionIn(.3))
+            ));
         }
     });
 });
