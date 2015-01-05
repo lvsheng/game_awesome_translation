@@ -4,7 +4,7 @@
  * @date 2015/1/3
  */
 define([
-    'gameUtil/resourceFileMap',
+    '../gameUtil/resourceFileMap',
     './ListLayer',
     './BackgroundLayer'
 ], function (resourceFileMap, ListLayer, BackgroundLayer) {
