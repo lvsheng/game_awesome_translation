@@ -48,7 +48,7 @@ define([
                 leftPerson: cc.p(center.x - (590 - 252), 640 - 212.5),
                 rightPerson: cc.p(center.x + (913.5 - 590), 640 - 212.5),
                 ribbon: cc.p(center.x, 640 - 333.5),
-                button: cc.p(center.x, -outerDistance)
+                button: cc.p(center.x, 640 - 432.5)
             };
             var hornPosition = cc.p(center.x - 165, 640 - 188);
             var penPosition = cc.p(center.x + 196.5, 640 - 172.5);
