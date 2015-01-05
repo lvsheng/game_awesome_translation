@@ -16,6 +16,7 @@ define([
                 startCallback,
                 null
             ));
+            buttonMenu.height = 107; //cc.Menu的高度默认为占满整个屏幕的高，这里强制改为按钮的高
 
             var elementMap = this._animateElementMap = {};
             this.addChild(elementMap['board'] = new cc.Sprite(resourceFileMap.home.board));
@@ -30,6 +31,7 @@ define([
             this._startAnimation();
         },
         _startAnimation: function () {
+            var layer = this;
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
             var outerDistance = 500;
@@ -40,7 +42,7 @@ define([
                 leftPerson: cc.p(-outerDistance, 640 - 212.5),
                 rightPerson: cc.p(winSize.width + outerDistance, 640 - 212.5),
                 ribbon: cc.p(center.x, -outerDistance),
-                button: cc.p(center.x, -outerDistance)
+                button: cc.p(center.x, -elementMap.button.height / 2)
             };
             var endPositionMap = {
                 board: cc.p(center.x, 640 - 175.5),
@@ -58,12 +60,11 @@ define([
                 elementMap[key].setPosition(startPositionMap[key]);
             }
             elementMap.horn.setPosition(hornPosition);
-            elementMap.horn.setVisible(false);
+            elementMap.horn.setOpacity(0);
             elementMap.pen.setPosition(penPosition);
-            elementMap.pen.setVisible(false);
+            elementMap.pen.setOpacity(0);
 
-            var time = 0.4;
-            //TODO: 加延时、回调（里加比如展示喇叭等）、ease参数
+            //TODO: 加延时、回调（里加比如展示喇叭等）、ease参数、加各元素zIndex
             var keys = [
                 "board",
                 "title",
@@ -72,19 +73,69 @@ define([
                 "ribbon",
                 "button"
             ];
-            function moveInNextElement () {
-                //var ease = cc.easeElasticOut(.6);
-                var ease = cc.easeIn(2);
-                var key = keys.shift();
-                if (!key) { return }
-                var el = elementMap[key];
-                el.runAction(new cc.Sequence(
-                    (new cc.MoveTo(time, endPositionMap[key])).easing(ease),
-                    //(new cc.MoveTo(time, endPositionMap[key])),
-                    new cc.CallFunc(moveInNextElement)
+            var actionFuncMap = {};
+            actionFuncMap.board = function(){
+                var time = 1.2;
+                elementMap.board.runAction(new cc.Spawn(
+                    (new cc.MoveTo(time, endPositionMap.board)).easing(cc.easeIn(10)),
+                    new cc.Sequence(
+                        //new cc.DelayTime(time * 0.65),
+                        new cc.DelayTime(time * 0.7),
+                        new cc.CallFunc(actionFuncMap[keys.shift()])
+                    )
                 ))
-            }
-            moveInNextElement();
+            };
+            //快、节奏
+            actionFuncMap.title = function(){
+                elementMap.title.runAction(new cc.Sequence(
+                    (new cc.MoveTo(0.5, endPositionMap.title)).easing(cc.easeIn(6)),
+                    new cc.CallFunc(actionFuncMap[keys.shift()])
+                ));
+            };
+            actionFuncMap.leftPerson = function(){
+                elementMap.leftPerson.runAction(new cc.Sequence(
+                    (new cc.MoveTo(0.3, endPositionMap.leftPerson)).easing(cc.easeOut(10)),
+                    new cc.CallFunc(actionFuncMap[keys.shift()])
+                ));
+            };
+            actionFuncMap.rightPerson = function(){
+                elementMap.rightPerson.runAction(new cc.Sequence(
+                    (new cc.MoveTo(0.3, endPositionMap.rightPerson)).easing(cc.easeOut(10)),
+                    new cc.CallFunc(actionFuncMap[keys.shift()])
+                ));
+            };
+            actionFuncMap.ribbon = function(){
+                var time = 0.5;
+                var showDecorationAction = new cc.FadeIn(time);
+                elementMap.ribbon.runAction(new cc.Sequence(
+                    (new cc.MoveTo(0.3, endPositionMap.ribbon)).easing(cc.easeIn(15)).easing(cc.easeElasticOut(0.8)),
+                    //new cc.Spawn(
+                    new cc.CallFunc(function(){
+                        elementMap.horn.runAction(showDecorationAction.clone());
+                        elementMap.pen.runAction(showDecorationAction.clone());
+                    }),
+                    new cc.DelayTime(time),
+                    new cc.CallFunc(actionFuncMap[keys.shift()])
+                    //)
+                ));
+            };
+            actionFuncMap.button = function(){
+                var button = elementMap.button;
+                button.setPosition(center.x, winSize.height + button.height / 2);
+                button.runAction(new cc.Sequence(
+                    (new cc.MoveTo(0.3, center.x, button.height / 2)).easing(cc.easeQuadraticActionOut(10)),
+                    (new cc.MoveTo(0.05, endPositionMap.button)).easing(cc.easeQuadraticActionIn(10)).easing(cc.easeIn(15)),
+                    new cc.CallFunc(function(){
+                        layer.runAction(new cc.Sequence(
+                            new cc.MoveBy(0.05, 0, 10),
+                            (new cc.MoveBy(1, 0, -10)).easing(cc.easeElasticOut(0.1))
+                            //new cc.MoveTo(0.3, 1, 1)
+                        ));
+                    })
+                ));
+            };
+
+            actionFuncMap[keys.shift()]();
         }
     });
 });
