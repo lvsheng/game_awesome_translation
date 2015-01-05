@@ -13,12 +13,9 @@ define([
                 new cc.Sprite(resourceFileMap.home.button),
                 new cc.Sprite(resourceFileMap.home.button),
                 null,
-                function(){alert('hello')},
+                startCallback,
                 null
             ));
-
-            debugger;
-            this.scheduleOnce(startCallback);
 
             this.addChild(this._board = new cc.Sprite(resourceFileMap.home.board));
             this.addChild(this._title = new cc.Sprite(resourceFileMap.home.title));
