@@ -41,7 +41,10 @@ define([
             var dialogLayer = this._dialogLayer;
             dialogLayer.scale = 0.4;
             dialogLayer.runAction(new cc.Sequence(
-                new cc.ScaleTo(0.2, 1).easing(cc.easeBackIn())//.easing(cc.easeCircleActionIn(.3))
+                new cc.ScaleTo(0.1, 0.1),
+                //(new cc.ScaleTo(1, 1)).easing(cc.easeElasticOut(0.5))
+                (new cc.ScaleTo(0.3, 1)).easing(cc.easeElasticOut(1))
+                //new cc.ScaleTo(0.2, 1).easing(cc.easeBackIn())//.easing(cc.easeCircleActionIn(.3))
             ));
         }
     });
