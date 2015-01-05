@@ -4,11 +4,12 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileMap',
-    '../mainScene',
+    '../gameUtil/resourceFileList',
+    '../gameUtil/preload',
+    '../list/listScene',
     './AnimateLayer',
     './BackgroundLayer'
-], function (resourceFileMap, mainScene, AnimateLayer, BackgroundLayer) {
+], function (resourceFileList, preload, listScene, AnimateLayer, BackgroundLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             var self = this;
@@ -16,7 +17,9 @@ define([
 
             self.addChild(new BackgroundLayer());
             self.addChild(new AnimateLayer(function(){
-                cc.director.runScene(mainScene.getInstance());
+                preload(resourceFileList['list'], function(){
+                    cc.director.runScene(listScene.getInstance());
+                });
             }));
         }
     });
