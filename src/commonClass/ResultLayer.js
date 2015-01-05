@@ -52,7 +52,7 @@ define([
             var winSize = cc.director.getWinSize();
             this.y = winSize.height;
             this.runAction(new cc.Sequence(
-                new cc.MoveTo(0.4, this.x, 0).easing(cc.easeBounceOut(7))
+                new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
             ));
         },
         _scaleToFillWindow: function (sprite) {
