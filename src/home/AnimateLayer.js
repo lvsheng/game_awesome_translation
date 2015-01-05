@@ -19,14 +19,14 @@ define([
             buttonMenu.height = 107; //cc.Menu的高度默认为占满整个屏幕的高，这里强制改为按钮的高
 
             var elementMap = this._animateElementMap = {};
-            this.addChild(elementMap['board'] = new cc.Sprite(resourceFileMap.home.board));
-            this.addChild(elementMap['title'] = new cc.Sprite(resourceFileMap.home.title));
-            this.addChild(elementMap['leftPerson'] = new cc.Sprite(resourceFileMap.home.leftPerson));
-            this.addChild(elementMap['rightPerson'] = new cc.Sprite(resourceFileMap.home.rightPerson));
-            this.addChild(elementMap['ribbon'] = new cc.Sprite(resourceFileMap.home.ribbon));
-            this.addChild(elementMap['button'] = buttonMenu);
-            this.addChild(elementMap['horn'] = new cc.Sprite(resourceFileMap.home.horn));
-            this.addChild(elementMap['pen'] = new cc.Sprite(resourceFileMap.home.pen));
+            this.addChild(elementMap['board'] = new cc.Sprite(resourceFileMap.home.board), 1);
+            this.addChild(elementMap['title'] = new cc.Sprite(resourceFileMap.home.title), 5);
+            this.addChild(elementMap['leftPerson'] = new cc.Sprite(resourceFileMap.home.leftPerson), 6);
+            this.addChild(elementMap['rightPerson'] = new cc.Sprite(resourceFileMap.home.rightPerson), 2);
+            this.addChild(elementMap['ribbon'] = new cc.Sprite(resourceFileMap.home.ribbon), 4);
+            this.addChild(elementMap['button'] = buttonMenu, 7);
+            this.addChild(elementMap['horn'] = new cc.Sprite(resourceFileMap.home.horn), 3);
+            this.addChild(elementMap['pen'] = new cc.Sprite(resourceFileMap.home.pen), 3);
 
             this._startAnimation();
         },
