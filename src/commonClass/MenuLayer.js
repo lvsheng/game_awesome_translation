@@ -10,8 +10,9 @@ define([
     'require',
     '../gameUtil/resourceFileMap',
     '../gameUtil/pauseGame',
+    '../gameUtil/share',
     '../list/_listScene'
-], function (require, resourceFileMap, pauseGame) {
+], function (require, resourceFileMap, pauseGame, share) {
     return cc.Layer.extend({
         ctor: function () {
             var self = this;
@@ -88,10 +89,7 @@ define([
             cc.director.runScene(require('../list/_listScene').getInstance());
         },
         _share: function () {
-            //TODO
-            cc.director.pause();
-            alert("TODO...");
-            cc.director.resume();
+            share();
         },
 
         pauseGame: function () {

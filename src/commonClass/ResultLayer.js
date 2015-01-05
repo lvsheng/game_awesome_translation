@@ -8,8 +8,9 @@
 define([
     'require',
     '../gameUtil/resourceFileMap',
+    '../gameUtil/share',
     '../list/_listScene'
-], function (require, resourceFileMap) {
+], function (require, resourceFileMap,share) {
     return cc.Layer.extend({
         isResultLayer: true,
         ctor: function (title, text) {
@@ -67,10 +68,7 @@ define([
             cc.director.runScene(require('../list/_listScene').getInstance());
         },
         _share: function () {
-            //TODO
-            cc.director.pause();
-            alert("TODO...");
-            cc.director.resume();
+            share();
         }
     });
 });
