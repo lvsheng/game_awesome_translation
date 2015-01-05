@@ -31,7 +31,7 @@ define([
             this._startAnimation();
 
             //TODO: for test
-            startCallback();
+            //startCallback();
         },
         _startAnimation: function () {
             var layer = this;
