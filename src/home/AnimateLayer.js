@@ -29,6 +29,9 @@ define([
             this.addChild(elementMap['pen'] = new cc.Sprite(resourceFileMap.home.pen), 3);
 
             this._startAnimation();
+
+            //TODO: for test
+            startCallback();
         },
         _startAnimation: function () {
             var layer = this;
