@@ -53,5 +53,24 @@ define({
         ribbon: 'res/home/ribbon.png',
         rightPerson: 'res/home/rightPerson.png',
         title: 'res/home/title.png'
+    },
+    list: {
+        bg: 'res/list/bg.png',
+        button_00: 'res/list/button_00.png',
+        button_00_hover: 'res/list/button_00_hover.png',
+        button_director: 'res/list/button_director.png',
+        button_director_hover: 'res/list/button_director_hover.png',
+        button_lanxiang: 'res/list/button_lanxiang.png',
+        button_lanxiang_hover: 'res/list/button_lanxiang_hover.png',
+        button_love: 'res/list/button_love.png',
+        button_love_hover: 'res/list/button_love_hover.png',
+        button_ps: 'res/list/button_ps.png',
+        button_ps_hover: 'res/list/button_ps_hover.png',
+        button_tech: 'res/list/button_tech.png',
+        button_tech_hover: 'res/list/button_tech_hover.png',
+        listBg: 'res/list/listBg.png',
+        listContainer: 'res/list/listContainer.png',
+        logo: 'res/list/logo.png',
+        person: 'res/list/person.png'
     }
 });
