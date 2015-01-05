@@ -31,7 +31,7 @@ define([
             this._startAnimation();
 
             //TODO: for test
-            startCallback();
+            //startCallback();
         },
         _startAnimation: function () {
             var layer = this;
@@ -40,8 +40,8 @@ define([
             var outerDistance = 500;
             var elementMap = this._animateElementMap;
             var startPositionMap = {
-                board: cc.p(center.x, winSize.height + outerDistance),
-                title: cc.p(center.x, winSize.height + outerDistance),
+                board: cc.p(center.x, winSize.height + elementMap.board.height * elementMap.board.anchorY),
+                title: cc.p(center.x, winSize.height + elementMap.title.height * elementMap.title.anchorY),
                 leftPerson: cc.p(-outerDistance, 640 - 212.5),
                 rightPerson: cc.p(winSize.width + outerDistance, 640 - 212.5),
                 ribbon: cc.p(center.x, -outerDistance),
@@ -67,7 +67,6 @@ define([
             elementMap.pen.setPosition(penPosition);
             elementMap.pen.setOpacity(0);
 
-            //TODO: 加延时、回调（里加比如展示喇叭等）、ease参数、加各元素zIndex
             var keys = [
                 "board",
                 "title",
@@ -78,14 +77,10 @@ define([
             ];
             var actionFuncMap = {};
             actionFuncMap.board = function(){
-                var time = 1.2;
+                var time = 0.2;
                 elementMap.board.runAction(new cc.Spawn(
-                    (new cc.MoveTo(time, endPositionMap.board)).easing(cc.easeIn(10)),
-                    new cc.Sequence(
-                        //new cc.DelayTime(time * 0.65),
-                        new cc.DelayTime(time * 0.7),
-                        new cc.CallFunc(actionFuncMap[keys.shift()])
-                    )
+                    (new cc.MoveTo(time, endPositionMap.board)).easing(cc.easeIn(7)),
+                    new cc.CallFunc(actionFuncMap[keys.shift()])
                 ))
             };
             //快、节奏
