@@ -30,6 +30,11 @@ define({
             retryActive: 'res/common/leftBar/retryActive.png',
             wechat: 'res/common/leftBar/wechat.png',
             wechatActive: 'res/common/leftBar/wechatActive.png'
+        },
+        guideDialog: {
+            bg: 'res/common/guideDialog/bg.png',
+            button: 'res/common/guideDialog/button.png',
+            button_hover: 'res/common/guideDialog/button_hover.png'
         }
     },
     loading: {

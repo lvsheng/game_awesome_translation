@@ -2,8 +2,9 @@
  * 引导层、提示用户本游戏的玩法
  */
 define([
-    '../../gameUtil/resourceFileMap'
-], function (resourceFileMap) {
+    '../../gameUtil/resourceFileMap',
+    '../../commonClass/GuideDialog'
+], function (resourceFileMap, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
 
@@ -18,10 +19,11 @@ define([
 
             self._onStartGame = onStartGame;
 
-            setTimeout(function (){
-                alert("快速点击屏幕右侧以驱动你的挖掘机");
-                self._startGame();
-            });
+            self.addChild(new GuideDialog(
+                "bunt",
+                "快速点击屏幕右侧以驱动你的挖掘机",
+                function(){ self._startGame(); }
+            ));
         },
 
         /**

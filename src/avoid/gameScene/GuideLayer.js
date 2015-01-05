@@ -1,6 +1,7 @@
 define([
-    '../../gameUtil/resourceFileMap'
-], function (resourceFileMap) {
+    '../../gameUtil/resourceFileMap',
+    '../../commonClass/GuideDialog'
+], function (resourceFileMap, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
         ctor: function (onStartGame) {
@@ -10,10 +11,11 @@ define([
 
             self._onStartGame = onStartGame;
 
-            setTimeout(function (){
-                alert("点击屏幕使奥特曼跳跃，撞到00后你就死啦~");
-                self._startGame();
-            });
+            self.addChild(new GuideDialog(
+                "00后",
+                "点击屏幕使奥特曼跳跃，撞到00后你就死啦~",
+                function(){ self._startGame(); }
+            ));
         },
         _startGame:function () {
             this.parent.removeChild(this);
