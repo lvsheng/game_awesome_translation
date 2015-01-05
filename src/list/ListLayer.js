@@ -14,6 +14,7 @@ define([
             //定位思路：为了整个屏都可以触摸以滑动，将scrollView设为整个屏幕大小。
             //container高超高，宽与屏幕相同。以0,0定位。而每一个菜单项以位置定位
             var wholeHeight = 890;
+            var viewSize = winSize;
             var currentX = winSize.width - 343;
             var currentY = wholeHeight - 90;
             var menuItemLineHeight = 150;
@@ -46,11 +47,12 @@ define([
 
             var scrollView = new cc.ScrollView();
             scrollView.setContainer(container);
-            scrollView.setViewSize(winSize);
-            scrollView.setContentSize(winSize.width, wholeHeight);
+            scrollView.setViewSize(viewSize);
+            scrollView.setContentSize(viewSize.width, wholeHeight);
             scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
             scrollView.setVisible(true);
             scrollView.setBounceable(true);
+            scrollView.setContentOffset(cc.p(0, -(wholeHeight - viewSize.height)));
 
             this.addChild(scrollView);
         }
