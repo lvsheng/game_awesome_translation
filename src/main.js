@@ -11,7 +11,7 @@ require([
         cc.view.resizeWithBrowserSize(true);
         cc._loaderImage = null;
 
-        preload(resourceFileList['main'], function () {
+        preload(resourceFileList['home'], function () {
             cc.director.runScene(new HomeScene());
         }, this);
     };

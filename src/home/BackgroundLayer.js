@@ -10,11 +10,8 @@ define([
             var winSize = cc.director.getWinSize();
             this._backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
 
-            this.scheduleOnce(function(){
-                //这几句话如果直接执行，此时拿到的sprite的width是0。。。不清楚为什么？异步渲染的估计。。。但神奇的是其他背景层中没有遇到这个问题。。。
-                this._scaleToCoverWindow(this._backgroundSprite);
-                this.addChild(this._backgroundSprite);
-            });
+            this._scaleToCoverWindow(this._backgroundSprite);
+            this.addChild(this._backgroundSprite);
         },
 
         _scaleToCoverWindow: function (sprite) {
