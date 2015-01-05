@@ -3,13 +3,66 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileMap'
-], function (resourceFileMap) {
+    '../gameUtil/resourceFileMap',
+    '../gameUtil/resourceFileList',
+    '../gameUtil/pauseGame',
+    '../gameUtil/preload',
+
+    '../bunt/gameScene/GameScene',
+    '../avoid/gameScene/GameScene',
+    '../gather/gameScene/GameScene',
+    '../pipeline/gameScene/GameScene'
+], function (resourceFileMap, resourceFileList, pauseGame, preload, Bunt, Avoid, Gather, Pipeline) {
     return cc.Layer.extend({
         ctor: function(startCallback){
             this._super(); this.init();
+            var winSize = cc.director.getWinSize();
 
+            //定位思路：为了整个屏都可以触摸以滑动，将scrollView设为整个屏幕大小。
+            //container高超高，宽与屏幕相同。以0,0定位。而每一个菜单项以位置定位
+            var wholeHeight = 890;
+            var currentX = winSize.width - 343;
+            var currentY = wholeHeight - 90;
+            var menuItemLineHeight = 150;
+            var imgMap = resourceFileMap.list;
+            var menuItems = [];
+            var menuConfs = [
+                [imgMap.button_love, imgMap.button_love_hover, 'gather', Gather],
+                //[imgMap.button_director, imgMap.button_director_hover, 'gather', Gather],
+                [imgMap.button_tech, imgMap.button_tech_hover, 'gather', Gather],
+                [imgMap.button_lanxiang, imgMap.button_lanxiang_hover, 'gather', Gather],
+                [imgMap.button_00, imgMap.button_00_hover, 'gather', Gather]
+            ];
+            _.forEach(menuConfs, function (confArr) {
+                var conf = {img: confArr[0], imgHover: confArr[1], gameName: confArr[2], gameClass: confArr[3]};
+                var menuItem = new cc.MenuItemSprite(
+                    new cc.Sprite(conf.img),
+                    new cc.Sprite(conf.imgHover),
+                    null,
+                    function(){
+                        //TODO:
+                        //_.bind(self.resumeGame, self)
+                    }
+                );
+                menuItem.attr({x: currentX, y: currentY});
+                currentY -= menuItemLineHeight;
+                menuItems.push(menuItem);
+            });
 
+            var menu = new cc.Menu(menuItems);
+            menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
+            var container = new cc.Layer();
+            container.addChild(menu);
+
+            var scrollView = new cc.ScrollView();
+            scrollView.setContainer(container);
+            scrollView.setViewSize(winSize);
+            scrollView.setContentSize(winSize.width, wholeHeight);
+            scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
+            scrollView.setVisible(true);
+            scrollView.setBounceable(true);
+
+            this.addChild(scrollView);
         }
     });
 });
