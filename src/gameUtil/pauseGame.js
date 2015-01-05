@@ -5,17 +5,17 @@
  */
 define([
     'require',
-    '../mainScene'
+    '../list/_listScene'
 ], function (require) {
     return {
         pauseGame: function () {
-            this._handleRecursively(require("../mainScene").getInstance().getCurGame().sceneInstance, 'pause');
+            this._handleRecursively(require("../list/_listScene").getInstance().getCurGame().sceneInstance, 'pause');
 
             //增加遮罩层以屏幕用户触摸事件
             //TODO
         },
         resumeGame: function () {
-            this._handleRecursively(require("../mainScene").getInstance().getCurGame().sceneInstance, 'resume');
+            this._handleRecursively(require("../list/_listScene").getInstance().getCurGame().sceneInstance, 'resume');
 
             //增加遮罩层以屏幕用户触摸事件
             //TODO

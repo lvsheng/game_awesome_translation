@@ -7,7 +7,7 @@
  */
 define([
     'require',
-    '../mainScene'
+    '../list/_listScene'
 ], function (require) {
     return cc.Layer.extend({
         /**
@@ -22,9 +22,9 @@ define([
         },
 
         _rePlay: function () {
-            var mainScene = require('../mainScene').getInstance();
+            var mainScene = require('../list/_listScene').getInstance();
             var curGame = mainScene.getCurGame();
-            mainScene.enterAGame(curGame.name, curGame.sceneClass);
+            mainScene.enterAGame(curGame.name);
         }
     });
 });

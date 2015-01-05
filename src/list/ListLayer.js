@@ -3,19 +3,12 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileMap',
-    '../gameUtil/resourceFileList',
-    '../gameUtil/pauseGame',
-    '../gameUtil/preload',
-
-    '../bunt/gameScene/GameScene',
-    '../avoid/gameScene/GameScene',
-    '../gather/gameScene/GameScene',
-    '../pipeline/gameScene/GameScene'
-], function (resourceFileMap, resourceFileList, pauseGame, preload, Bunt, Avoid, Gather, Pipeline) {
+    '../gameUtil/resourceFileMap'
+], function (resourceFileMap) {
     return cc.Layer.extend({
-        ctor: function(startCallback){
-            this._super(); this.init();
+        ctor: function(enterAGame){
+            var self = this;
+            self._super(); self.init();
             var winSize = cc.director.getWinSize();
 
             //定位思路：为了整个屏都可以触摸以滑动，将scrollView设为整个屏幕大小。
@@ -27,11 +20,11 @@ define([
             var imgMap = resourceFileMap.list;
             var menuItems = [];
             var menuConfs = [
-                [imgMap.button_love, imgMap.button_love_hover, 'gather', Gather],
-                //[imgMap.button_director, imgMap.button_director_hover, 'gather', Gather],
-                [imgMap.button_tech, imgMap.button_tech_hover, 'gather', Gather],
-                [imgMap.button_lanxiang, imgMap.button_lanxiang_hover, 'gather', Gather],
-                [imgMap.button_00, imgMap.button_00_hover, 'gather', Gather]
+                [imgMap.button_love, imgMap.button_love_hover, 'gather'],
+                //[imgMap.button_director, imgMap.button_director_hover, 'gather'],
+                [imgMap.button_tech, imgMap.button_tech_hover, 'pipeline'],
+                [imgMap.button_lanxiang, imgMap.button_lanxiang_hover, 'bunt'],
+                [imgMap.button_00, imgMap.button_00_hover, 'avoid']
             ];
             _.forEach(menuConfs, function (confArr) {
                 var conf = {img: confArr[0], imgHover: confArr[1], gameName: confArr[2], gameClass: confArr[3]};
@@ -39,10 +32,7 @@ define([
                     new cc.Sprite(conf.img),
                     new cc.Sprite(conf.imgHover),
                     null,
-                    function(){
-                        //TODO:
-                        //_.bind(self.resumeGame, self)
-                    }
+                    function(){ enterAGame(conf.gameName); }
                 );
                 menuItem.attr({x: currentX, y: currentY});
                 currentY -= menuItemLineHeight;
