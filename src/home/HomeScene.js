@@ -16,6 +16,9 @@ define([
             self.addChild(new AnimateLayer(function(){
                 cc.director.runScene(mainScene.getInstance());
             }));
+
+            //貌似HomeScene里的schedule不生效？touch事件也不行？菜单的点击事件也不行？？？？
+            self.scheduleOnce(function (){alert('ok??')})
         }
     });
 });

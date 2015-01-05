@@ -44,6 +44,14 @@ define({
         man: 'res/pipeline/man.png'
     },
     home: {
-        bg: 'res/home/bg.png'
+        bg: 'res/home/bg.png',
+        board: 'res/home/board.png',
+        button: 'res/home/button.png',
+        horn: 'res/home/horn.png',
+        leftPerson: 'res/home/leftPerson.png',
+        pen: 'res/home/pen.png',
+        ribbon: 'res/home/ribbon.png',
+        rightPerson: 'res/home/rightPerson.png',
+        title: 'res/home/title.png'
     }
 });
