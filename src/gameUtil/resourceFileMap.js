@@ -35,6 +35,14 @@ define({
             bg: 'res/common/guideDialog/bg.png',
             button: 'res/common/guideDialog/button.png',
             button_hover: 'res/common/guideDialog/button_hover.png'
+        },
+        resultLayer: {
+            bg: 'res/common/resultLayer/bg.png',
+            dialog: 'res/common/resultLayer/dialog.png',
+            home: 'res/common/resultLayer/home.png',
+            logo: 'res/common/resultLayer/logo.png',
+            retry: 'res/common/resultLayer/retry.png',
+            share: 'res/common/resultLayer/share.png'
         }
     },
     loading: {

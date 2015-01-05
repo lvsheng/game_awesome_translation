@@ -22,7 +22,7 @@ define([
         },
         _handleRecursively: function (node, type) {
             function handle (handleNode) {
-                if (handleNode && !handleNode.isMenuLayer && !handleNode.isFinishLayer) {
+                if (handleNode && !handleNode.isMenuLayer && !handleNode.isResultLayer) {
                     if (type === 'pause') {
                         handleNode.pause();
                     } else if (type === 'resume') {
