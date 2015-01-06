@@ -91,5 +91,20 @@ define({
         listContainer: 'res/list/listContainer.png',
         logo: 'res/list/logo.png',
         person: 'res/list/person.png'
+    },
+    hit: {
+        background_png: 'res/hit/background.png',
+        hammer_png: 'res/hit/hammer.png',
+        timer_png: 'res/hit/timer.png',
+
+        fog_png: 'res/hit/hole/fog.png',
+        heartLeft_png: 'res/hit/hole/heartLeft.png',
+        heartRight_png: 'res/hit/hole/heartRight.png',
+        hitEffect_png: 'res/hit/hole/hitEffect.png',
+        hole_png: 'res/hit/hole/hole.png',
+        lover_png: 'res/hit/hole/lover.png',
+        mask_png: 'res/hit/hole/mask.png',
+        plus_png: 'res/hit/hole/plus.png',
+        uncle_png: 'res/hit/hole/uncle.png'
     }
 });

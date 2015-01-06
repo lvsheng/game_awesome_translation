@@ -15,8 +15,9 @@ define([
     '../bunt/gameScene/GameScene',
     '../avoid/gameScene/GameScene',
     '../gather/gameScene/GameScene',
-    '../pipeline/gameScene/GameScene'
-], function (resourceFileMap, resourceFileList, pauseGame, preload, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline) {
+    '../pipeline/gameScene/GameScene',
+    '../hit/GameScene'
+], function (resourceFileMap, resourceFileList, pauseGame, preload, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline, Hit) {
     var instance;
     var ListScene =  cc.Scene.extend({
         _curGame: {
@@ -29,7 +30,8 @@ define([
             'bunt': Bunt,
             'avoid': Avoid,
             'gather': Gather,
-            'pipeline': Pipeline
+            'pipeline': Pipeline,
+            'hit': Hit
         },
 
         onEnter: function () {
