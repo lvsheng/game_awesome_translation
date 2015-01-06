@@ -17,15 +17,17 @@ define([
             var viewSize = winSize;
             var currentX = winSize.width - 343;
             var currentY = wholeHeight - 90;
-            var menuItemLineHeight = 150;
+            var menuItemLineHeight = 145;
             var imgMap = resourceFileMap.list;
             var menuItems = [];
             var menuConfs = [
                 [imgMap.button_love, imgMap.button_love_hover, 'gather'],
-                //[imgMap.button_director, imgMap.button_director_hover, 'gather'],
                 [imgMap.button_tech, imgMap.button_tech_hover, 'pipeline'],
                 [imgMap.button_lanxiang, imgMap.button_lanxiang_hover, 'bunt'],
-                [imgMap.button_00, imgMap.button_00_hover, 'avoid']
+                [imgMap.button_00, imgMap.button_00_hover, 'avoid'],
+                //TODO: 改为正确对应的游戏
+                [imgMap.button_director, imgMap.button_director_hover, 'gather'],
+                [imgMap.button_ps, imgMap.button_ps_hover, 'gather']
             ];
             _.forEach(menuConfs, function (confArr) {
                 var conf = {img: confArr[0], imgHover: confArr[1], gameName: confArr[2], gameClass: confArr[3]};
