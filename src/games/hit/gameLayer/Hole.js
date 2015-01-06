@@ -68,14 +68,15 @@ define([
         },
         judgeHittingPoppedMouse: function (x, y) {
             var self = this;
-            var HITTING_AREA_HEIGHT = 145;
-            var HITTING_AREA_WIDTH = 200;
+            var HITTING_AREA_HEIGHT = 190;
+            var HITTING_AREA_WIDTH = 160;
             var positionReferAnchor = self.convertToNodeSpaceAR(cc.p(x, y));
+            var positionReferBase = cc.p(positionReferAnchor.x, positionReferAnchor.y + 62); //相对于电视机底线的中点
 
             if (self.hasMouseOn()) {
                 return (
-                (positionReferAnchor.y > 0 && positionReferAnchor.y <= HITTING_AREA_HEIGHT)
-                && (Math.abs(positionReferAnchor.x) < HITTING_AREA_WIDTH / 2)
+                (positionReferBase.y > 0 && positionReferBase.y <= HITTING_AREA_HEIGHT)
+                && (Math.abs(positionReferBase.x) < HITTING_AREA_WIDTH / 2)
                 );
             } else {
                 return false;
