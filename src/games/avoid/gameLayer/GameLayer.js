@@ -8,7 +8,7 @@
  * (非正常结束有暂停、场景被强制切换等）
  */
 define([
-    '../../../gameUtil/pauseGame',
+    '../../../util/pauseGame',
     '../../../commonClass/TimerNode',
     './Teenager',
     './Ultraman'

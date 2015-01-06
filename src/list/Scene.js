@@ -4,10 +4,10 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileMap',
-    '../gameUtil/resourceFileList',
-    '../gameUtil/pauseGame',
-    '../gameUtil/preload',
+    '../util/resourceFileMap',
+    '../util/resourceFileList',
+    '../util/pauseGame',
+    '../util/preload',
 
     './ListLayer',
     './BackgroundLayer',

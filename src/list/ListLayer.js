@@ -3,7 +3,7 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileMap'
+    '../util/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Layer.extend({
         ctor: function(enterAGame){
@@ -59,7 +59,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            enterAGame("pipeline");
+            enterAGame("avoid");
         }
     });
 });

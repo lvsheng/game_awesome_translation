@@ -1,5 +1,5 @@
 define([
-    '../../../gameUtil/resourceFileMap',
+    '../../../util/resourceFileMap',
     './Hole',
     './Hammer',
     './GameTimerLabel'

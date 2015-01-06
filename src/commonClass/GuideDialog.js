@@ -3,7 +3,7 @@
  * @date 2015/1/5
  */
 define([
-    '../gameUtil/resourceFileMap'
+    '../util/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Layer.extend({
         ctor: function (title, text, onButtonClick) {

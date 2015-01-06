@@ -2,8 +2,8 @@
  * 游戏入口
  */
 require([
-    './gameUtil/resourceFileList',
-    './gameUtil/preload',
+    'util/resourceFileList',
+    'util/preload',
     './home/HomeScene'
 ], function (resourceFileList, preload, HomeScene) {
     cc.game.onStart = function(){

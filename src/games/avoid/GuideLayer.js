@@ -1,5 +1,5 @@
 define([
-    '../../gameUtil/resourceFileMap',
+    '../../util/resourceFileMap',
     '../../commonClass/GuideDialog'
 ], function (resourceFileMap, GuideDialog) {
     return cc.Layer.extend({

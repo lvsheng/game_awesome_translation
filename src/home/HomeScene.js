@@ -4,8 +4,8 @@
  * @date 2015/1/3
  */
 define([
-    '../gameUtil/resourceFileList',
-    '../gameUtil/preload',
+    '../util/resourceFileList',
+    '../util/preload',
     '../list/Scene',
     './AnimateLayer',
     './BackgroundLayer'

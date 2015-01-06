@@ -1,5 +1,5 @@
 define([
-    '../../gameUtil/resourceFileMap'
+    '../../util/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Layer.extend({
         ctor: function () {

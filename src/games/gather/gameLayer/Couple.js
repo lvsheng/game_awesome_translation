@@ -3,7 +3,7 @@
  * @date 2014/12/22
  */
 define([
-    '../../../gameUtil/resourceFileMap'
+    '../../../util/resourceFileMap'
 ], function (resourceFileMap) {
     //var B = 0.3;
     //var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};

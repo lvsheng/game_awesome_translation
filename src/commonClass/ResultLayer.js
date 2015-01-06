@@ -7,8 +7,8 @@
  */
 define([
     'require',
-    '../gameUtil/resourceFileMap',
-    '../gameUtil/share',
+    '../util/resourceFileMap',
+    '../util/share',
     '../list/Scene'
 ], function (require, resourceFileMap,share) {
     return cc.Layer.extend({

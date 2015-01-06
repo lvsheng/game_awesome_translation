@@ -1,5 +1,5 @@
 define([
-    '../../../gameUtil/resourceFileMap',
+    '../../../util/resourceFileMap',
     '../scoreManager',
     './zIndexConf',
     './unShowedSayingIndexManager'

@@ -1,7 +1,7 @@
 define([
     './Pipeline',
     './Head',
-    '../../../gameUtil/pauseGame',
+    '../../../util/pauseGame',
     '../../../commonClass/TimerNode'
 ], function (Pipeline, Head, pauseGame, TimerNode) {
     var GAME_TIME = 30;

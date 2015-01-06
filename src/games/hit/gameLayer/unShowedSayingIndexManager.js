@@ -1,5 +1,5 @@
 define([
-    '../../../gameUtil/resourceFileMap'
+    '../../../util/resourceFileMap'
 ], function (resourceFileMap) {
     /**
      * 用来给各Hole共享
