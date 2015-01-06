@@ -4,19 +4,18 @@ define([
     return cc.Layer.extend({
         ctor: function () {
             this._super();
-
             this.init();
+
+            this._backgroundSprite = new cc.Sprite(resourceFileMap.hit.background_png);
+            var winSize = cc.director.getWinSize();
+            this._backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
+            this._scaleToFillWindow(this._backgroundSprite);
+            this.addChild(this._backgroundSprite);
         },
-        init: function () {
-            var self = this;
-            self._super();
 
-            var windowSize = cc.director.getWinSize();
-
-            var centerPosition = cc.p(windowSize.width / 2, windowSize.height / 2);
-            var backgroundSprite = new cc.Sprite(resourceFileMap.hit.background_png);
-            backgroundSprite.setPosition(centerPosition.x, centerPosition.y);
-            self.addChild(backgroundSprite);
+        _scaleToFillWindow: function (sprite) {
+            sprite.scaleX = cc.director.getWinSize().width / sprite.width;
+            sprite.scaleY = cc.director.getWinSize().height / sprite.height;
         }
     });
 });
