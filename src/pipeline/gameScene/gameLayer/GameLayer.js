@@ -7,7 +7,7 @@ define([
     var GAME_TIME = 30;
 
     //TODO: for debug
-    var GAME_TIME = 3;
+    //var GAME_TIME = 3;
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;
