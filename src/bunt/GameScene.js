@@ -8,8 +8,8 @@ define([
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
-    '../../commonClass/ResultLayer',
-    '../../commonClass/MenuLayer'
+    '../commonClass/ResultLayer',
+    '../commonClass/MenuLayer'
 ], function (BackgroundLayer, GuideLayer, GameLayer, ResultLayer,MenuLayer) {
     return cc.Scene.extend({
         onEnter: function () {

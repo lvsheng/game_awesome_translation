@@ -12,7 +12,7 @@ define([
     './ListLayer',
     './BackgroundLayer',
 
-    '../bunt/gameScene/GameScene',
+    '../bunt/GameScene',
     '../avoid/GameScene',
     '../gather/gameScene/GameScene',
     '../pipeline/gameScene/GameScene',

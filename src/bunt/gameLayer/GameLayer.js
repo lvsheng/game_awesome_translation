@@ -9,8 +9,8 @@
  */
 define([
     './Cars',
-    '../../../gameUtil/pauseGame',
-    '../../../commonClass/TimerNode'
+    '../../gameUtil/pauseGame',
+    '../../commonClass/TimerNode'
 ], function (Cars, pauseGame, TimerNode) {
     return cc.Layer.extend({
         _cars: null,

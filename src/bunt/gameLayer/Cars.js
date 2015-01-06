@@ -2,7 +2,7 @@ define([
     './PositionManager',
     './ComputerControl',
     './UserControl',
-    '../../../gameUtil/resourceFileMap'
+    '../../gameUtil/resourceFileMap'
 ], function (PositionManager, ComputerControl, UserControl, resourceFileMap) {
     return cc.Sprite.extend({
         _onWinningOrLoosing: function(){},
