@@ -12,11 +12,11 @@ define([
     './ListLayer',
     './BackgroundLayer',
 
-    '../bunt/GameScene',
-    '../avoid/GameScene',
-    '../gather/GameScene',
-    '../pipeline/GameScene',
-    '../hit/GameScene'
+    '../games/bunt/GameScene',
+    '../games/avoid/GameScene',
+    '../games/gather/GameScene',
+    '../games/pipeline/GameScene',
+    '../games/hit/GameScene'
 ], function (resourceFileMap, resourceFileList, pauseGame, preload, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline, Hit) {
     var instance;
     var ListScene =  cc.Scene.extend({
