@@ -23,7 +23,8 @@ define([
             self._showedSaying = null;
 
             self._uncle = null;
-            self._lover = null;
+            self._lover1 = null;
+            self._lover2 = null;
             self._leftHeart = null;
             self._rightHeart = null;
             self._fog = null;
@@ -83,10 +84,11 @@ define([
 
         popMouse: function () {
             var self = this;
-            var poppedMouse = Math.random() <= self._popLoverProbability ? self._lover : self._uncle;
+            var lover = Math.random() <= 0.5 ? self._lover1 : self._lover2;
+            var poppedMouse = Math.random() <= self._popLoverProbability ? lover : self._uncle;
 
             self._poppedMouse = poppedMouse;
-            self._showedSaying = self._getSayingRandom(poppedMouse === self._lover ? 'lover' : 'uncle');
+            self._showedSaying = self._getSayingRandom(poppedMouse === lover ? 'lover' : 'uncle');
             self._status = self._STATUS.mouseOn;
             poppedMouse.runAction(self._mousePopOnAction);
 
@@ -94,7 +96,7 @@ define([
             self._fog.stopAllActions();
             self._fog.setVisible(false);
 
-            var autoPullTime = (poppedMouse === self._lover ? self._loverAutoPullTime : self._uncleAutoPullTime);
+            var autoPullTime = (poppedMouse === lover ? self._loverAutoPullTime : self._uncleAutoPullTime);
             self.scheduleOnce(self._autoPullPoppedMouse, autoPullTime);
         },
         preHitPoppedMouse: function () {
@@ -195,14 +197,23 @@ define([
             self.addChild(uncle);
             self._uncle = uncle;
 
-            var lover = new cc.Sprite(resourceFileMap.hit.lover_png);
-            lover.attr({
+            var lover1 = new cc.Sprite(resourceFileMap.hit.lover1_png);
+            lover1.attr({
                 x: anchorX,
                 y: hidingMouseY,
                 zIndex: zIndexConf.hitBeing
             });
-            self.addChild(lover);
-            self._lover = lover;
+            self.addChild(lover1);
+            self._lover1 = lover1;
+
+            var lover2 = new cc.Sprite(resourceFileMap.hit.lover2_png);
+            lover2.attr({
+                x: anchorX,
+                y: hidingMouseY,
+                zIndex: zIndexConf.hitBeing
+            });
+            self.addChild(lover2);
+            self._lover2 = lover2;
 
             var leftHeart = new cc.Sprite(resourceFileMap.hit.heartLeft_png);
             var heartY = anchorY + leftHeart.height / 2 + 30;

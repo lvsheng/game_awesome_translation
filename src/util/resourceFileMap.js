@@ -102,7 +102,8 @@ define({
         heartRight_png: 'res/hit/hole/heartRight.png',
         hitEffect_png: 'res/hit/hole/hitEffect.png',
         hole_png: 'res/hit/hole/hole.png',
-        lover_png: 'res/hit/hole/lover.png',
+        lover1_png: 'res/hit/hole/lover1.png',
+        lover2_png: 'res/hit/hole/lover2.png',
         mask_png: 'res/hit/hole/mask.png',
         plus_png: 'res/hit/hole/plus.png',
         uncle_png: 'res/hit/hole/uncle.png'
