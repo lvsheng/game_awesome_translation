@@ -13,7 +13,7 @@ define([
     './BackgroundLayer',
 
     '../bunt/gameScene/GameScene',
-    '../avoid/gameScene/GameScene',
+    '../avoid/GameScene',
     '../gather/gameScene/GameScene',
     '../pipeline/gameScene/GameScene',
     '../hit/GameScene'

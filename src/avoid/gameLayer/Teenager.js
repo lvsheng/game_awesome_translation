@@ -3,7 +3,7 @@
  * @date 2014/12/24
  */
 define([
-    '../../../gameUtil/resourceFileMap'
+    '../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Sprite.extend({
         _moveRangeMargin: 0, //左右移动时，锚点离屏幕多远就停下来反向

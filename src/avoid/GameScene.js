@@ -6,8 +6,8 @@ define([
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
-    '../../commonClass/ResultLayer',
-    '../../commonClass/MenuLayer'
+    '../commonClass/ResultLayer',
+    '../commonClass/MenuLayer'
 ], function (BackgroundLayer, GuideLayer, GameLayer, ResultLayer, MenuLayer) {
     //TODO: 看是不是能把GameScene的创建抽出来一个基类，每个子类指定其四个层、指定其展示结果的方法
     return cc.Scene.extend({

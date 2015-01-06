@@ -8,8 +8,8 @@
  * (非正常结束有暂停、场景被强制切换等）
  */
 define([
-    '../../../gameUtil/pauseGame',
-    '../../../commonClass/TimerNode',
+    '../../gameUtil/pauseGame',
+    '../../commonClass/TimerNode',
     './Teenager',
     './Ultraman'
 ], function (pauseGame,TimerNode, Teenager, Ultraman) {
