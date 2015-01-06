@@ -186,12 +186,22 @@ define([
             var anchorX = self.width / 2;
             var anchorY = self.height / 2;
 
-            var uncle = new cc.Sprite(resourceFileMap.hit.uncle_png);
-            var hidingMouseY = anchorY - (uncle.height / 2) - 5;
+            var lover2 = new cc.Sprite(resourceFileMap.hit.lover2_png);
+            var hidingMouseY = anchorY - (lover2.height / 2) - 62; //lover2最高
             self._initialAttr.hidingMouseY = hidingMouseY;
+            lover2.attr({
+                x: anchorX,
+                y: hidingMouseY,
+                zIndex: zIndexConf.hitBeing
+            });
+            self.addChild(lover2);
+            self._lover2 = lover2;
+
+            var uncle = new cc.Sprite(resourceFileMap.hit.uncle_png);
             uncle.attr({
                 x: anchorX,
                 y: hidingMouseY,
+                anchorX: 0.6,
                 zIndex: zIndexConf.hitBeing
             });
             self.addChild(uncle);
@@ -205,15 +215,6 @@ define([
             });
             self.addChild(lover1);
             self._lover1 = lover1;
-
-            var lover2 = new cc.Sprite(resourceFileMap.hit.lover2_png);
-            lover2.attr({
-                x: anchorX,
-                y: hidingMouseY,
-                zIndex: zIndexConf.hitBeing
-            });
-            self.addChild(lover2);
-            self._lover2 = lover2;
 
             var leftHeart = new cc.Sprite(resourceFileMap.hit.heartLeft_png);
             var heartY = anchorY + leftHeart.height / 2 + 30;
@@ -274,8 +275,8 @@ define([
             mouseMask.attr({
                 anchorX: 0.5,
                 anchorY: 1,
-                x: anchorX + 5,
-                y: anchorY + 37,
+                x: anchorX - 7,
+                y: anchorY + 32,
                 zIndex: zIndexConf.holeMask
             });
             self.addChild(mouseMask);
@@ -337,8 +338,8 @@ define([
             var self = this;
 
             var holeAnchorY = self.height / 2;
-            var mousePopOnMoveAction = new cc.MoveTo(0.1, self._uncle.x, holeAnchorY + self._uncle.height / 2);
-            var mousePullMoveAction = new cc.MoveTo(0.06, self._uncle.x, self._initialAttr.hidingMouseY);
+            var mousePopOnMoveAction = new cc.MoveTo(0.1, self._lover2.x, holeAnchorY + self._lover2.height / 2 - 62);
+            var mousePullMoveAction = new cc.MoveTo(0.06, self._lover2.x, self._initialAttr.hidingMouseY);
 
             self._mousePopOnAction = new cc.Sequence(
                 new cc.EaseIn(mousePopOnMoveAction, .8),
