@@ -14,7 +14,7 @@ define([
 
     '../bunt/GameScene',
     '../avoid/GameScene',
-    '../gather/gameScene/GameScene',
+    '../gather/GameScene',
     '../pipeline/gameScene/GameScene',
     '../hit/GameScene'
 ], function (resourceFileMap, resourceFileList, pauseGame, preload, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline, Hit) {

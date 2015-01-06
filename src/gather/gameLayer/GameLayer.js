@@ -1,8 +1,8 @@
 define([
     './Couple',
     './Heart',
-    '../../../gameUtil/pauseGame',
-    '../../../commonClass/TimerNode'
+    '../../gameUtil/pauseGame',
+    '../../commonClass/TimerNode'
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.5; //两个小人之间初始距离
