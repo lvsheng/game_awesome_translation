@@ -3,7 +3,7 @@
  * @date 2014/12/22
  */
 define([
-    '../../../gameUtil/resourceFileMap'
+    '../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Sprite.extend({
         _hitCount: 0,

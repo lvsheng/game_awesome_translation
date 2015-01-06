@@ -3,7 +3,7 @@
  * @date 2014/12/22
  */
 define([
-    '../../../gameUtil/resourceFileMap'
+    '../../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     var DISTANCE = 150;
     var ASSEMBLE_TIME = 0.005;
