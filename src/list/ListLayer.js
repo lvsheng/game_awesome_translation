@@ -59,7 +59,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            enterAGame("hit");
+            //enterAGame("hit");
         }
     });
 });
