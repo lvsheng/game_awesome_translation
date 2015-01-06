@@ -57,6 +57,9 @@ define([
             scrollView.setContentOffset(cc.p(0, -(wholeHeight - viewSize.height)));
 
             this.addChild(scrollView);
+
+            //TODO: for debug
+            //enterAGame("bunt");
         }
     });
 });

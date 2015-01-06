@@ -3,7 +3,9 @@ define({
     bunt: {
         //TODO: 把背景里的logo向下移一些，在iphone5、6下能展现出来
         bg: 'res/bunt/bg.jpg',
-        cars: 'res/bunt/cars.png'
+        cars: 'res/bunt/cars.png',
+        button: 'res/bunt/button.png',
+        button_hover: 'res/bunt/button_hover.png'
     },
     avoid: {
         bg: 'res/avoid/bg.png',
