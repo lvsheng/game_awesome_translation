@@ -45,6 +45,17 @@ define([
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             self.addChild(menu);
 
+            var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.resultLayer.titleFont);
+            titleLabel.setPosition(center.x + 118, winSize.height - 175);
+            titleLabel.color = cc.color(0, 37, 41, 255);
+            self.addChild(titleLabel);
+
+            var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.resultLayer.textFont);
+            textLabel.attr({anchorX: 0.5, anchorY: 1});
+            textLabel.setPosition(center.x + 120, winSize.height - 221);
+            textLabel.color = cc.color(0, 37, 41, 255);
+            self.addChild(textLabel);
+
             self._animate();
         },
 

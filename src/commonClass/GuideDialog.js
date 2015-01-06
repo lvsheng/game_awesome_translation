@@ -6,7 +6,7 @@ define([
     '../gameUtil/resourceFileMap'
 ], function (resourceFileMap) {
     return cc.Layer.extend({
-        ctor: function (header, text, onButtonClick) {
+        ctor: function (title, text, onButtonClick) {
             this._super(); this.init();
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
@@ -33,7 +33,15 @@ define([
             buttonMenu.setPosition(center.x, winSize.height - 488.5);
             dialogLayer.addChild(buttonMenu);
 
-            //TODO: title,text label
+            var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.guideDialog.titleFont);
+            titleLabel.setPosition(center.x, winSize.height - 164);
+            dialogLayer.addChild(titleLabel);
+
+            var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.guideDialog.textFont);
+            textLabel.attr({anchorX: 0.5, anchorY: 0.5});
+            textLabel.setPosition(center.x, winSize.height - 300);
+            textLabel.color = cc.color(0, 37, 41, 255);
+            dialogLayer.addChild(textLabel);
 
             this._animate();
         },

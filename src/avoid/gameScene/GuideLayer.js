@@ -13,7 +13,7 @@ define([
 
             self.addChild(new GuideDialog(
                 "00后",
-                "点击屏幕使奥特曼跳跃，撞到00后你就死啦~",
+                "点击屏幕使奥特曼跳跃，\n撞到00后你就死啦~",
                 function(){ self._startGame(); }
             ));
         },

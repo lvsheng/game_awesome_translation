@@ -34,7 +34,9 @@ define({
         guideDialog: {
             bg: 'res/common/guideDialog/bg.png',
             button: 'res/common/guideDialog/button.png',
-            button_hover: 'res/common/guideDialog/button_hover.png'
+            button_hover: 'res/common/guideDialog/button_hover.png',
+            titleFont: 'res/common/guideDialog/titleFont.fnt',
+            textFont: 'res/common/guideDialog/textFont.fnt'
         },
         resultLayer: {
             bg: 'res/common/resultLayer/bg.png',
@@ -42,7 +44,9 @@ define({
             home: 'res/common/resultLayer/home.png',
             logo: 'res/common/resultLayer/logo.png',
             retry: 'res/common/resultLayer/retry.png',
-            share: 'res/common/resultLayer/share.png'
+            share: 'res/common/resultLayer/share.png',
+            titleFont: 'res/common/resultLayer/titleFont.fnt',
+            textFont: 'res/common/resultLayer/textFont.fnt'
         }
     },
     loading: {

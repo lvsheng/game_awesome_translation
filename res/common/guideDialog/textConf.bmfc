@@ -1,0 +1,59 @@
+# AngelCode Bitmap Font Generator configuration file
+fileVersion=1
+
+# font settings
+fontName=方正喵呜体
+fontFile=
+charSet=134
+fontSize=33
+aa=1
+scaleH=100
+useSmoothing=1
+isBold=0
+isItalic=0
+useUnicode=1
+disableBoxChars=1
+outputInvalidCharGlyph=0
+dontIncludeKerningPairs=0
+useHinting=1
+renderFromOutline=0
+useClearType=1
+
+# character alignment
+paddingDown=2
+paddingUp=2
+paddingRight=4
+paddingLeft=2
+spacingHoriz=1
+spacingVert=2
+useFixedHeight=0
+forceZero=0
+
+# output file
+outWidth=512
+outHeight=512
+outBitDepth=32
+fontDescFormat=0
+fourChnlPacked=0
+textureFormat=png
+textureCompression=0
+alphaChnl=0
+redChnl=4
+greenChnl=4
+blueChnl=4
+invA=0
+invR=0
+invG=0
+invB=0
+
+# outline
+outlineThickness=0
+
+# selected chars
+chars=32,34,40-41,43-44,46,48-49,51,59-62,65,87,92,97,100-102,105,108-112,114-118,123,125-126,19968,19981
+chars=20010,20102,20197,20320,20351,20540,20849,20877,20987,21033,21040,21051,21151,21385,21462,21482
+chars=21487,21518,21571,21862,22885,23436,23545,23601,23631,24149,24320,24471,24565,24635,25104,25327
+chars=25509,25758,25937,26102,26159,26364,26368,27515,27874,28857,29305,30340,32426,32456,32477,32988
+chars=36194,36291,36339,36755,36807,36824-36825,36991,65281,65292
+
+# imported icon images

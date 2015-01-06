@@ -39,7 +39,7 @@ define([
                         "不过还是输了~";
                     }
 
-                    self.addChild(new ResultLayer(info));
+                    self.addChild(new ResultLayer(result.winning ? "你赢了！" : "你输了...", info));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));
