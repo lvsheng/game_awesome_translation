@@ -67,22 +67,26 @@ define([
 
         _initView: function () {
             var self = this;
+            var winSize = cc.director.getWinSize();
+            var center = cc.p(winSize.width / 2, winSize.height / 2 - 15);
+            var HORIZONTAL_INTERVAL = 245;
+            var VERTICAL_INTERVAL = 187;
             var HOLE_POSITIONS = [
                 //顺序为渲染的顺序，会影响到覆盖，所以应该让下面的hole排在前（下面的心等会覆盖上面的洞口）
                 //第一排
-                cc.p(110, 585),
-                cc.p(320, 585),
-                cc.p(530, 585),
+                cc.p(center.x - HORIZONTAL_INTERVAL, center.y + VERTICAL_INTERVAL),
+                cc.p(center.x, center.y + VERTICAL_INTERVAL),
+                cc.p(center.x + HORIZONTAL_INTERVAL, center.y + VERTICAL_INTERVAL),
 
                 //第二排
-                cc.p(110, 415),
-                cc.p(320, 415),
-                cc.p(530, 415),
+                cc.p(center.x - HORIZONTAL_INTERVAL, center.y),
+                cc.p(center.x, center.y),
+                cc.p(center.x + HORIZONTAL_INTERVAL, center.y),
 
                 //第三排
-                cc.p(110, 245),
-                cc.p(320, 245),
-                cc.p(530, 245)
+                cc.p(center.x - HORIZONTAL_INTERVAL, center.y - VERTICAL_INTERVAL),
+                cc.p(center.x, center.y - VERTICAL_INTERVAL),
+                cc.p(center.x + HORIZONTAL_INTERVAL, center.y - VERTICAL_INTERVAL)
             ];
 
             for (var i = 0; i < HOLE_POSITIONS.length; ++i) {
