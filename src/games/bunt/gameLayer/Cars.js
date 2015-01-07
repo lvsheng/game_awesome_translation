@@ -16,11 +16,25 @@ define([
             self._super();
             self.init();
 
+            var curLevel = 0;
             self._onWinningOrLoosing = onWinningOrLoosing;
-            self.addChild(self._positionManager = new PositionManager(function(winner){ self._onWinningOrLoosing(winner === 'right'); }));
+            self.addChild(self._positionManager = new PositionManager(function(winner){
+                if (curLevel === 2 && winner === 'right') { //3局都赢了
+                    self._onWinningOrLoosing(true);
+                } else if (winner === 'right') { //赢了当前局，进入下一局
+                    self._positionManager.restore();
+                    self.removeChild(self._computerControl);
+
+                    ++curLevel;
+                    //TODO: 出faster
+                    self.addChild(self._computerControl = new ComputerControl(self._positionManager, curLevel));
+                } else {
+                    self._onWinningOrLoosing(false);
+                }
+            }));
             self.addChild(self._carsSprite = new cc.Sprite(resourceFileMap.bunt.cars));
-            self.addChild(self._computerControl = new ComputerControl(self._positionManager));
             self.addChild(self._userControl = new UserControl(self._positionManager));
+            self.addChild(self._computerControl = new ComputerControl(self._positionManager, curLevel));
 
             self._updatePosition();
             self.schedule(_.bind(self._updatePosition, self));
