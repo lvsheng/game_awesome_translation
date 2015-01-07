@@ -26,8 +26,7 @@ define([
                 [imgMap.button_lanxiang, imgMap.button_lanxiang_hover, 'bunt'],
                 [imgMap.button_tech, imgMap.button_tech_hover, 'pipeline'],
                 [imgMap.button_director, imgMap.button_director_hover, 'hit'],
-                //TODO: 改为正确对应的游戏
-                [imgMap.button_ps, imgMap.button_ps_hover, 'gather']
+                [imgMap.button_ps, imgMap.button_ps_hover, 'find']
             ];
             _.forEach(menuConfs, function (confArr) {
                 var conf = {img: confArr[0], imgHover: confArr[1], gameName: confArr[2], gameClass: confArr[3]};
@@ -59,7 +58,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            //enterAGame("hit");
+            enterAGame("find");
         }
     });
 });
