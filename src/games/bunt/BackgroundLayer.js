@@ -7,18 +7,22 @@ define([
             this.init();
 
             var backgroundSprite = new cc.Sprite(resourceFileMap.bunt.bg);
-            backgroundSprite.attr({ anchorX: 0.5, anchorY: 0, x: cc.director.getWinSize().width / 2, y: 0 });
-            this._scaleToCoverWindow(backgroundSprite);
+            backgroundSprite.attr({ anchorX: 0, anchorY: 1, x: 0, y: cc.director.getWinSize().height });
+            this._scaleToFillWindow(backgroundSprite);
             this.addChild(backgroundSprite);
         },
 
-        _scaleToCoverWindow: function (sprite) {
-            //先试着以等高进行缩放
-            var scale = cc.director.getWinSize().height / sprite.height;
-            //水平方向有黑边、换以等宽进行缩放
-            if (sprite.width * scale < cc.director.getWinSize().width) { scale = cc.director.getWinSize().width / sprite.width; }
+        _scaleToFillWindow: function (sprite) {
+            //y方向先拉伸以保证纵向完全展示并填充窗口
+            sprite.scaleY = cc.director.getWinSize().height / sprite.height;
 
-            sprite.scale = scale;
+            if (sprite.width * sprite.scaleY < cc.director.getWinSize().width) {
+                //若水平方向有黑边、水平方向也拉伸
+                sprite.scaleX = cc.director.getWinSize().width / sprite.width;
+            } else {
+                //若采用y方向拉伸比例不会有黑边，则采用相同缩放比例
+                sprite.scaleX = sprite.scaleY;
+            }
         }
     });
 });

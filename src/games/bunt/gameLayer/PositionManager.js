@@ -16,7 +16,7 @@ define([], function () {
         toLeft: function(){
             this._offset -= this._STEP_DISTANCE; this._judgeWinner();
             //TODO: for debug
-            this._offset -= 5 * this._STEP_DISTANCE; this._judgeWinner();
+            //this._offset -= 5 * this._STEP_DISTANCE; this._judgeWinner();
         },
         restore: function () { this._offset = 0; },
 
