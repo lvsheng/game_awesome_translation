@@ -58,7 +58,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            enterAGame("gather");
+            enterAGame("avoid");
         }
     });
 });
