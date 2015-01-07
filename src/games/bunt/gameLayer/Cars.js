@@ -2,8 +2,9 @@ define([
     './PositionManager',
     './ComputerControl',
     './UserControl',
+    './FasterLayer',
     '../../../util/resourceFileMap'
-], function (PositionManager, ComputerControl, UserControl, resourceFileMap) {
+], function (PositionManager, ComputerControl, UserControl, FasterLayer, resourceFileMap) {
     return cc.Sprite.extend({
         _onWinningOrLoosing: function(){},
         _positionManager: null,
@@ -22,12 +23,16 @@ define([
                 if (curLevel === 2 && winner === 'right') { //3局都赢了
                     self._onWinningOrLoosing(true);
                 } else if (winner === 'right') { //赢了当前局，进入下一局
-                    self._positionManager.restore();
                     self.removeChild(self._computerControl);
+                    self._userControl.pauseTouch();
 
-                    ++curLevel;
-                    //TODO: 出faster
-                    self.addChild(self._computerControl = new ComputerControl(self._positionManager, curLevel));
+                    self.addChild(self._fasterLayer = new FasterLayer(function(){
+                        self.removeChild(self._fasterLayer);
+                        self._positionManager.restore();
+                        self._userControl.restoreTouch();
+                        ++curLevel;
+                        self.addChild(self._computerControl = new ComputerControl(self._positionManager, curLevel));
+                    }));
                 } else {
                     self._onWinningOrLoosing(false);
                 }

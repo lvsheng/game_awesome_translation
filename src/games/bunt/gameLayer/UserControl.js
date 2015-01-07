@@ -31,6 +31,8 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
                 swallowTouches: false,
                 onTouchBegan: function (touch) {
+                    if (self._touchPaused) { return; }
+
                     if (self._hitSuccessful(touch.getLocation())) {
                         ++self._hitCount;
                         positionManager.toLeft();
@@ -47,6 +49,8 @@ define([
         _hitSuccessful: function (position) {
             var nodePosition = this.convertToNodeSpace(position);
             return nodePosition.x > 0 && nodePosition.x < this.width && nodePosition.y > 0 && nodePosition.y < this.height;
-        }
+        },
+        pauseTouch: function () { this._touchPaused = true; },
+        restoreTouch: function () { this._touchPaused = false; }
     });
 });
