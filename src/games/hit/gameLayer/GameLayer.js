@@ -7,7 +7,7 @@ define([
     return cc.Layer.extend({
         _GAME_TIME: 30, //游戏时长，秒为单位
         //TODO: for debug
-        //_GAME_TIME: 3, //游戏时长，秒为单位
+        _GAME_TIME: 3, //游戏时长，秒为单位
         _POP_MOUSE_INTERVAL_UPDATE_TIME: 3, //多久更新一次弹鼠的间隔
         _POP_MOUSE_FACTOR_LIST: [
             //mousePopInterval, uncleExistTime, loverExistTime, popLoverProbability
@@ -55,13 +55,20 @@ define([
 
         _updateGameRemainTime: function (dt) { //要求每次更新都要调用本方法
             var self = this;
+            if (self._remainGameTime === 0) { return; }
             self._remainGameTime -= dt;
 
             self._timer.setTime(parseInt(self._remainGameTime) + 1);
 
             if (self._remainGameTime <= 0) {
                 self._remainGameTime = 0;
-                self._endGame();
+
+                _.forEach(self._holes, function (each) {
+                    each.pullPoppedMouse();
+                });
+                self.scheduleOnce(function(){
+                    self._endGame();
+                }, 1);
             }
         },
 
@@ -193,6 +200,7 @@ define([
 
         _popMouse: function () {
             var self = this;
+            if (self._remainGameTime === 0) { return; }
 
             function hasCanPopHole () {
                 var has = false;
