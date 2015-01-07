@@ -107,5 +107,11 @@ define({
         mask_png: 'res/hit/hole/mask.png',
         plus_png: 'res/hit/hole/plus.png',
         uncle_png: 'res/hit/hole/uncle.png'
+    },
+    find: {
+        bg: 'res/find/bg.png',
+        fanbingbing: 'res/find/fanbingbing.png',
+        fengjie: 'res/find/fengjie.png',
+        person: 'res/find/person.png'
     }
 });
