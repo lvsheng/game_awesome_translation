@@ -55,13 +55,24 @@ define([
 
         _updateGameRemainTime: function (dt) { //要求每次更新都要调用本方法
             var self = this;
+            if (self._endding) { return; }
             self._remainGameTime -= dt;
 
             self._timer.setTime(parseInt(self._remainGameTime) + 1);
 
             if (self._remainGameTime <= 0) {
                 self._remainGameTime = 0;
-                self._endGame();
+                self._endding = true;
+
+                var winSize = cc.director.getWinSize();
+                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 0), winSize.width, winSize.height);
+                self.addChild(shadowLayer);
+                shadowLayer.runAction(new cc.Sequence(
+                    //new cc.FadeTo(1, 200).easing(cc.easeOut()),
+                    new cc.CallFunc(function(){
+                        self._endGame();
+                    })
+                ));
             }
         },
 
