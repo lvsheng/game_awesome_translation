@@ -5,19 +5,32 @@ define([
     '../../../commonClass/TimerNode'
 ], function (Couple, Heart, pauseGame, TimerNode) {
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
-    var INIT_DISTANCE = 0.5; //两个小人之间初始距离
-    var HEART_CONFS = [
+    var INIT_DISTANCE = 0.45; //两个小人之间初始距离
+    //TODO
+    //var INIT_DISTANCE = 0.95; //两个小人之间初始距离
+    var hear_confs = [
         //amount, lifeTime, closeUpDistance
-        [3, 1.2, 0.025],
-        [3, 0.7],
-        [3, 0.5],
+        [5, 1.5, 0.04],
+        [3, 1.2],
+        [3, 1.0],
         //[5, 0.5, 0.035],
-        [5, 0.4],
+        [5, 0.8],
         //[20, 0.4, 0.03],
-        [15, 0.38, 0.03],
+        [15, 0.6, 0.03],
         //[1, 0.38, 0.02],
-        [1, 0.33],
-        [1]
+        [1, 0.5]
+    ];
+    var crazy_heart_confs = [
+        //amount, lifeTime, closeUpDistance
+        [5, 0.5, 0.15]
+        //[3, 1.2],
+        //[3, 1.0],
+        //[5, 0.5, 0.035],
+        //[5, 0.8],
+        //[20, 0.4, 0.03],
+        //[15, 0.6, 0.03],
+        //[1, 0.38, 0.02],
+        //[1, 0.5]
     ];
 
     var AUTO_HIT_FOR_DEBUG = false;
@@ -30,9 +43,10 @@ define([
 
             self._couple = new Couple(
                 function(result){ result === 'meet' ? self._endGame(true) : self._endGame(false); },
-                INIT_DISTANCE
+                INIT_DISTANCE,
+                function(){ self._turnToCrazyMode(); }
             );
-            self._heartConfs = _.map(HEART_CONFS, _.clone);
+            self._heartConfs = _.map(hear_confs, _.clone);
             self._hearts = [];
             self._endCallback = endCallback;
             self._tint = _.bind(self._couple.tint, self._couple);
@@ -103,14 +117,14 @@ define([
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
             heart.createTime = (new Date).getTime();
-            this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;
+            this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;            ++this._gatherAmount;
+
             this._hearts.push(heart);
             this.addChild(heart);
 
             if (AUTO_HIT_FOR_DEBUG) { this.scheduleOnce(function(){ this._heartHit(heart); }, AUTO_HIT_REACT_TIME) }
         },
         _heartHit: function (heart) {
-            ++this._gatherAmount;
             this._reactTime.push((new Date()).getTime() - heart.createTime);
             this._couple.closeUp(heart.closeUpDistance);
             this._removeHeart(heart, true);
@@ -119,28 +133,44 @@ define([
             ++this._dropAmount;
             this._removeHeart(heart);
         },
+        _turnToCrazyMode: function () {
+            this._heartConfs = _.map(crazy_heart_confs, _.clone);
+        },
         /**
          * @param winning {boolean}
          * @private
          */
         _endGame: function (winning) {
-            var result = {
-                winning: winning,
-                time: this._timer.get(),
-                gather: this._gatherAmount,
-                drop: this._dropAmount,
-                rightRate: Math.round(this._gatherAmount / (this._gatherAmount + this._hitNothingAmount) * 100)
-            };
-            pauseGame.pauseGame();
+            var self = this;
 
-            if (this._reactTime.length > 0) {
-                var min = Math.round(_.min(this._reactTime));
-                var average = Math.round(_.reduce(this._reactTime, function(sum, v){ return sum + v; }) / this._reactTime.length);
-                result.minReactTime = min;
-                result.averageReactTime = average;
+            _.forEach(self._hearts, function (heart) {
+                self.removeChild(heart);
+            });
+
+            function end () {
+                pauseGame.pauseGame();
+                var result = {
+                    winning: winning,
+                    time: self._timer.get(),
+                    gather: self._gatherAmount,
+                    drop: self._dropAmount,
+                    rightRate: Math.round(self._gatherAmount / (self._gatherAmount + self._hitNothingAmount) * 100)
+                };
+                if (self._reactTime.length > 0) {
+                    var min = Math.round(_.min(self._reactTime));
+                    var average = Math.round(_.reduce(self._reactTime, function(sum, v){ return sum + v; }) / self._reactTime.length);
+                    result.minReactTime = min;
+                    result.averageReactTime = average;
+                }
+
+                self._endCallback(result);
             }
 
-            this._endCallback(result);
+            if (winning) {
+                self._couple.up(end);
+            } else {
+                self._couple.fadeOut(end);
+            }
         },
 
         _removeHeart: function (heart, animate) {

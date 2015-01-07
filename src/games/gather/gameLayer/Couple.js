@@ -14,8 +14,9 @@ define([
         /**
          * @param endCallback {Function} 调用时传入参数: 'meet'|'out'
          * @param initDistance {number} 0~1的数字，1代表整个屏幕的长度
+         * @param turnToCrazyModeFunc layer传过来的开启疯狂模式的方法
          */
-        ctor: function(endCallback, initDistance){
+        ctor: function(endCallback, initDistance, turnToCrazyModeFunc){
             var self = this;
             self._super(); self.init();
 
@@ -24,7 +25,9 @@ define([
             self._distance = initDistance; //双方之间的距离。距离与left、right的位置绑定，每次更新distance，同步更新left、right位置
             self._left = new cc.Sprite(resourceFileMap.gather.left);
             self._right = new cc.Sprite(resourceFileMap.gather.right);
-            this._ended = false;
+            self._ended = false;
+            self._turnToCrazyMode = turnToCrazyModeFunc;
+            self._inCrazyMode = false;
 
             self._left.anchorY = self._right.anchorY = 0;
             self.addChild(self._left);
@@ -32,7 +35,9 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                self.separate((SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] || B) * dt);
+                var speed = SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] || B;
+                if(self._inCrazyMode) { speed += 0.3; }
+                self.separate(speed * dt);
             });
         },
 
@@ -46,6 +51,31 @@ define([
             );
             this._left.runAction(action);
             this._right.runAction(action.clone());
+        },
+        fadeOut: function (callback) {
+            var action = new cc.Sequence(
+                new cc.TintTo(0.1, 150, 150, 150),
+                new cc.TintTo(0.2, 255, 255, 255),
+                new cc.FadeOut(1)
+            );
+            this._left.runAction(action);
+            this._right.runAction(new cc.Sequence(
+                action.clone(),
+                new cc.CallFunc(callback)
+            ));
+        },
+        up: function (callback) {
+            var action = new cc.Sequence(
+                new cc.TintTo(0.1, 255, 255, 150),
+                new cc.TintTo(0.2, 255, 255, 255)
+            );
+            this._left.runAction(action);
+            this._right.runAction(action.clone());
+
+            this.runAction(new cc.Sequence(
+                new cc.MoveBy(0.3, 0, 50),
+                new cc.CallFunc(callback)
+            ));
         },
 
         _isMeet: function () { return this._distance <= this._getMeetDistance(); },
@@ -66,11 +96,20 @@ define([
             self._updatePosition();
         },
         _updatePosition: function () {
+            var self = this;
             var winWidth = cc.director.getWinSize().width;
             var centerX = winWidth / 2;
-            var offset = this._distance / 2 * winWidth;
-            this._left.x = centerX - offset;
-            this._right.x = centerX + offset;
+            var offset = self._distance / 2 * winWidth;
+            self._left.x = centerX - offset;
+            self._right.x = centerX + offset;
+
+            if (self._distance - self._getMeetDistance() <= 0.1) {
+                //启动疯狂模式
+                self._inCrazyMode = true;
+                self.scheduleOnce(function(){
+                    self._turnToCrazyMode();
+                });
+            }
         },
         /**
          * @param result {string} 'out'|'meet'
