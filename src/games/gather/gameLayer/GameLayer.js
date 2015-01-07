@@ -22,7 +22,7 @@ define([
     ];
     var crazy_heart_confs = [
         //amount, lifeTime, closeUpDistance
-        [5, 0.5, 0.15]
+        [5, 0.5, 0.165]
         //[3, 1.2],
         //[3, 1.0],
         //[5, 0.5, 0.035],
@@ -33,7 +33,7 @@ define([
         //[1, 0.5]
     ];
 
-    var AUTO_HIT_FOR_DEBUG = false;
+    var AUTO_HIT_FOR_DEBUG = true;
     var AUTO_HIT_REACT_TIME = 0.3;
 
     return cc.Layer.extend({
@@ -56,7 +56,8 @@ define([
             self._hitNothingAmount = 0;
             self._reactTime = [];
             self._hitNothingSeparateDistance = 0;
-            this.addChild(this._timer = (new TimerNode()).start());
+            self.addChild(this._timer = (new TimerNode()).start());
+            self._endding = false;
 
             self.addChild(self._couple);
             self.addChild(self._timer);
@@ -73,6 +74,7 @@ define([
         },
 
         _examHit: function (touch) {
+            if (this._endding) { return; }
             var self = this;
             var hit = false;
             var hearts = _.clone(self._hearts); //因为遍历的judgeHit中有可能删除_hearts中的元素，复制一份，以使遍历不会乱掉
@@ -113,11 +115,13 @@ define([
             return conf;
         },
         _addHeart: function () {
+            if (this._endding) { return; }
             var conf = this._getAConf();
             var heart = new Heart(conf.x, conf.lifeTime, _.bind(this._heartOut, this));
             heart.closeUpDistance = conf.closeUpDistance;
             heart.createTime = (new Date).getTime();
-            this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;            ++this._gatherAmount;
+            this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;
+            ++this._gatherAmount;
 
             this._hearts.push(heart);
             this.addChild(heart);
@@ -142,6 +146,7 @@ define([
          */
         _endGame: function (winning) {
             var self = this;
+            self._endding = true;
 
             _.forEach(self._hearts, function (heart) {
                 self.removeChild(heart);
@@ -167,7 +172,7 @@ define([
             }
 
             if (winning) {
-                self._couple.up(end);
+                self._couple.preEnd(end);
             } else {
                 self._couple.fadeOut(end);
             }

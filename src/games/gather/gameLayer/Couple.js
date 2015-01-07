@@ -28,6 +28,7 @@ define([
             self._ended = false;
             self._turnToCrazyMode = turnToCrazyModeFunc;
             self._inCrazyMode = false;
+            self._endding = false;
 
             self._left.anchorY = self._right.anchorY = 0;
             self.addChild(self._left);
@@ -42,7 +43,10 @@ define([
         },
 
         closeUp: function (distance) { this._setDistance(this._distance - distance); },
-        separate: function (distance) { this._setDistance(this._distance + distance); },
+        separate: function (distance) {
+            if (this._endding) { return; }
+            this._setDistance(this._distance + distance);
+        },
 
         tint: function () {
             var action = new cc.Sequence(
@@ -64,17 +68,21 @@ define([
                 new cc.CallFunc(callback)
             ));
         },
-        up: function (callback) {
-            var action = new cc.Sequence(
-                new cc.TintTo(0.1, 255, 255, 150),
-                new cc.TintTo(0.2, 255, 255, 255)
+        preEnd: function (callback) {
+            var self = this;
+            self._endding = true;
+            var blinkAction = new cc.Sequence(
+                new cc.Blink(0.3, 1.58)
             );
-            this._left.runAction(action);
-            this._right.runAction(action.clone());
-
-            this.runAction(new cc.Sequence(
-                new cc.MoveBy(0.3, 0, 50),
-                new cc.CallFunc(callback)
+            self._left.runAction(blinkAction);
+            self._right.runAction(new cc.Sequence(
+                blinkAction.clone(),
+                new cc.CallFunc(function(){
+                    self.runAction(new cc.Sequence(
+                        new cc.MoveBy(1, 0, 200),
+                        new cc.CallFunc(callback)
+                    ));
+                })
             ));
         },
 
@@ -103,12 +111,11 @@ define([
             self._left.x = centerX - offset;
             self._right.x = centerX + offset;
 
-            if (self._distance - self._getMeetDistance() <= 0.1) {
+            if (self._distance - self._getMeetDistance() <= 0.1 && !self._inCrazyMode) {
                 //启动疯狂模式
+                self.tint();
                 self._inCrazyMode = true;
-                self.scheduleOnce(function(){
-                    self._turnToCrazyMode();
-                });
+                self._turnToCrazyMode();
             }
         },
         /**
