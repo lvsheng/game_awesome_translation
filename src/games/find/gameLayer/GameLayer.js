@@ -15,17 +15,19 @@ define([
                 3,
                 4,
                 5,
-                5,
+                4,
                 5,
                 6,
-                6,
+                5,
                 6,
                 7,
-                7,
+                6,
                 7,
                 8,
                 9,
-                10
+                10,
+
+                9, 10, 9, 10, 9, 10, 9, 10
             ];
             self._endCallback = endCallback;
             self._scale = self._matrixSizeList.shift();
