@@ -5,11 +5,14 @@
 define([
     './Body'
 ], function (Body) {
-    var INTERVAL_DISTANCE = 200; //body间前一个右边与后一个左边的距离
-    var INTERVAL_DISTANCE_RANDOM_RANGE = 300;
+    var INTERVAL_DISTANCE = 330;
+    var INTERVAL_DISTANCE_RANDOM_RANGE = 150;
     var DEFAULT_TIME = 1;
     return cc.Layer.extend({
         ctor: function () {
+            //TODO for debug
+            window.pipeline = this;
+
             var self = this;
             self._super(); self.init();
 
@@ -17,20 +20,21 @@ define([
             self._speed = 0;
             self._speedList = [
                 //[speed, time]
-                [150, 3],
-                [165],
-                [180],
-                [200],
-                [250],
-                [300],
-                [350],
-                [400],
-                [500],
-                [600],
-                [700],
-                [800],
-                [900],
-                [1000]
+                [150, 3]
+                //[150, 3],
+                //[165],
+                //[180],
+                //[200],
+                //[250],
+                //[300],
+                //[350],
+                //[400],
+                //[500],
+                //[600],
+                //[700],
+                //[800],
+                //[900],
+                //[1000]
             ];
             self._conf = null;
             self._oldConf = null;
@@ -59,12 +63,9 @@ define([
 
             if (this._bodyList.length <= 0) { needAdd = true; }
             else {
-                var lastBody = this._bodyList[this._bodyList.length - 1];
-                var distance = this._getNewBodyPosition() - lastBody.x;
-                needAdd = distance >= (INTERVAL_DISTANCE + this._getBodyWidth());
+                needAdd = this._getNewBodyPosition() - cc.director.getWinSize().width <= this._getBodyWidth() / 2 + 5;
             }
-
-            if (needAdd) { this._addBody(); }
+            if (needAdd) { this._addBody(this._getNewBodyPosition()); }
         },
         _judgeBodyOut: function () {
             var firstBody = this._bodyList[0];
@@ -72,15 +73,16 @@ define([
             if (needOut) { this._removeFirstBody(); }
         },
 
-        _addBody: function () {
+        _addBody: function (x) {
             var body = new Body();
-            var offset = Math.random() * INTERVAL_DISTANCE_RANDOM_RANGE * 2 - INTERVAL_DISTANCE_RANDOM_RANGE;
             body.attr({
-                x: this._getNewBodyPosition() + offset,
+                x: x,
                 y: body.height * body.anchorY //恰好body的底与layer的底重合
             });
             this._bodyList.push(body);
-            this.addChild(body)
+            this.addChild(body);
+
+            this._nextOffset = null;
         },
         _removeFirstBody: function () { this._bodyList.shift().remove(); },
 
@@ -92,9 +94,22 @@ define([
             this._oldConf = _.clone(conf);
             return conf;
         },
-        _getNewBodyPosition: function () { return cc.director.getWinSize().width + this._getBodyWidth() / 2; },
+        _getNewBodyPosition: function () {
+            if (!this._nextOffset) {
+                this._nextOffset = Math.random() * INTERVAL_DISTANCE_RANDOM_RANGE * 2 - INTERVAL_DISTANCE_RANDOM_RANGE;
+            }
+
+            if (this._bodyList.length === 0) {
+                return cc.director.getWinSize().width / 2;
+            } else {
+                //在现有最后一个body的后方INTERVAL_DISTANCE远处加
+                return this._bodyList[this._bodyList.length - 1].x + INTERVAL_DISTANCE + this._nextOffset;
+            }
+        },
         _getBodyWidth: function () {
-            if (!this._bodyWidth) { this._bodyWidth = (new Body()).width; }
+            if (!this._bodyWidth) {
+                this._bodyWidth = (new Body()).width;
+            }
             return this._bodyWidth;
         }
     });

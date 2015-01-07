@@ -48,7 +48,7 @@ define([
             var bodyUpperBound = body.y + body.height * body.anchorY;
             var selfUnderBound = this.y - this.height * this.anchorY;
             this.runAction(new cc.Sequence(
-                new cc.MoveBy(ASSEMBLE_TIME, 0, bodyUpperBound - selfUnderBound - 30),
+                new cc.MoveBy(ASSEMBLE_TIME, 0, bodyUpperBound - selfUnderBound - 25),
                 new cc.CallFunc(this._assembleOrDropDoneCallback)
             ));
         },

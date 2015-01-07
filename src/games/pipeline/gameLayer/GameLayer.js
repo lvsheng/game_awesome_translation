@@ -17,7 +17,7 @@ define([
             self._assembledAmount = 0;
             self._dropedAmount = 0;
             self._head = null;
-            self.addChild(self._pipeline = new Pipeline());
+            self.addChild(self._pipeline = new Pipeline(), -9999999);
             self.addChild(self._timer = (new TimerNode()).start());
 
             self._addNewHead();
