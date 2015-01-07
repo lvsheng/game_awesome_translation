@@ -43,6 +43,7 @@ define([
             ];
             self._conf = null;
             self._oldConf = null;
+            self._stopped = false;
 
             self.schedule(function(dt){
                 self._updateSpeed(dt);
@@ -79,6 +80,8 @@ define([
         },
 
         _addBody: function (x) {
+            if (this._stopped) { return; }
+
             var body = new Body();
             body.attr({
                 x: x,
@@ -116,6 +119,7 @@ define([
                 this._bodyWidth = (new Body()).width;
             }
             return this._bodyWidth;
-        }
+        },
+        stopAddBody: function () { this._stopped = true; }
     });
 });

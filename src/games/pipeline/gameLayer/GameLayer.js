@@ -23,7 +23,13 @@ define([
             self._addNewHead();
 
             //游戏定时结束
-            self.scheduleOnce(_.bind(self._endGame, self), GAME_TIME);
+            self.scheduleOnce(function(){ self._pipeline.stopAddBody(); }, GAME_TIME);
+
+            self.schedule(function () {
+                if (this._pipeline.getBodyList().length === 0) {
+                    self._endGame();
+                }
+            });
 
             //点击时将旧的头尝试安装到流水线上，并增加一个新的头
             cc.eventManager.addListener({
