@@ -22,7 +22,7 @@ define([
     ];
     var crazy_heart_confs = [
         //amount, lifeTime, closeUpDistance
-        [5, 0.5, 0.165]
+        [5, 0.4, 0.15]
         //[3, 1.2],
         //[3, 1.0],
         //[5, 0.5, 0.035],
@@ -33,8 +33,9 @@ define([
         //[1, 0.5]
     ];
 
-    var AUTO_HIT_FOR_DEBUG = true;
-    var AUTO_HIT_REACT_TIME = 0.3;
+    var AUTO_HIT_FOR_DEBUG = false;
+    //var AUTO_HIT_FOR_DEBUG = true;
+    var AUTO_HIT_REACT_TIME = 0.35;
 
     return cc.Layer.extend({
         ctor: function (endCallback) {

@@ -111,7 +111,7 @@ define([
             self._left.x = centerX - offset;
             self._right.x = centerX + offset;
 
-            if (self._distance - self._getMeetDistance() <= 0.1 && !self._inCrazyMode) {
+            if (self._distance - self._getMeetDistance() <= 0.065 && !self._inCrazyMode) {
                 //启动疯狂模式
                 self.tint();
                 self._inCrazyMode = true;
