@@ -10,6 +10,7 @@ define([
             self._super(); self.init();
 
             self._gameTime = 30;
+            //self._gameTime = 1;
             self._matrixSizeList = [
                 2,
                 3,
@@ -54,7 +55,9 @@ define([
             }, self);
 
             self.schedule(function () {
-                self._endGame();
+                self._matrix.preEnd(function(){
+                    self._endGame();
+                });
             }, self._gameTime);
 
             self._matrix.generate(self._scale);

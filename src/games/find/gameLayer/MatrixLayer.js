@@ -47,7 +47,20 @@ define([
             }
         },
         whetherFind: function (position) {
+            if (this._endding) { return false; }
             return cc.rectContainsPoint(this._fengjieRect, position);
+        },
+        preEnd: function (endCallback) {
+            this._endding = true;
+            this.children[0].runAction(new cc.Sequence(
+                new cc.FadeOut(0.8),
+                new cc.CallFunc(endCallback)
+            ));
+            for (var i = 1; i < this.children.length; ++i) {
+                this.children[i].runAction(new cc.Sequence(
+                    new cc.FadeOut(0.8)
+                ))
+            }
         },
         _scaleTo: function (sprite, width, height) {
             sprite.scaleY = height / sprite.height;
