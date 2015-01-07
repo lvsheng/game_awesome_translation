@@ -1,15 +1,16 @@
 define([
-    './Matrix',
+    './MatrixLayer',
     '../../../util/pauseGame',
+    '../../../util/resourceFileMap',
     '../../../commonClass/TimerNode'
-], function (Matrix, pauseGame, TimerNode) {
+], function (MatrixLayer, pauseGame, resourceFileMap, TimerNode) {
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;
             self._super(); self.init();
 
             self._gameTime = 30;
-            self._matrixScaleList = [
+            self._matrixSizeList = [
                 2,
                 3,
                 4,
@@ -27,10 +28,15 @@ define([
                 10
             ];
             self._endCallback = endCallback;
-            self._scale = self._matrixScaleList.shift();
+            self._scale = self._matrixSizeList.shift();
             self._hitCount = 0;
 
-            self.addChild(self._matrix = new Matrix());
+            var winSize = cc.director.getWinSize();
+            var center = cc.p(winSize.width / 2, winSize.height / 2);
+            var person = new cc.Sprite(resourceFileMap.find.person);
+            person.attr({anchorX: 0.5, anchorY: 0, x: center.x - 323, y: 0});
+            self.addChild(person);
+            self.addChild(self._matrix = new MatrixLayer());
             self.addChild(self._timer = (new TimerNode()).start());
 
             cc.eventManager.addListener({
@@ -39,7 +45,7 @@ define([
                 onTouchBegan: function (touch) {
                     if (self._matrix.whetherFind(touch.getLocation())) {
                         ++self._hitCount;
-                        self._scale = self._matrixScaleList.length > 0 ? self._matrixScaleList.shift() : self._scale;
+                        self._scale = self._matrixSizeList.length > 0 ? self._matrixSizeList.shift() : self._scale;
                         self._matrix.generate(self._scale);
                     }
                 }
@@ -48,6 +54,8 @@ define([
             self.schedule(function () {
                 self._endGame();
             }, self._gameTime);
+
+            self._matrix.generate(self._scale);
         },
 
         _endGame: function () {
