@@ -30,6 +30,7 @@ define([
 
             this._endCallback = endCallback;
             this._ultramanConfList = [
+                //[1, R, 500, 1]
                 //[每一个与下一个的出现间隔，方向，速度, 数量]
                 "wave",
                 [1, R, 500, 3],
@@ -54,6 +55,7 @@ define([
             ];
             this._ultramans = [];
             this._passedWave = 0;
+            this._endding = false;
             this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
@@ -70,11 +72,16 @@ define([
             var curConf = null;
 
             function launchOne () {
+                if (self._endding) { return; }
+
                 if (remainedAmount === 0) { //上一个配置的已经发完
                     curConf = self._getNextUltraManConf();
                     if (!curConf || curConf.amount == 0) { //已经全部发射完
                         //开始判断成功通过
-                        self.schedule(function(){ self._ultramans.length === 0 && self._endGame(true); });
+                        self.schedule(function(){
+                            if (self._endding) { return; }
+                            self._ultramans.length === 0 && self._endGame(true);
+                        });
                         //结束递归schedule
                         return;
                     }
@@ -112,23 +119,49 @@ define([
 
         //判断是不是有奥特曼撞上了00后
         _judgeCrash: function () {
+            if (this._endding) { return; }
             var self = this;
             _.forEach(self._ultramans, function (each) {
-                if (self._teenager.ifCrash(each)) { self._endGame(false); }
+                if (self._teenager.ifCrash(each)) { self._endGame(false, each); }
             });
         },
 
-        _endGame: function (winning) {
-            //TODO: 先把各其他奥特曼停下，再把撞到的奥特曼执行摔倒动画，最后才真地结束游戏。
-            //TODO: 后面要不为了简单就先只给被撞到的奥特曼头顶加一个叹号吧
-            pauseGame.pauseGame();
-            this._endCallback({
-                winning: winning,
-                time: this._timer.get(),
-                passedAmount: this._passedAmount,
-                remainedWave: this._getRemainedWave(),
-                passedWave: this._passedWave
-            });
+        /**
+         * @param winning
+         * @param [crashedUltraman] 失败（winning为false）时应传入
+         * @private
+         */
+        _endGame: function (winning, crashedUltraman) {
+            var self = this;
+            self._endding = true;
+            self._teenager.stopAllActions();
+
+            if (!winning) {
+                _.forEach(self._ultramans, function (each) {
+                    each.stopAllActions();
+                });
+                crashedUltraman.runAction(new cc.Sequence(
+                    new cc.Blink(0.3, 1.58),
+                    new cc.DelayTime(0.5),
+                    new cc.CallFunc(end)
+                ));
+            } else {
+                self._teenager.runAction(new cc.Sequence(
+                    new cc.FadeOut(0.5),
+                    new cc.CallFunc(end)
+                ));
+            }
+
+            function end () {
+                pauseGame.pauseGame();
+                self._endCallback({
+                    winning: winning,
+                    time: self._timer.get(),
+                    passedAmount: self._passedAmount,
+                    remainedWave: self._getRemainedWave(),
+                    passedWave: self._passedWave
+                });
+            }
         },
 
         _jumpUltramanOnTouch: function () {
@@ -138,6 +171,7 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
                 swallowTouches: false,
                 onTouchBegan: function () {
+                    if (self._endding) { return; }
                     var ultraman = self._teenager.comingNoJumpCloset(self._ultramans);
                     if (ultraman) { ultraman.jump(); }
                 }
