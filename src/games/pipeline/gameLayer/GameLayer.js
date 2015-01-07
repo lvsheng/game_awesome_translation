@@ -2,8 +2,9 @@ define([
     './Pipeline',
     './Head',
     '../../../util/pauseGame',
+    '../../../util/resourceFileMap',
     '../../../commonClass/TimerNode'
-], function (Pipeline, Head, pauseGame, TimerNode) {
+], function (Pipeline, Head, pauseGame, resourceFileMap, TimerNode) {
     var GAME_TIME = 30;
 
     //TODO: for debug
@@ -19,6 +20,9 @@ define([
             self._head = null;
             self.addChild(self._pipeline = new Pipeline(), -9999999);
             self.addChild(self._timer = (new TimerNode()).start());
+            var bar = new cc.Sprite(resourceFileMap.pipeline.bar);
+            bar.attr({x: cc.director.getWinSize().width / 3 - 10, anchorY: 1, y: cc.director.getWinSize().height});
+            self.addChild(bar, -9999999);
 
             self._addNewHead();
 

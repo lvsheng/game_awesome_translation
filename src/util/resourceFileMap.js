@@ -60,7 +60,8 @@ define({
         bg: 'res/pipeline/bg.png',
         body: 'res/pipeline/body.png',
         head: 'res/pipeline/head.png',
-        man: 'res/pipeline/man.png'
+        man: 'res/pipeline/man.png',
+        bar: 'res/pipeline/bar.png'
     },
     home: {
         bg: 'res/home/bg.png',
