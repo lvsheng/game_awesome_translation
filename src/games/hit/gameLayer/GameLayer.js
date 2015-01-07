@@ -55,20 +55,13 @@ define([
 
         _updateGameRemainTime: function (dt) { //要求每次更新都要调用本方法
             var self = this;
-            if (self._remainGameTime === 0) { return; }
             self._remainGameTime -= dt;
 
             self._timer.setTime(parseInt(self._remainGameTime) + 1);
 
             if (self._remainGameTime <= 0) {
                 self._remainGameTime = 0;
-
-                _.forEach(self._holes, function (each) {
-                    each.pullPoppedMouse();
-                });
-                self.scheduleOnce(function(){
-                    self._endGame();
-                }, 1);
+                self._endGame();
             }
         },
 
@@ -200,7 +193,6 @@ define([
 
         _popMouse: function () {
             var self = this;
-            if (self._remainGameTime === 0) { return; }
 
             function hasCanPopHole () {
                 var has = false;
