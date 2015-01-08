@@ -18,15 +18,17 @@
             overflow: hidden;
         }
         body {
-            background-image: url('./loading.gif');
-            background-size: cover;
-            transform-origin: left top;
-            -webkit-transform-origin: left top;
             position: relative;
+            -webkit-transform-origin: left top;
+            -webkit-transform: rotateZ(0deg);
+        }
+        body.rotate {
+            -webkit-transform: rotateZ(90deg);
         }
     </style>
 </head>
 <body>
+
 
 
 <canvas id="gameCanvas" width="1136" height="640"></canvas>
