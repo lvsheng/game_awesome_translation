@@ -18,6 +18,15 @@ require([
         cc.view.resizeWithBrowserSize(true);
         cc._loaderImage = null;
 
+        //尝试手动触发一次resize
+        //if (isFirstStart) {
+        //    isFirstStart = false;
+        //    var event = document.createEvent('HTMLEvents');
+        //    event.initEvent('resize', true, true);
+        //    window.dispatchEvent(event);
+        //    return;
+        //}
+
         //canvas的尺寸已经乱了，强制搞一下试试
         //var canvas = document.getElementById("gameCanvas");
         //if (isHorizontal()) {
