@@ -111,6 +111,8 @@ define([
     var loaderScene;
 
     return function(resources, cb){
+        //showWidthHeight('in preload, before loder\n');
+
         if (!loaderScene) { loaderScene = new LoaderScene(); }
         loaderScene.initWithResources(resources, cb);
         cc.director.runScene(loaderScene);

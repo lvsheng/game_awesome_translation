@@ -3179,7 +3179,10 @@ cc.EGLView = cc.Class.extend({
         this._initFrameSize();
         this._originalDesignResolutionSize.width = this._designResolutionSize.width = width;
         this._originalDesignResolutionSize.height = this._designResolutionSize.height = height;
+        //showWidthHeight('before\n');
         var result = policy.apply(this, this._designResolutionSize);
+        //showWidthHeight('after\n');
+        //就是在这里把canvas的宽高扩大了将近3倍~
         if(result.scale && result.scale.length == 2){
             this._scaleX = result.scale[0];
             this._scaleY = result.scale[1];
