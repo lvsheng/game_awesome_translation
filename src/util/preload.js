@@ -108,12 +108,9 @@ define([
             this._currentLogo.visible = true;
         }
     });
-    var loaderScene;
 
     return function(resources, cb){
-        //showWidthHeight('in preload, before loder\n');
-
-        if (!loaderScene) { loaderScene = new LoaderScene(); }
+        var loaderScene = new LoaderScene();
         loaderScene.initWithResources(resources, cb);
         cc.director.runScene(loaderScene);
     };
