@@ -4,8 +4,9 @@
 require([
     'util/resourceFileList',
     'util/preload',
-    './home/HomeScene'
-], function (resourceFileList, preload, HomeScene) {
+    './home/HomeScene',
+    './list/Scene'
+], function (resourceFileList, preload, HomeScene, ListScene) {
     cc.game.onStart = function(){
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
@@ -32,7 +33,7 @@ require([
     }
     function stopAndInformNeedHorizontal () {
         if (running) {
-            var curGame = HomeScene.getInstance().getCurGame().sceneInstance;
+            var curGame = ListScene.getInstance().getCurGame().sceneInstance;
             if (curGame && _.isFunction(curGame.pauseGame)) { curGame.pauseGame(); }
         }
         document.getElementById("gameCanvas").style.display = "none";

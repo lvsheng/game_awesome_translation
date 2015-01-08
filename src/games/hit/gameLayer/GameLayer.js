@@ -7,7 +7,7 @@ define([
     return cc.Layer.extend({
         _GAME_TIME: 30, //游戏时长，秒为单位
         //TODO: for debug
-        _GAME_TIME: 3, //游戏时长，秒为单位
+        //_GAME_TIME: 3, //游戏时长，秒为单位
         _POP_MOUSE_INTERVAL_UPDATE_TIME: 3, //多久更新一次弹鼠的间隔
         _POP_MOUSE_FACTOR_LIST: [
             //mousePopInterval, uncleExistTime, loverExistTime, popLoverProbability
