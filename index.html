@@ -9,6 +9,7 @@
     <meta name="full-screen" content="yes"/>
     <meta name="x5-fullscreen" content="true"/>
     <meta name="360-fullscreen" content="true"/>
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
 
     <style>
         html, body {
@@ -20,16 +21,14 @@
         html {
             position: relative;
             -webkit-transform-origin: left top;
-            -webkit-transform: rotateZ(0deg);
+            -webkit-transform: rotateZ(0deg) translateZ(0);
         }
         html.rotate {
-            -webkit-transform: rotateZ(90deg);
+            -webkit-transform: rotateZ(90deg) translateZ(0);
         }
     </style>
 </head>
 <body>
-
-
 
 <canvas id="gameCanvas" width="1136" height="640"></canvas>
 
