@@ -1,9 +1,8 @@
 define([
     '../../../util/resourceFileMap',
     './Hole',
-    './Hammer',
-    './GameTimerLabel'
-], function (resourceFileMap, Hole, Hammer, GameTimerLabel) {
+    './Hammer'
+], function (resourceFileMap, Hole, Hammer) {
     return cc.Layer.extend({
         _GAME_TIME: 30, //游戏时长，秒为单位
         //TODO: for debug
@@ -36,7 +35,6 @@ define([
             //初始化成员变量
             self._holes = [];
             self._hammer = null;
-            self._timer = null;
             self._popMouseIntervalIndex = 0;
             self._remainGameTime = self._GAME_TIME;
 
@@ -60,8 +58,6 @@ define([
             var self = this;
             if (self._endding) { return; }
             self._remainGameTime -= dt;
-
-            self._timer.setTime(parseInt(self._remainGameTime) + 1);
 
             if (self._remainGameTime <= 0) {
                 self._remainGameTime = 0;
@@ -114,14 +110,6 @@ define([
 
             self._hammer = new Hammer();
             self.addChild(self._hammer);
-
-            self._timer = new GameTimerLabel();
-            self._timer.attr({
-                anchorX: 0,
-                x: 32,
-                y: 54
-            });
-            self.addChild(self._timer);
         },
         _listenEvent: function () {
             var self = this;
@@ -241,36 +229,6 @@ define([
             self.unschedule(self._popMouse);
             self.unschedule(self._updateGameRemainTime);
             self._endCallback();
-        },
-
-        //just for Debug
-        showAllAmount: function () {
-            var self = this;
-            var factorList = self._POP_MOUSE_FACTOR_LIST;
-
-            if (factorList.length * self._POP_MOUSE_INTERVAL_UPDATE_TIME !== self._GAME_TIME) {
-                alert('self._POP_MOUSE_FACTOR_LIST 总和与游戏时间不符~');
-                return;
-            }
-
-            var wholeAmount = 0;
-            var wholeUncleAmount = 0;
-            var wholeLoverAmount = 0;
-            var lastLoverProbability = factorList[0][3];
-            for (var i = 0; i < factorList.length; ++i) {
-                var curProbability = factorList[i][3];
-                if (!curProbability) {
-                    curProbability = lastLoverProbability;
-                }
-
-                var curAmount = self._POP_MOUSE_INTERVAL_UPDATE_TIME / factorList[i][0];
-                wholeAmount += curAmount;
-                wholeUncleAmount += curAmount * (1 - curProbability);
-                wholeLoverAmount += curAmount * curProbability;
-
-                lastLoverProbability = curProbability;
-            }
-            alert('出现地鼠总数：' + wholeAmount + ' uncle:' + wholeUncleAmount + ' lover: ' + wholeLoverAmount);
         }
     });
 });

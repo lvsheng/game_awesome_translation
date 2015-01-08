@@ -1,9 +1,8 @@
 define([
     '../../../util/resourceFileMap',
     '../scoreManager',
-    './zIndexConf',
-    './unShowedSayingIndexManager'
-], function (resourceFileMap, scoreManager, zIndexConf, unShowedSayingIndexManager) {
+    './zIndexConf'
+], function (resourceFileMap, scoreManager, zIndexConf) {
     return cc.Sprite.extend({
         _STATUS: {
             idle: 'idle',
@@ -20,7 +19,6 @@ define([
             //字段声明
             self._status = self._STATUS.idle;
             self._poppedMouse = null;
-            self._showedSaying = null;
 
             self._uncle = null;
             self._lover1 = null;
@@ -89,7 +87,6 @@ define([
             var poppedMouse = Math.random() <= self._popLoverProbability ? lover : self._uncle;
 
             self._poppedMouse = poppedMouse;
-            self._showedSaying = self._getSayingRandom(poppedMouse === lover ? 'lover' : 'uncle');
             self._status = self._STATUS.mouseOn;
             poppedMouse.runAction(self._mousePopOnAction);
 
@@ -320,19 +317,6 @@ define([
                 self.addChild(curLoverSaying);
                 self._loverSayings.push(curLoverSaying);
             }
-            unShowedSayingIndexManager.init(self._SAYING_AMOUNT);
-        },
-
-        /**
-         * @param type 'uncle' or 'lover'
-         * @private
-         */
-        _getSayingRandom: function (type) {
-            var self = this;
-
-            var index = unShowedSayingIndexManager.get(type);
-            var sayings = type === 'lover' ? self._loverSayings : self._uncleSayings;
-            return sayings[index];
         },
 
         _initialAction: function () {
@@ -343,38 +327,12 @@ define([
             var mousePullMoveAction = new cc.MoveTo(0.06, self._lover2.x, self._initialAttr.hidingMouseY);
 
             self._mousePopOnAction = new cc.Sequence(
-                new cc.EaseIn(mousePopOnMoveAction, .8),
-                new cc.CallFunc(function () {
-                    var animating = .5;
-
-                    self._showedSaying.attr({
-                        visible: true,
-                        opacity: 0,
-                        rotation: -80
-                    });
-                    self._showedSaying.runAction(new cc.Spawn(
-                        new cc.FadeIn(animating),
-                        new cc.EaseElasticOut(new cc.RotateTo(animating, 0), .4)
-                    ));
-                })
+                new cc.EaseIn(mousePopOnMoveAction, .8)
             );
             self._mousePullAction = new cc.Sequence(
                 new cc.EaseIn(mousePullMoveAction, .8),
                 new cc.CallFunc(function () {
-                    var animatingTime = .1;
-
-                    self._showedSaying.stopAllActions();
-                    self._showedSaying.runAction(new cc.Sequence(
-                        new cc.Spawn(
-                            new cc.FadeOut(animatingTime),
-                            new cc.EaseBackIn(new cc.RotateTo(animatingTime, -40), .4)
-                        ),
-                        new cc.CallFunc(function () {
-                            self._showedSaying = null;
-                            //必需执行完pullAction，saying动画也完了才能使状态改为idle，允许再pop。不然上一个saying可能还没下去~
-                            self._status = self._STATUS.idle;
-                        })
-                    ));
+                    self._status = self._STATUS.idle;
                 })
             );
         },
