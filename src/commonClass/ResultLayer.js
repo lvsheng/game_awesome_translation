@@ -77,6 +77,19 @@ define([
             self._animate();
 
             share.tryWeixinShare(); //一展示结果就尝试一次分享到微信
+
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: false,
+                onTouchBegan: _.bind(self._removeShadowLayer, self)
+            }, self);
+        },
+
+        _removeShadowLayer: function () {
+            if (this._shadowLayer) {
+                this.removeChild(this._shadowLayer);
+                this._shadowLayer = null;
+            }
         },
 
         _animate: function () {
@@ -91,20 +104,23 @@ define([
             sprite.scaleY = cc.director.getWinSize().height / sprite.height;
         },
         _rePlay: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; } //尝试在shadow上阻止事件向下传递，但没成功，先用这种比较挫的标记方法。。。
             var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             cc.director.runScene(require('../list/Scene').getInstance());
         },
         _shareWeibo: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             share.weiboShare();
         },
         _shareWeixin: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             var self = this;
             share.tryWeixinShare(function(){
-                //TODO: 看这里能不能被执行到~
                 var winSize = cc.director.getWinSize();
                 var center = cc.p(winSize.width / 2, winSize.height / 2);
 
@@ -120,6 +136,8 @@ define([
                 shadowLayer.addChild(buttonSprite);
 
                 shadowLayer.bake();
+
+                self._shadowLayer = shadowLayer;
             });
         }
     });
