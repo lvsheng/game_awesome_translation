@@ -21,6 +21,9 @@ require([
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
+        alert('judge');
+        showWidthHeight();
+
         var element = document.documentElement;
 
         if (isHorizontal()) {
@@ -46,6 +49,26 @@ require([
         }
     }
 
-    window.addEventListener("resize", judgeHorizontal);
+    //function launchListener () {
+    //    window.addEventListener("resize", judgeHorizontal);
+    //    window.removeEventListener("resize", launchListener);
+    //}
+    //window.addEventListener('resize', launchListener);
+    var isFirstResize = true;
+    window.addEventListener("resize", function () {
+        showWidthHeight();
+        if (isFirstResize) { //第一次resize应为judgeHorizontal中对cc.game.run的调用所致，故忽略
+            isFirstResize = false;
+            return;
+        }
+
+        judgeHorizontal();
+    });
     judgeHorizontal();
+
+    function showWidthHeight () {
+        alert('w:' + window.innerWidth + '\n' +
+                'h:' + window.innerHeight
+        );
+    }
 });
