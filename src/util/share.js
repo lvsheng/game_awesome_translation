@@ -3,7 +3,9 @@
  * @author lvsheng
  * @date 2015/1/6
  */
-define([], function () {
+define([
+    './isWeixin'
+], function (isWeixin) {
     var weiboTopic = "#贴吧神翻译#";
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
@@ -96,7 +98,7 @@ define([], function () {
     };
 
     function shareFriend(onFail) {
-        WeixinJSBridge.invoke('sendAppMessage',{
+        window.WeixinJSBridge.invoke('sendAppMessage',{
             "appid": '',
             "img_url": sharedContent.imgUrl,
             "img_width": "200",
@@ -107,7 +109,7 @@ define([], function () {
         }, onFail)
     }
     function shareTimeline(onFail) {
-        WeixinJSBridge.invoke('shareTimeline',{
+        window.WeixinJSBridge.invoke('shareTimeline',{
             "img_url": sharedContent.imgUrl,
             "img_width": "200",
             "img_height": "200",
@@ -117,30 +119,32 @@ define([], function () {
         }, onFail);
     }
     function shareWeibo(onFail) {
-        WeixinJSBridge.invoke('shareWeibo',{
+        window.WeixinJSBridge.invoke('shareWeibo',{
             "content": sharedContent.content,
             "url": sharedContent.url
         }, onFail);
     }
 
-    // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
-    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-        //TODO: 验证是不是能绑定上这个事件（会不会事件触发之后本函数代码才执行）
-        alert("on WeixinJSBridgeReady");
-
+    function bindWeixin() {
         // 发送给好友
-        WeixinJSBridge.on('menu:share:appmessage', function(argv){
+        window.WeixinJSBridge.on('menu:share:appmessage', function(argv){
             shareFriend();
         });
         // 分享到朋友圈
-        WeixinJSBridge.on('menu:share:timeline', function(argv){
+        window.WeixinJSBridge.on('menu:share:timeline', function(argv){
             shareTimeline();
         });
         // 分享到微博
-        WeixinJSBridge.on('menu:share:weibo', function(argv){
+        window.WeixinJSBridge.on('menu:share:weibo', function(argv){
             shareWeibo();
         });
-    }, false);
+    }
+    // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+    document.addEventListener('WeixinJSBridgeReady', bindWeixin, false);
+    //防止本文件执行时事件已经触发过，这里手动调用一次
+    if (isWeixin()) {
+        bindWeixin();
+    }
 
     return {
         tryWeixinShare: function (onFail) {
