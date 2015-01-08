@@ -3,8 +3,9 @@
  * @date 2015/1/3
  */
 define([
-    '../util/resourceFileMap'
-], function (resourceFileMap) {
+    '../util/resourceFileMap',
+    './ScrollMenu'
+], function (resourceFileMap, ScrollMenu) {
     return cc.Layer.extend({
         ctor: function(enterAGame){
             var self = this;
@@ -41,7 +42,8 @@ define([
                 menuItems.push(menuItem);
             });
 
-            var menu = new cc.Menu(menuItems);
+            //var menu = new cc.Menu(menuItems);
+            var menu = ScrollMenu.create(menuItems);
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             var container = new cc.Layer();
             container.addChild(menu);
