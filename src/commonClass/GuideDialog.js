@@ -44,6 +44,8 @@ define([
             textLabel.color = cc.color(0, 37, 41, 255);
             dialogLayer.addChild(textLabel);
 
+            dialogLayer.bake();
+
             this._animate();
         },
         _animate: function () {
@@ -52,11 +54,8 @@ define([
             dialogLayer.runAction(new cc.Sequence(
                 new cc.ScaleTo(0.1, 0.1),
                 //(new cc.ScaleTo(1, 1)).easing(cc.easeElasticOut(0.5))
-                (new cc.ScaleTo(0.3, 1)).easing(cc.easeElasticOut(1)),
+                (new cc.ScaleTo(0.3, 1)).easing(cc.easeElasticOut(1))
                 //new cc.ScaleTo(0.2, 1).easing(cc.easeBackIn())//.easing(cc.easeCircleActionIn(.3))
-                new cc.CallFunc(function(){
-                    dialogLayer.bake();
-                })
             ));
         }
     });
