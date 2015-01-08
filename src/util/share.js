@@ -97,6 +97,7 @@ define([
     };
 
     function shareFriend(onFail) {
+        if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('sendAppMessage',{
             "appid": '',
             "img_url": sharedContent.imgUrl,
@@ -108,6 +109,7 @@ define([
         }, onFail);
     }
     function shareTimeline(onFail) {
+        if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('shareTimeline',{
             "img_url": sharedContent.imgUrl,
             "img_width": "200",
@@ -118,6 +120,7 @@ define([
         }, onFail);
     }
     function shareWeibo(onFail) {
+        if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('shareWeibo',{
             "content": sharedContent.content,
             "url": sharedContent.url
