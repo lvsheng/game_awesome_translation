@@ -5,8 +5,8 @@
 define([], function () {
     var B = {
         0: 0.35,
-        1: 0.25,
-        2: 0.18
+        1: 0.22,
+        2: 0.15
     };
     return cc.Node.extend({
         _positionManager: null,
