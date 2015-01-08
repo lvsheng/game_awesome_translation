@@ -17,34 +17,26 @@ require([
         }, this);
     };
 
-    var running = false;
-    function runAndCancelInform () {
-        if (running) {
-            //do nothing. (now should be paused state)
-        } else {
-            running = true;
-            cc.game.run("gameCanvas");
-
-            //TODO: bug to fix: 在android下刚进入页面时点得快了可能使屏幕放大
-            //TODO: 有些浏览器下无法横屏？
-        }
-        document.getElementById("gameCanvas").style.display = "block";
-        document.getElementById("j_horizontal_needed").style.display = "none";
-    }
-    function stopAndInformNeedHorizontal () {
-        if (running) {
-            var curGame = ListScene.getInstance().getCurGame().sceneInstance;
-            if (curGame && _.isFunction(curGame.pauseGame)) { curGame.pauseGame(); }
-        }
-        document.getElementById("gameCanvas").style.display = "none";
-        document.getElementById("j_horizontal_needed").style.display = "block";
-    }
-
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
-        //if (isHorizontal()) { runAndCancelInform(); }
-        //else { stopAndInformNeedHorizontal(); }
-        runAndCancelInform()
+        var body = document.body;
+
+        if (isHorizontal()) {
+            body.style.width = window.innerWidth + 'px';
+            body.style.height = window.innerHeight + 'px';
+            body.style.right = "0px";
+            body.style.transform = "rotate(0deg)";
+            body.style.webkitTransform = "rotate(0deg)";
+        }
+        else {
+            body.style.width = window.innerHeight + "px";
+            body.style.height = window.innerWidth + "px";
+            body.style.right = "-" + window.innerWidth + "px";
+            body.style.transform = "rotate(90deg)";
+            body.style.webkitTransform = "rotate(90deg)";
+        }
+
+        cc.game.run("gameCanvas");
     }
 
     window.addEventListener("resize", judgeHorizontal);

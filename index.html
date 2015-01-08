@@ -15,49 +15,27 @@
             /*background-color: black;*/
             width: 100%;
             height: 100%;
-            padding: 0;
-            margin: 0;
             overflow: hidden;
         }
-        #game {
-            width: 100%;
-            height: 100%;
+        body {
+            background-image: url('./loading.gif');
+            background-size: cover;
+            transform-origin: left top;
+            -webkit-transform-origin: left top;
+            position: relative;
         }
     </style>
 </head>
 <body>
-<iframe id="game" src="./game.html" frameborder="0"></iframe>
-<script>
-    (function () {
-        function isHorizontal () { return window.innerWidth > window.innerHeight; }
-        function judgeHorizontal () {
-            var iframe = document.getElementById("game");
 
-            alert(window.innerWidth);
-            alert(window.innerHeight);
 
-            if (isHorizontal()) {
-                iframe.width = window.innerWidth;
-                iframe.height = window.innerHeight;
-                iframe.style.transformOrigin="left top";
-                iframe.style.transform = "rotate(0deg)";
-                iframe.style.position = "relative";
-                iframe.style.right = "0px";
-            }
-            else {
-                iframe.width = window.innerHeight;
-                iframe.height = window.innerWidth;
-                iframe.style.transformOrigin="left top";
-                iframe.style.transform = "rotate(90deg)";
-                iframe.style.position = "relative";
-                iframe.style.right = "-" + window.innerWidth + "px";
-            }
-        }
+<canvas id="gameCanvas" width="1136" height="640"></canvas>
 
-//        window.addEventListener("resize", judgeHorizontal);
-//        judgeHorizontal();
-    })();
-
-</script>
+<!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），故需在require之前先加载cocos-->
+<!--<script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>-->
+<script type="text/javascript" src="cocos2d-js-v3.2.js" charset="UTF-8"></script>
+<!--语言增强型基础库，认为还是应该作为全局引入-->
+<script src="underscore.js"></script>
+<script data-main="src/main" src="require.js"></script>
 </body>
 </html>
