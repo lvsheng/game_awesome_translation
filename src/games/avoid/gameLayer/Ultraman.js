@@ -15,8 +15,8 @@ define([
         _innerCrashRect: cc.rect(42, 18, 103, 96),
         _tryingJumpTeenager: false,
 
-        ctor: function (direction, speed, gameLayer) {
-            this._super(resourceFileMap.avoid.ultraman);
+        ctor: function (direction, speed, gameLayer, texture) {
+            this._super(texture);
 
             this._direction = direction;
             this._speed = speed;

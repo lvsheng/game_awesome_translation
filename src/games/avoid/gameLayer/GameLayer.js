@@ -9,10 +9,11 @@
  */
 define([
     '../../../util/pauseGame',
+    '../../../util/resourceFileMap',
     '../../../commonClass/TimerNode',
     './Teenager',
     './Ultraman'
-], function (pauseGame,TimerNode, Teenager, Ultraman) {
+], function (pauseGame, resourceFileMap, TimerNode, Teenager, Ultraman) {
     var L = 'left', R = 'right';
     return cc.Layer.extend({
         _ultramanConfList: null, //奥特曼配置列表
@@ -56,6 +57,10 @@ define([
             this._ultramans = [];
             this._passedWave = 0;
             this._endding = false;
+
+            var spriteBatchNode = this._spriteBatchNode = new cc.SpriteBatchNode(resourceFileMap.avoid.ultraman, 30);
+            this.addChild(spriteBatchNode);
+
             this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
@@ -105,8 +110,10 @@ define([
             else { return { interval: arr[0], direction: arr[1], speed: arr[2], amount: arr[3] }; }
         },
         _addAUltraman: function (direction, speed) {
-            var ultraman = new Ultraman(direction, speed, this);
-            this.addChild(ultraman);
+            var path = resourceFileMap.avoid.ultraman;
+            //var ultraman = new Ultraman(direction, speed, this, '#' + path.substring(path.lastIndexOf('/') + 1));
+            var ultraman = new Ultraman(direction, speed, this, this._spriteBatchNode.getTexture());
+            this._spriteBatchNode.addChild(ultraman);
             this._ultramans.push(ultraman);
         },
         removeAUltraman: function (ultraman) {
