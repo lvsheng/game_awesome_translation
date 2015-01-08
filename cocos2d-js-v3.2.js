@@ -925,8 +925,8 @@ cc._setup = function (el, width, height) {
         if (element.tagName != "DIV") {
             cc.log("Warning: target element is not a DIV or CANVAS");
         }
-        width = width || element.clientWidth;
-        height = height || element.clientHeight;
+        width = width || window.rotatedTouchPositionTransformer.getClientWidth(element);
+        height = height || window.rotatedTouchPositionTransformer.getClientHeight(element);
         localContainer = cc.container = element;
         localCanvas = cc._canvas = cc.$(cc.newElement("CANVAS"));
         element.appendChild(localCanvas);
@@ -2881,14 +2881,14 @@ cc.__BrowserGetter = {
             //return window.innerWidth;
             return document.body.offsetWidth;
         else
-            return frame.clientWidth;
+            return window.rotatedTouchPositionTransformer.getClientWidth(frame);
     },
     availHeight: function(frame){
         if(!frame || frame === this.html)
             //return window.innerHeight;
             return document.body.offsetHeight;
         else
-            return frame.clientHeight;
+            return window.rotatedTouchPositionTransformer.getClientHeight(frame);
     },
     meta: {
         "width": "device-width",
@@ -2905,10 +2905,10 @@ switch(cc.sys.browserType){
         });
     case cc.sys.BROWSER_TYPE_UC:
         cc.__BrowserGetter.availWidth = function(frame){
-            return frame.clientWidth;
+            return window.rotatedTouchPositionTransformer.getClientWidth(frame);
         };
         cc.__BrowserGetter.availHeight = function(frame){
-            return frame.clientHeight;
+            return window.rotatedTouchPositionTransformer.getClientHeight(frame);
         };
         break;
     case cc.sys.BROWSER_TYPE_MIUI:
@@ -3030,6 +3030,7 @@ cc.EGLView = cc.Class.extend({
     },
     _initFrameSize: function () {
         var locFrameSize = this._frameSize;
+        //by lvsheng: 在这里
         locFrameSize.width = cc.__BrowserGetter.availWidth(this._frame);
         locFrameSize.height = cc.__BrowserGetter.availHeight(this._frame);
     },
@@ -3122,6 +3123,7 @@ cc.EGLView = cc.Class.extend({
         return cc.size(this._frameSize.width, this._frameSize.height);
     },
     setFrameSize: function (width, height) {
+        alert('setFrameSize: ' + width + ', ' + height); //没有被调用~~
         this._frameSize.width = width;
         this._frameSize.height = height;
         this._frame.style.width = width + "px";
@@ -3308,10 +3310,12 @@ cc.ContainerStrategy = cc.Class.extend({
         locContainer.style.width = locCanvasElement.style.width = w + "px";
         locContainer.style.height = locCanvasElement.style.height = h + "px";
         var devicePixelRatio = view._devicePixelRatio = 1;
+        showWidthHeight('_setupContainer before\n');
         if (view.isRetinaEnabled())
             devicePixelRatio = view._devicePixelRatio = window.devicePixelRatio || 1;
         locCanvasElement.width = w * devicePixelRatio;
         locCanvasElement.height = h * devicePixelRatio;
+        showWidthHeight('_setupContainer after\n');
         cc._renderContext.resetCache && cc._renderContext.resetCache();
         var body = document.body, style;
         if (body && (style = body.style)) {
@@ -3372,6 +3376,7 @@ cc.ContentStrategy = cc.Class.extend({
 (function () {
     var EqualToFrame = cc.ContainerStrategy.extend({
         apply: function (view) {
+            alert('view._frameSize:' + view._frameSize.width + ", " + view._frameSize.height);
             this._setupContainer(view, view._frameSize.width, view._frameSize.height);
         }
     });
@@ -3452,6 +3457,7 @@ cc.ContentStrategy = cc.Class.extend({
     });
     var FixedHeight = cc.ContentStrategy.extend({
         apply: function (view, designedResolution) {
+            //showWidthHeight('before\n');
             var containerW = cc._canvas.width, containerH = cc._canvas.height,
                 designH = designedResolution.height, scale = containerH / designH,
                 contentW = containerW, contentH = containerH;
@@ -11473,7 +11479,7 @@ cc.LabelTTF.__getFontHeightByDiv = function (fontName, fontSize) {
     labelDiv.innerHTML = "ajghl~!";
     labelDiv.style.fontFamily = fontName;
     labelDiv.style.fontSize = fontSize + "px";
-    clientHeight = labelDiv.clientHeight;
+    clientHeight = window.rotatedTouchPositionTransformer.getClientHeight(labelDiv);
     cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize] = clientHeight;
     labelDiv.innerHTML = "";
     return clientHeight;

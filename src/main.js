@@ -26,6 +26,7 @@ require([
         //    window.dispatchEvent(event);
         //    return;
         //}
+        //手机上还是无效~
 
         //canvas的尺寸已经乱了，强制搞一下试试
         //var canvas = document.getElementById("gameCanvas");
@@ -84,7 +85,7 @@ require([
     //window.addEventListener('resize', launchListener);
     var isFirstResize = true;
     window.addEventListener("resize", function () {
-        //alert('resize' + window.innerWidth + ', ' + window.innerHeight);
+        //alert('resize event, window: ' + window.innerWidth + ', ' + window.innerHeight);
         //showWidthHeight('resize');
         if (isFirstResize) { //第一次resize应为judgeHorizontal中对cc.game.run的调用所致，故忽略
             isFirstResize = false;
