@@ -105,7 +105,7 @@ define([
             "link": sharedContent.url,
             "desc": sharedContent.content,
             "title": sharedContent.content
-        }, onFail)
+        }, onFail);
     }
     function shareTimeline(onFail) {
         window.WeixinJSBridge.invoke('shareTimeline',{
@@ -138,11 +138,12 @@ define([
             shareWeibo();
         });
     }
-    // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
-    document.addEventListener('WeixinJSBridgeReady', bindWeixin, false);
     if (window.WeixinJSBridge) {
         //防止本文件执行时事件已经触发过，这里手动调用一次
         bindWeixin();
+    } else {
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', bindWeixin, false);
     }
 
     return {

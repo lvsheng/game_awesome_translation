@@ -75,6 +75,8 @@ define([
             bakeLayer.addChild(textLabel);
 
             self._animate();
+
+            share.tryWeixinShare(); //一展示结果就尝试一次分享到微信
         },
 
         _animate: function () {
