@@ -23,6 +23,8 @@ define([
             self._gameResult = result;
             self._gameName = gameName;
 
+            share.setShareResult("gameResult", self._gameName, self._gameResult);
+
             var imgMap = resourceFileMap.common.resultLayer;
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
@@ -95,12 +97,10 @@ define([
             cc.director.runScene(require('../list/Scene').getInstance());
         },
         _shareWeibo: function () {
-            share.setShareResult("gameResult", this._gameName, this._gameResult);
             share.weiboShare();
         },
         _shareWeixin: function () {
             var self = this;
-            share.setShareResult("gameResult", self._gameName, self._gameResult);
             share.tryWeixinShare(function(){
                 //TODO: 看这里能不能被执行到~
                 var winSize = cc.director.getWinSize();

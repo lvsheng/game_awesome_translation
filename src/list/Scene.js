@@ -8,6 +8,7 @@ define([
     '../util/resourceFileList',
     '../util/pauseGame',
     '../util/preload',
+    '../util/share',
 
     './ListLayer',
     './BackgroundLayer',
@@ -18,7 +19,7 @@ define([
     '../games/pipeline/GameScene',
     '../games/hit/GameScene',
     '../games/find/GameScene'
-], function (resourceFileMap, resourceFileList, pauseGame, preload, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline, Hit, Find) {
+], function (resourceFileMap, resourceFileList, pauseGame, preload, share, ListLayer, BackgroundLayer, Bunt, Avoid, Gather, Pipeline, Hit, Find) {
     var instance;
     var ListScene =  cc.Scene.extend({
         _curGame: {
@@ -40,6 +41,8 @@ define([
             var self = this;
             self._super();
 
+            share.setShareResult("wholeGame");
+
             self.addChild(new BackgroundLayer());
             self.addChild(new ListLayer(_.bind(self.enterAGame, self)));
         },
@@ -53,6 +56,7 @@ define([
             pauseGame.resumeGame(); //应对前面在结束上一个小游戏时的pause()
 
             preload(resourceFileList[name].concat(resourceFileList['common']), function () {
+                share.setShareResult("game", name);
                 self._curGame = { name: name, sceneClass: SceneClass, sceneInstance: new SceneClass() };
                 cc.director.runScene(self._curGame.sceneInstance);
             }, cc.game);

@@ -7,7 +7,9 @@ require([
     'util/share',
     './home/HomeScene',
     './list/Scene'
-], function (resourceFileList, preload, share, HomeScene, ListScene) {
+], function (resourceFileList, preload, share, HomeScene) {
+    share.setShareResult('wholeGame');
+
     var launchHalf = false; //为true时表示是已经cc.game.run()了，但onStart还没有被执行，不能再次cc.game.run()
     cc.game.onStart = function(){
         launchHalf = false;
@@ -74,6 +76,4 @@ require([
             'h:' + document.getElementById("gameCanvas").height
         );
     };
-
-    share.setShareResult('wholeGame');
 });
