@@ -3310,12 +3310,12 @@ cc.ContainerStrategy = cc.Class.extend({
         locContainer.style.width = locCanvasElement.style.width = w + "px";
         locContainer.style.height = locCanvasElement.style.height = h + "px";
         var devicePixelRatio = view._devicePixelRatio = 1;
-        showWidthHeight('_setupContainer before\n');
+        //showWidthHeight('_setupContainer before\n');
         if (view.isRetinaEnabled())
             devicePixelRatio = view._devicePixelRatio = window.devicePixelRatio || 1;
         locCanvasElement.width = w * devicePixelRatio;
         locCanvasElement.height = h * devicePixelRatio;
-        showWidthHeight('_setupContainer after\n');
+        //showWidthHeight('_setupContainer after\n');
         cc._renderContext.resetCache && cc._renderContext.resetCache();
         var body = document.body, style;
         if (body && (style = body.style)) {
