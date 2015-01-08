@@ -42,8 +42,9 @@ require([
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
-        if (isHorizontal()) { runAndCancelInform(); }
-        else { stopAndInformNeedHorizontal(); }
+        //if (isHorizontal()) { runAndCancelInform(); }
+        //else { stopAndInformNeedHorizontal(); }
+        runAndCancelInform()
     }
 
     window.addEventListener("resize", judgeHorizontal);
