@@ -29,6 +29,8 @@ define([
             var listContainer = new cc.Sprite(resourceFileMap.list.listContainer);
             listContainer.attr({anchorX: 1, anchorY: 1, x: winSize.width, y: winSize.height});
             this.addChild(listContainer);
+
+            this.bake();
         },
 
         _scaleToFillWindow: function (sprite) {

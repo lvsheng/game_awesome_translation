@@ -76,6 +76,8 @@ define([
             );
             leftMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             leftBar.addChild(leftMenu);
+
+            self.bake();
         },
 
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
@@ -104,7 +106,18 @@ define([
                 self._paused = false;
             }
         },
-        _showLeftMenu: function () { this._leftBar.runAction(new cc.MoveTo(0.2, 0, 0)); },
-        _hideLeftMenu: function () { this._leftBar.runAction(new cc.MoveTo(0.2, -this._leftBar.width, 0)); }
+        _showLeftMenu: function () {
+            this.unbake();
+            this._leftBar.runAction(new cc.MoveTo(0.2, 0, 0));
+        },
+        _hideLeftMenu: function () {
+            var self = this;
+            self._leftBar.runAction(new cc.Sequence(
+                new cc.MoveTo(0.2, -self._leftBar.width, 0),
+                new cc.CallFunc(function(){
+                    self.bake()
+                })
+            ));
+        }
     });
 });

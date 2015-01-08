@@ -21,18 +21,21 @@ define([
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
 
+            var bakeLayer = self._bakeLayer = new cc.Layer();
+            self.addChild(bakeLayer);
+
             var bg = new cc.Sprite(imgMap.bg);
             bg.setPosition(center);
             self._scaleToFillWindow(bg);
-            self.addChild(bg);
+            bakeLayer.addChild(bg);
 
             var dialog = new cc.Sprite(imgMap.dialog);
             dialog.setPosition(center.x - 46, winSize.height - 242);
-            self.addChild(dialog);
+            bakeLayer.addChild(dialog);
 
             var logo = new cc.Sprite(imgMap.logo);
             logo.setPosition(center.x + 375, winSize.height - 414.5);
-            self.addChild(logo);
+            bakeLayer.addChild(logo);
 
             var retryMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.retry), new cc.Sprite(imgMap.retry), null, _.bind(self._rePlay, self));
             retryMenuItem.attr({ x: center.x - 323, y: 111 });
@@ -43,26 +46,26 @@ define([
 
             var menu = new cc.Menu(retryMenuItem, homeMenuItem, shareMenuItem);
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
-            self.addChild(menu);
+            bakeLayer.addChild(menu);
 
             var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.resultLayer.titleFont);
             titleLabel.setPosition(center.x + 118, winSize.height - 175);
             titleLabel.color = cc.color(0, 37, 41, 255);
-            self.addChild(titleLabel);
+            bakeLayer.addChild(titleLabel);
 
             var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.resultLayer.textFont);
             textLabel.attr({anchorX: 0.5, anchorY: 1});
             textLabel.setPosition(center.x + 120, winSize.height - 221);
             textLabel.color = cc.color(0, 37, 41, 255);
-            self.addChild(textLabel);
+            bakeLayer.addChild(textLabel);
 
             self._animate();
         },
 
         _animate: function () {
             var winSize = cc.director.getWinSize();
-            this.y = winSize.height;
-            this.runAction(new cc.Sequence(
+            this._bakeLayer.y = winSize.height;
+            this._bakeLayer.runAction(new cc.Sequence(
                 new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
             ));
         },

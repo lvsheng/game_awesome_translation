@@ -12,6 +12,8 @@ define([
 
             this._scaleToCoverWindow(this._backgroundSprite);
             this.addChild(this._backgroundSprite);
+
+            this.bake();
         },
 
         _scaleToCoverWindow: function (sprite) {

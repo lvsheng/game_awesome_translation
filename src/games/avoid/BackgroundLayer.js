@@ -10,6 +10,8 @@ define([
             backgroundSprite.attr({ anchorX: 0, anchorY: 1, x: 0, y: cc.director.getWinSize().height });
             this._scaleToCoverWindow(backgroundSprite);
             this.addChild(backgroundSprite);
+
+            this.bake();
         },
 
         //TODO:后面看这个方法抽出来作为一个统一方法？或者还是整个背景层抽出来个基类。只留出anchor、位置、游戏名作为参数？

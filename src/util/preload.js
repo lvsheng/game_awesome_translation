@@ -48,16 +48,25 @@ define([
         },
         _initStage: function (img1, img2, centerPos) {
             var self = this;
-            var logo1 = self._logo1 = new cc.Sprite(img1);
-            logo1.setScale(cc.contentScaleFactor());
-            logo1.x = centerPos.x;
-            logo1.y = centerPos.y;
+
+            var logo1Sprite = new cc.Sprite(img1);
+            logo1Sprite.setScale(cc.contentScaleFactor());
+            logo1Sprite.x = centerPos.x;
+            logo1Sprite.y = centerPos.y;
+            var logo1 = self._logo1 = new cc.Layer();
+            logo1.addChild(logo1Sprite);
+            logo1.bake();
             logo1.visible = false;
-            var logo2 = self._logo2 = new cc.Sprite(img2);
-            logo2.setScale(cc.contentScaleFactor());
-            logo2.x = centerPos.x;
-            logo2.y = centerPos.y;
+
+            var logo2Sprite = new cc.Sprite(img2);
+            logo2Sprite.setScale(cc.contentScaleFactor());
+            logo2Sprite.x = centerPos.x;
+            logo2Sprite.y = centerPos.y;
+            var logo2 = self._logo2 = new cc.Layer();
+            logo2.addChild(logo2Sprite);
+            logo2.bake();
             logo2.visible = false;
+
             self._bgLayer.addChild(logo1, 10);
             self._bgLayer.addChild(logo2, 10);
         },

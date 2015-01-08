@@ -10,6 +10,8 @@ define([
             backgroundSprite.attr({ anchorX: 0, anchorY: 1, x: 0, y: cc.director.getWinSize().height });
             this._scaleToFillWindow(backgroundSprite);
             this.addChild(backgroundSprite);
+
+            this.bake();
         },
 
         _scaleToFillWindow: function (sprite) {

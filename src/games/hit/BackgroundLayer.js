@@ -11,6 +11,8 @@ define([
             this._backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
             this._scaleToFillWindow(this._backgroundSprite);
             this.addChild(this._backgroundSprite);
+
+            this.bake();
         },
 
         _scaleToFillWindow: function (sprite) {

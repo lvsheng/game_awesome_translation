@@ -134,7 +134,10 @@ define([
                             var distance = 30;
                             layer.runAction(new cc.Sequence(
                                 new cc.MoveBy(0.05, 0, distance),
-                                (new cc.MoveBy(1, 0, -distance)).easing(cc.easeElasticOut(0.1))
+                                (new cc.MoveBy(1, 0, -distance)).easing(cc.easeElasticOut(0.1)),
+                                new cc.CallFunc(function(){
+                                    layer.bake();
+                                })
                             ));
                         })
                     )
