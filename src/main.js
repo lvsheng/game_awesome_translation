@@ -12,6 +12,7 @@ require([
     cc.game.onStart = function(){
         launchHalf = false;
         //showWidthHeight('before\n');
+        cc.view.enableRetina(false); //默认retina开启，会导致canvas过大，在旋转状态下会导致首次显示不正常（具体原因未知）
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         //showWidthHeight('after\n');
         //就是在这里把canvas的宽高扩大了将近3倍~
