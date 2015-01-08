@@ -1148,17 +1148,17 @@ cc.game = {
                     if(_src){
                         _resPath = /(.*)\//.exec(_src)[0];
                         cc.loader.resPath = _resPath;
-                        _src = cc.path.join(_resPath, 'project.json');
+                        _src = cc.path.join(_resPath, 'project_json.txt');
                     }
                     txt = cc.loader._loadTxtSync(_src);
                 }
                 if(!txt){
-                    txt = cc.loader._loadTxtSync("project.json");
+                    txt = cc.loader._loadTxtSync("project_json.txt");
                 }
                 var data = JSON.parse(txt);
                 self.config = _init(data || {});
             } catch (e) {
-                cc.log("Failed to read or parse project.json");
+                cc.log("Failed to read or parse project_json.txt");
                 self.config = _init({});
             }
         }
@@ -19536,7 +19536,9 @@ cc._fntLoader = {
         });
     }
 };
-cc.loader.register(["fnt"], cc._fntLoader);
+//cc.loader.register(["fnt"], cc._fntLoader);
+//by lvsheng, fnt文件cms不支持，改为txt~
+cc.loader.register(["txt"], cc._fntLoader);
 (function(){
     cc.LabelBMFont.CanvasRenderCmd = function(renderableObject){
         cc.SpriteBatchNode.CanvasRenderCmd.call(this, renderableObject);

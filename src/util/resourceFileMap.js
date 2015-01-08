@@ -37,8 +37,8 @@ define({
             bg: 'res/common/guideDialog/bg.png',
             button: 'res/common/guideDialog/button.png',
             button_hover: 'res/common/guideDialog/button_hover.png',
-            titleFont: 'res/common/guideDialog/titleFont.fnt',
-            textFont: 'res/common/guideDialog/textFont.fnt'
+            titleFont: 'res/common/guideDialog/titleFont_fnt.txt',
+            textFont: 'res/common/guideDialog/textFont_fnt.txt'
         },
         resultLayer: {
             bg: 'res/common/resultLayer/bg.png',
@@ -47,8 +47,8 @@ define({
             logo: 'res/common/resultLayer/logo.png',
             retry: 'res/common/resultLayer/retry.png',
             share: 'res/common/resultLayer/share.png',
-            titleFont: 'res/common/resultLayer/titleFont.fnt',
-            textFont: 'res/common/resultLayer/textFont.fnt'
+            titleFont: 'res/common/resultLayer/titleFont_fnt.txt',
+            textFont: 'res/common/resultLayer/textFont_fnt.txt'
         }
     },
     loading: {
