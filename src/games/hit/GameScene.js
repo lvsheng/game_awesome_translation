@@ -19,7 +19,7 @@ define([
             self.addChild(new GuideLayer(function(){
                 self.addChild(new GameLayer(function(result){
                     result = {amount: scoreManager.getScore()};
-                    self.addChild(new ResultLayer("你成功打掉了" + result.amount + "个地鼠"));
+                    self.addChild(new ResultLayer(result.amount, result, 'hit'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

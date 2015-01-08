@@ -21,16 +21,7 @@ define([
                 // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
-                    self.addChild(new ResultLayer(_.template([
-                        "<% if (!winning) { %>",
-                        "<% } %>",
-                        "以<%= rate %>下/秒的手速狂点了<%= hitCount %>下，",
-                        "<% if (winning) { %>",
-                        "终于赢了~",
-                        "<% } else { %>",
-                        "你坚持了<%= time %>s却还是输了..",
-                        "<% } %>"
-                    ].join(''))(result)));
+                    self.addChild(new ResultLayer(result.hitCount, result, 'bunt'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

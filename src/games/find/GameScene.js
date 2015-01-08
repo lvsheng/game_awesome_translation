@@ -21,8 +21,7 @@ define([
                 // 用户确认开始游戏的回调
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
-                    var info = "你在" + result.time + "s内成功找到" + result.amount + "个凤姐，鉴婊能力超强~！";
-                    self.addChild(new ResultLayer(info));
+                    self.addChild(new ResultLayer(result.amount, result, 'find'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

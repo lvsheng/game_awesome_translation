@@ -20,9 +20,7 @@ define([
             self.addChild(self._backgroundLayer);
             self.addChild(new GuideLayer(function(){
                 self.addChild(new GameLayer(function(result){
-                    var info = '你在' + result.time + 's内成功装配成功了' + result.assemble + '个机器人女友！';
-
-                    self.addChild(new ResultLayer(info));
+                    self.addChild(new ResultLayer(result.assemble, result, 'pipeline'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

@@ -50,8 +50,8 @@ define({
             weiboShare: 'res/common/resultLayer/weiboShare.png',
             titleFont: 'res/common/resultLayer/titleFont_fnt.txt',
             textFont: 'res/common/resultLayer/textFont_fnt.txt',
-            tip: 'res/common/resultLayer/tip_fnt.txt',
-            okButton: 'res/common/resultLayer/okButton_fnt.txt'
+            tip: 'res/common/resultLayer/tip.png',
+            okButton: 'res/common/resultLayer/okButton.png'
         }
     },
     loading: {
