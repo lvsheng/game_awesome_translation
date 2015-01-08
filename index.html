@@ -71,10 +71,12 @@
             return result;
         },
         getClientWidth: function (element) {
-            return element.clientHeight;
+            if (!this._rotated) { return element.clientWidth; }
+            else { return element.clientHeight; }
         },
         getClientHeight: function (element) {
-            return element.clientWidth;
+            if (!this._rotated) { return element.clientHeight; }
+            else { return element.clientWidth; }
         }
     };
 </script>
