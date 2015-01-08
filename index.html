@@ -17,12 +17,12 @@
             height: 100%;
             overflow: hidden;
         }
-        body {
+        html {
             position: relative;
             -webkit-transform-origin: left top;
             -webkit-transform: rotateZ(0deg);
         }
-        body.rotate {
+        html.rotate {
             -webkit-transform: rotateZ(90deg);
         }
     </style>
@@ -35,6 +35,38 @@
 
 <!--因cocos与require不太兼容（如果全局有require，cocos会作为cmd规范处理），故需在require之前先加载cocos-->
 <!--<script type="text/javascript" src="cocos2d-js-v3.1-lite.js" charset="UTF-8"></script>-->
+<script>
+    //为屏幕旋转后也能正常玩，不得已改了cocos源码，在其内调用了下面的方法，故将其放在全局下~
+    window.rotatedTouchPositionTransformer = {
+        _rotated: false,
+        setRotated: function (rotated) { this._rotated = rotated; },
+        getX: function (e) {
+            if (!this._rotated) { return e.clientX; }
+            else { return e.clientY; }
+        },
+        getY: function (e) {
+            if (!this._rotated) { return e.clientY; }
+            else { return window.innerWidth - e.clientX; }
+        },
+        getBoundingClientRect: function (element) {
+            var browserResult = element.getBoundingClientRect();
+            var result;
+            if (this._rotated) {
+                result = {
+                    bottom: browserResult.bottom,
+                    height: browserResult.width,
+                    left: browserResult.left,
+                    right: browserResult.right,
+                    top: browserResult.top,
+                    width: browserResult.height
+                };
+            } else {
+                result = browserResult;
+            }
+            return result;
+        }
+    };
+</script>
 <script type="text/javascript" src="cocos2d-js-v3.2.js" charset="UTF-8"></script>
 <!--语言增强型基础库，认为还是应该作为全局引入-->
 <script src="underscore.js"></script>

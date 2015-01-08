@@ -3766,7 +3766,7 @@ cc.inputManager = {
         var win = window;
         var box = null;
         if (cc.isFunction(element.getBoundingClientRect)) {
-            box = element.getBoundingClientRect();
+            box = window.rotatedTouchPositionTransformer.getBoundingClientRect(element);
         } else {
             if (element instanceof HTMLCanvasElement) {
                 box = {
@@ -3845,11 +3845,11 @@ cc.inputManager = {
         return mouseEvent;
     },
     getPointByEvent: function(event, pos){
-        if (event.pageX != null)
-            return {x: event.pageX, y: event.pageY};
+        if (window.rotatedTouchPositionTransformer.getX(event) != null)
+            return {x: window.rotatedTouchPositionTransformer.getX(event), y: window.rotatedTouchPositionTransformer.getY(event)};
         pos.left -= document.body.scrollLeft;
         pos.top -= document.body.scrollTop;
-        return {x: event.clientX, y: event.clientY};
+        return {x: window.rotatedTouchPositionTransformer.getX(event), y: window.rotatedTouchPositionTransformer.getY(event)};
     },
     getTouchesByEvent: function(event, pos){
         var touchArr = [], locView = this._glView;
@@ -3861,9 +3861,9 @@ cc.inputManager = {
             if (touch_event) {
                 var location;
                 if (cc.sys.BROWSER_TYPE_FIREFOX === cc.sys.browserType)
-                    location = locView.convertToLocationInView(touch_event.pageX, touch_event.pageY, pos);
+                    location = locView.convertToLocationInView(window.rotatedTouchPositionTransformer.getX(touch_event), window.rotatedTouchPositionTransformer.getY(touch_event), pos);
                 else
-                    location = locView.convertToLocationInView(touch_event.clientX, touch_event.clientY, pos);
+                    location = locView.convertToLocationInView(window.rotatedTouchPositionTransformer.getX(touch_event), window.rotatedTouchPositionTransformer.getY(touch_event), pos);
                 if (touch_event.identifier != null) {
                     touch = new cc.Touch(location.x, location.y, touch_event.identifier);
                     preLocation = this.getPreTouch(touch).getLocation();
@@ -3980,7 +3980,7 @@ cc.inputManager = {
                         var pos = selfPointer.getHTMLElementPosition(element);
                         pos.left -= document.documentElement.scrollLeft;
                         pos.top -= document.documentElement.scrollTop;
-                        _touchEvent.call(selfPointer, [selfPointer.getTouchByXY(event.clientX, event.clientY, pos)]);
+                        _touchEvent.call(selfPointer, [selfPointer.getTouchByXY(window.rotatedTouchPositionTransformer.getX(event), window.rotatedTouchPositionTransformer.getY(event), pos)]);
                         event.stopPropagation();
                     }, false);
                 })(eventName, _pointerEventsMap[eventName]);

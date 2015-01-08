@@ -21,19 +21,23 @@ require([
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
-        var body = document.body;
+        var element = document.documentElement;
 
         if (isHorizontal()) {
-            body.style.width = window.innerWidth + 'px';
-            body.style.height = window.innerHeight + 'px';
-            body.style.right = "0px";
-            body.className = "";
+            //取消旋转
+            element.style.width = window.innerWidth + 'px';
+            element.style.height = window.innerHeight + 'px';
+            element.style.right = "0px";
+            element.className = "";
+            window.rotatedTouchPositionTransformer.setRotated(false);
         }
         else {
-            body.style.width = window.innerHeight + "px";
-            body.style.height = window.innerWidth + "px";
-            body.style.right = "-" + window.innerWidth + "px";
-            body.className = "rotate"
+            //旋转
+            element.style.width = window.innerHeight + "px";
+            element.style.height = window.innerWidth + "px";
+            element.style.right = "-" + window.innerWidth + "px";
+            element.className = "rotate";
+            window.rotatedTouchPositionTransformer.setRotated(true);
         }
 
         if (!launchHalf) { //launch一半时不再再次run
