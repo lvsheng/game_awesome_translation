@@ -51,7 +51,8 @@ define({
             titleFont: 'res/common/resultLayer/titleFont_fnt.txt',
             textFont: 'res/common/resultLayer/textFont_fnt.txt',
             tip: 'res/common/resultLayer/tip.png',
-            okButton: 'res/common/resultLayer/okButton.png'
+            okButton: 'res/common/resultLayer/okButton.png',
+            zhangzishi: 'res/common/resultLayer/zhangzishi.png'
         }
     },
     loading: {

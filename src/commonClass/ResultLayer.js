@@ -53,12 +53,14 @@ define([
             weixinShareMenuItem.attr({ x: center.x + 353, y: 111 });
             var weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
             weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
+            var linkMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.zhangzishi), new cc.Sprite(imgMap.zhangzishi), null, _.bind(self._jumpToOther, self));
+            linkMenuItem.attr({x: center.x + 120, y: winSize.height - 390});
 
             var menu;
             if (isWeixin()) {
-                menu = new cc.Menu(retryMenuItem, homeMenuItem, weixinShareMenuItem);
+                menu = new cc.Menu(retryMenuItem, homeMenuItem, weixinShareMenuItem, linkMenuItem);
             } else {
-                menu = new cc.Menu(retryMenuItem, homeMenuItem, weiboShareMenuItem);
+                menu = new cc.Menu(retryMenuItem, homeMenuItem, weiboShareMenuItem, linkMenuItem);
             }
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
@@ -139,6 +141,11 @@ define([
 
                 self._shadowLayer = shadowLayer;
             });
+        },
+        _jumpToOther: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            //向其他地方导流
+            window.location.href = "http://events.we4media.com/bdck/mobile-flip/?nsukey=gre04mvq50qZwsOPu%2FwkUGqICYExaE%2BP5DV7EZU0gLnfwoZyzUh%2B5mH%2BT0WpZINW5quHDc1xFl%2BspcLKI2861Q%3D%3D";
         }
     });
 });
