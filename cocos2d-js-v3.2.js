@@ -3123,7 +3123,7 @@ cc.EGLView = cc.Class.extend({
         return cc.size(this._frameSize.width, this._frameSize.height);
     },
     setFrameSize: function (width, height) {
-        alert('setFrameSize: ' + width + ', ' + height); //没有被调用~~
+        //alert('setFrameSize: ' + width + ', ' + height); //没有被调用~~
         this._frameSize.width = width;
         this._frameSize.height = height;
         this._frame.style.width = width + "px";
@@ -3376,7 +3376,7 @@ cc.ContentStrategy = cc.Class.extend({
 (function () {
     var EqualToFrame = cc.ContainerStrategy.extend({
         apply: function (view) {
-            alert('view._frameSize:' + view._frameSize.width + ", " + view._frameSize.height);
+            //alert('view._frameSize:' + view._frameSize.width + ", " + view._frameSize.height);
             this._setupContainer(view, view._frameSize.width, view._frameSize.height);
         }
     });
