@@ -22,7 +22,10 @@ define([
             this.addChild(logo);
 
             var person = new cc.Sprite(resourceFileMap.list.person);
-            person.attr({anchorX: 0, anchorY: 0, x: 0, y: 0});
+            person.attr({anchorX: 0.5, anchorY: 0, x: (winSize.width - 600) / 2, y: 0});
+            if (winSize.width - 600 < person.width) { //600为右边列表的宽度
+                person.scale = (winSize.width - 600) / person.width; //缩小
+            }
             this.addChild(person);
 
 
