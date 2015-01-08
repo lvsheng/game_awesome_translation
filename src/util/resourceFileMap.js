@@ -46,9 +46,12 @@ define({
             home: 'res/common/resultLayer/home.png',
             logo: 'res/common/resultLayer/logo.png',
             retry: 'res/common/resultLayer/retry.png',
-            share: 'res/common/resultLayer/share.png',
+            weixinShare: 'res/common/resultLayer/weixinShare.png',
+            weiboShare: 'res/common/resultLayer/weiboShare.png',
             titleFont: 'res/common/resultLayer/titleFont_fnt.txt',
-            textFont: 'res/common/resultLayer/textFont_fnt.txt'
+            textFont: 'res/common/resultLayer/textFont_fnt.txt',
+            tip: 'res/common/resultLayer/tip_fnt.txt',
+            okButton: 'res/common/resultLayer/okButton_fnt.txt'
         }
     },
     loading: {

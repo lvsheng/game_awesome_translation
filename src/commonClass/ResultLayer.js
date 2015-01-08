@@ -9,14 +9,20 @@ define([
     'require',
     '../util/resourceFileMap',
     '../util/share',
+    '../util/getResultText',
+    '../util/isWeixin',
     '../list/Scene'
-], function (require, resourceFileMap,share) {
+], function (require, resourceFileMap,share, getResultText, isWeixin) {
     return cc.Layer.extend({
         isResultLayer: true,
-        ctor: function (title, text) {
+        ctor: function (score, result, gameName) {
             var self = this;
             self._super();
             self.init();
+
+            self._gameResult = result;
+            self._gameName = gameName;
+
             var imgMap = resourceFileMap.common.resultLayer;
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
@@ -41,19 +47,26 @@ define([
             retryMenuItem.attr({ x: center.x - 323, y: 111 });
             var homeMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.home), new cc.Sprite(imgMap.home), null, _.bind(self._returnHome, self));
             homeMenuItem.attr({ x: center.x + 20, y: 111 });
-            var shareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.share), new cc.Sprite(imgMap.share), null, _.bind(self._share, self));
-            shareMenuItem.attr({ x: center.x + 353, y: 111 });
+            var weixinShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weixinShare), new cc.Sprite(imgMap.weixinShare), null, _.bind(self._shareWeixin, self));
+            weixinShareMenuItem.attr({ x: center.x + 353, y: 111 });
+            var weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
+            weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
 
-            var menu = new cc.Menu(retryMenuItem, homeMenuItem, shareMenuItem);
+            var menu;
+            if (isWeixin()) {
+                menu = new cc.Menu(retryMenuItem, homeMenuItem, weixinShareMenuItem);
+            } else {
+                menu = new cc.Menu(retryMenuItem, homeMenuItem, weiboShareMenuItem);
+            }
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
 
-            var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.resultLayer.titleFont);
+            var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
             titleLabel.setPosition(center.x + 118, winSize.height - 175);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
-            var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.resultLayer.textFont);
+            var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
             textLabel.attr({anchorX: 0.5, anchorY: 1});
             textLabel.setPosition(center.x + 120, winSize.height - 221);
             textLabel.color = cc.color(0, 37, 41, 255);
@@ -81,8 +94,31 @@ define([
         _returnHome: function () {
             cc.director.runScene(require('../list/Scene').getInstance());
         },
-        _share: function () {
-            share();
+        _shareWeibo: function () {
+            share.setShareResult("gameResult", this._gameName, this._gameResult);
+            share.weiboShare();
+        },
+        _shareWeixin: function () {
+            var self = this;
+            share.setShareResult("gameResult", self._gameName, self._gameResult);
+            share.tryWeixinShare(function(){
+                //TODO: 看这里能不能被执行到~
+                var winSize = cc.director.getWinSize();
+                var center = cc.p(winSize.width / 2, winSize.height / 2);
+
+                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 125), winSize.width, winSize.height);
+                self.addChild(shadowLayer);
+
+                var tipSprite = new cc.Sprite(resourceFileMap.common.resultLayer.tip);
+                tipSprite.setPosition(center.x + 58, 640 - 233.5);
+                shadowLayer.addChild(tipSprite);
+
+                var buttonSprite = new cc.Sprite(resourceFileMap.common.resultLayer.okButton);
+                buttonSprite.setPosition(center.x + 35, 640 - 530);
+                shadowLayer.addChild(buttonSprite);
+
+                shadowLayer.bake();
+            });
         }
     });
 });
