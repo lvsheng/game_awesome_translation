@@ -141,8 +141,8 @@ define([
     }
     // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
     document.addEventListener('WeixinJSBridgeReady', bindWeixin, false);
-    //防止本文件执行时事件已经触发过，这里手动调用一次
     if (isWeixin()) {
+        //防止本文件执行时事件已经触发过，这里手动调用一次
         bindWeixin();
     }
 

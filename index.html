@@ -3,14 +3,16 @@
 <head>
     <title>贴吧神翻译</title>
 
+    <meta charset="utf-8">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="screen-orientation" content="landscape"/>
     <meta name="x5-orientation" content="landscape">
+    <meta name="apple-touch-fullscreen" content="YES">
     <meta name="full-screen" content="yes"/>
     <meta name="x5-fullscreen" content="true"/>
     <meta name="360-fullscreen" content="true"/>
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <style>
         html, body {
@@ -21,9 +23,19 @@
             height: 100%;
             overflow: hidden;
         }
-        body {
-            background-size: cover;
-            background: url('./loading.gif') center;
+        .loading, .loading1, .loading2, .loadingBg {
+            position: absolute;
+        }
+        .loading, .loadingBg {
+            width: 100%;
+            height: 100%;
+        }
+        .loading1, .loading2 {
+            height: 42.5%;
+            left: 50%;
+            top: 50%;
+            margin-left: -10.423728813559322%;
+            margin-top: -11.52542372881356%;
         }
         html {
             position: relative;
@@ -34,8 +46,43 @@
             -webkit-transform: rotateZ(90deg) translateZ(0);
         }
     </style>
+    <script>
+        (function () {
+            //尽早旋转以使loading便能以正确方向展现
+            function isHorizontal () { return window.innerWidth > window.innerHeight; }
+            if (!isHorizontal()) {
+                //旋转
+                var element = document.documentElement;
+                element.style.width = window.innerHeight + "px";
+                element.style.height = window.innerWidth + "px";
+                element.style.right = "-" + window.innerWidth + "px";
+                element.className = "rotate";
+            }
+        })();
+
+    </script>
 </head>
 <body>
+
+<div class="loading">
+    <img src="./res/common/loadingBg.png" class="loadingBg"/>
+    <img src="./res/common/loading_1.png" id="loading1" class="loading1"/>
+    <img src="./res/common/loading_2.png" id="loading2" class="loading2"/>
+</div>
+<script>
+    (function(){
+        //loading动画（上面的img顺便将cocos场景中需要的图也拉过来~）
+        var images = [
+            document.getElementById("loading1"),
+            document.getElementById("loading2")
+        ];
+        var index = 0;
+        setInterval(function(){
+            images[index].style.display = "block";
+            images[(index = (index + 1) % 2)].style.display = "none";
+        }, 200);
+    })();
+</script>
 
 <canvas id="gameCanvas" width="1136" height="640"></canvas>
 
