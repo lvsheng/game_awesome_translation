@@ -4,8 +4,7 @@
  * @date 2015/1/6
  */
 define([
-    './isWeixin'
-], function (isWeixin) {
+], function () {
     var weiboTopic = "#贴吧神翻译#";
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
@@ -141,7 +140,7 @@ define([
     }
     // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
     document.addEventListener('WeixinJSBridgeReady', bindWeixin, false);
-    if (isWeixin()) {
+    if (window.WeixinJSBridge) {
         //防止本文件执行时事件已经触发过，这里手动调用一次
         bindWeixin();
     }
