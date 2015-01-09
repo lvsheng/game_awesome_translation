@@ -145,6 +145,7 @@ define([
         },
         _shareWeixin: function () {
             var self = this;
+            $.stats.myTrack("分享到微信按钮");
             share.tryWeixinShare(function(){
                 var winSize = cc.director.getWinSize();
                 var center = cc.p(winSize.width / 2, winSize.height / 2);

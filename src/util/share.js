@@ -156,7 +156,6 @@ define([
         //其实本来应该在本模块中判断是否为微信环境、然后自动选择平台进行分享的。但加阴影层需要屏蔽底部层的事件、可是时间比较紧，没搞出来T_T
         tryWeixinShare: function (onFail) {
             shareTimeline(onFail);
-            $.stats.myTrack("分享到微信按钮");
         },
         weiboShare: function () {
             $.stats.myTrack("微博分享");

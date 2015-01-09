@@ -123,6 +123,7 @@ define([
         },
         _shareWeixin: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            $.stats.myTrack("分享到微信按钮");
             var self = this;
             share.tryWeixinShare(function(){
                 var winSize = cc.director.getWinSize();
