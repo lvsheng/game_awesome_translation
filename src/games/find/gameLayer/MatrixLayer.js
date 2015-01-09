@@ -52,13 +52,21 @@ define([
         },
         preEnd: function (endCallback) {
             this._endding = true;
+            var action = new cc.Sequence(
+                new cc.Blink(0.3, 2),
+                new cc.Hide(),
+                new cc.DelayTime(0.3)
+            );
             this.children[0].runAction(new cc.Sequence(
-                new cc.FadeOut(0.8),
-                new cc.CallFunc(endCallback)
+                //new cc.FadeOut(0.8),
+                action.clone(),
+                new cc.CallFunc(function () {
+                    endCallback();
+                })
             ));
             for (var i = 1; i < this.children.length; ++i) {
                 this.children[i].runAction(new cc.Sequence(
-                    new cc.FadeOut(0.8)
+                    action.clone()
                 ))
             }
         },
