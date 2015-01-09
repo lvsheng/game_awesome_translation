@@ -23,8 +23,6 @@ define([
             this.addChild(spriteBatchNode);
 
             this._matrixSpriteList = [];
-
-            this.bake();
         },
         /**
          * @param size 规模，所生成方阵为几乘几的
@@ -72,29 +70,12 @@ define([
         },
         preEnd: function (endCallback) {
             var self = this;
-            self.unbake(); //开始放动画，故取消bake
+            var winSize = cc.director.getWinSize();
             self._endding = true;
-
-            function doIt () {
-                if (self._matrixSpriteList.length === 0) {
-                    endCallback();
-                } else {
-                    self._matrixSpriteList[0].runAction(new cc.Sequence(
-                        new cc.DelayTime(0.0005),
-                        new cc.Spawn(
-                            new cc.MoveBy(0.01, self._conf.width / self._currentSize, 0),
-                            new cc.FadeOut(0.01),
-                            new cc.CallFunc(function () {
-                                var removed = self._matrixSpriteList.shift();
-                                self.removeChild(removed);
-                                self._spriteBatchNode.removeChild(removed);
-                                doIt();
-                            })
-                        )
-                    ))
-                }
-            }
-            doIt();
+            self.runAction(new cc.Sequence(
+                (new cc.MoveTo(0.3, winSize.width + self.width / 2, self.y)).easing(cc.easeBackIn()),
+                new cc.CallFunc(endCallback)
+            ));
         },
         _scaleTo: function (sprite, width, height) {
             sprite.scaleY = height / sprite.height;

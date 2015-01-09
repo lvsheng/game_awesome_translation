@@ -11,21 +11,21 @@ define([
 
             self._gameTime = 30;
             //TODO: for debug
-            self._gameTime = 1;
+            //self._gameTime = 1;
             self._matrixSizeList = [
-                //2,
-                //3,
-                //4,
-                //5,
-                //4,
-                //5,
-                //6,
-                //5,
-                //6,
-                //7,
-                //6,
-                //7,
-                //8,
+                2,
+                3,
+                4,
+                5,
+                4,
+                5,
+                6,
+                5,
+                6,
+                7,
+                6,
+                7,
+                8,
                 9,
                 10,
                 9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,9,10,
@@ -57,7 +57,9 @@ define([
                 }
             }, self);
 
+            self.bake();
             self.schedule(function () {
+                self.unbake(); //结束游戏，有动画，故取消bake
                 self._matrix.preEnd(function(){
                     self._endGame();
                 });
