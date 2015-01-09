@@ -2,9 +2,11 @@
  * 引导层、提示用户本游戏的玩法
  */
 define([
+    '../../util/getGameTitle',
+    '../../util/getGameTip',
     '../../util/resourceFileMap',
     '../../commonClass/GuideDialog'
-], function (resourceFileMap, GuideDialog) {
+], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
 
@@ -20,8 +22,8 @@ define([
             self._onStartGame = onStartGame;
 
             self.addChild(new GuideDialog(
-                "pipeline",
-                "点击屏幕为机器人女友安装头部",
+                getGameTitle("pipeline"),
+                getGameTip("pipeline"),
                 function(){ self._startGame(); }
             ));
         },

@@ -3,8 +3,10 @@
  */
 define([
     '../../util/resourceFileMap',
+    '../../util/getGameTitle',
+    '../../util/getGameTip',
     '../../commonClass/GuideDialog'
-], function (resourceFileMap, GuideDialog) {
+], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
 
@@ -20,8 +22,8 @@ define([
             self._onStartGame = onStartGame;
 
             self.addChild(new GuideDialog(
-                "find",
-                "找到混杂在范冰冰里的凤姐",
+                getGameTitle("find"),
+                getGameTip("find"),
                 function(){ self._startGame(); }
             ));
         },

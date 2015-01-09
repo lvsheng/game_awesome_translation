@@ -1,7 +1,9 @@
 define([
     '../../util/resourceFileMap',
+    '../../util/getGameTitle',
+    '../../util/getGameTip',
     '../../commonClass/GuideDialog'
-], function (resourceFileMap, GuideDialog) {
+], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
         ctor: function (onStartGame) {
@@ -12,8 +14,8 @@ define([
             self._onStartGame = onStartGame;
 
             self.addChild(new GuideDialog(
-                "00后",
-                "点击屏幕使奥特曼跳跃，\n撞到00后你就死啦~",
+                getGameTitle("avoid"),
+                getGameTip("avoid"),
                 function(){ self._startGame(); }
             ));
         },

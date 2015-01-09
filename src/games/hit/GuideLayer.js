@@ -3,8 +3,10 @@
  */
 define([
     '../../util/resourceFileMap',
+    '../../util/getGameTitle',
+    '../../util/getGameTip',
     '../../commonClass/GuideDialog'
-], function (resourceFileMap, GuideDialog) {
+], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
 
@@ -20,8 +22,8 @@ define([
             self._onStartGame = onStartGame;
 
             self.addChild(new GuideDialog(
-                "lover",
-                "收集代表爱情的心，拉近单身狗与女神的距离",
+                getGameTitle("hit"),
+                getGameTip("hit"),
                 function(){ self._startGame(); }
             ));
         },

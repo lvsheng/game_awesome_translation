@@ -3,8 +3,10 @@
  */
 define([
     '../../util/resourceFileMap',
+    '../../util/getGameTitle',
+    '../../util/getGameTip',
     '../../commonClass/GuideDialog'
-], function (resourceFileMap, GuideDialog) {
+], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({
         _onStartGame: null,
 
@@ -17,13 +19,13 @@ define([
             self._super();
             self.init();
 
-            self._onStartGame = onStartGame;
-
             self.addChild(new GuideDialog(
-                "bunt",
-                "快速点击屏幕右侧以驱动你的挖掘机",
+                getGameTitle("bunt"),
+                getGameTip("bunt"),
                 function(){ self._startGame(); }
             ));
+
+            self._onStartGame = onStartGame;
         },
 
         /**
