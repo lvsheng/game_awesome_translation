@@ -44,8 +44,13 @@ define([
 
             share.setShareResult("wholeGame");
 
-            self.addChild(new BackgroundLayer());
-            self.addChild(new ListLayer(_.bind(self.enterAGame, self)));
+            self.addChild(self._bgLayer = new BackgroundLayer());
+            self.addChild(self._listLayer = new ListLayer(_.bind(self.enterAGame, self)));
+        },
+
+        onExit: function () {
+            this.removeChild(this._bgLayer);
+            this.removeChild(this._listLayer);
         },
 
         //管理当前进行着的游戏的数据
