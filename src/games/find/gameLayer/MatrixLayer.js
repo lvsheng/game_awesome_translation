@@ -31,6 +31,7 @@ define([
          */
         generate: function (size) {
             this._removeOldMatrixSprites();
+            this._currentSize = size;
             var imgWidth = this._conf.width / size;
             var imgHeight = this._conf.height / size;
             var fengjiePosition = {
@@ -61,6 +62,7 @@ define([
         _removeOldMatrixSprites: function () {
             for (var i = 0; i < this._matrixSpriteList.length; ++i) {
                 this.removeChild(this._matrixSpriteList[i]);
+                this._spriteBatchNode.removeChild(this._matrixSpriteList[i]);
             }
             this._matrixSpriteList = [];
         },
@@ -69,25 +71,30 @@ define([
             return cc.rectContainsPoint(this._fengjieRect, position);
         },
         preEnd: function (endCallback) {
-            this.unbake(); //开始放动画，故取消bake
-            this._endding = true;
-            var action = new cc.Sequence(
-                new cc.Blink(0.3, 2),
-                new cc.Hide(),
-                new cc.DelayTime(0.3)
-            );
-            this.children[0].runAction(new cc.Sequence(
-                //new cc.FadeOut(0.8),
-                action.clone(),
-                new cc.CallFunc(function () {
+            var self = this;
+            self.unbake(); //开始放动画，故取消bake
+            self._endding = true;
+
+            function doIt () {
+                if (self._matrixSpriteList.length === 0) {
                     endCallback();
-                })
-            ));
-            for (var i = 1; i < this.children.length; ++i) {
-                this.children[i].runAction(new cc.Sequence(
-                    action.clone()
-                ))
+                } else {
+                    self._matrixSpriteList[0].runAction(new cc.Sequence(
+                        new cc.DelayTime(0.0005),
+                        new cc.Spawn(
+                            new cc.MoveBy(0.01, self._conf.width / self._currentSize, 0),
+                            new cc.FadeOut(0.01),
+                            new cc.CallFunc(function () {
+                                var removed = self._matrixSpriteList.shift();
+                                self.removeChild(removed);
+                                self._spriteBatchNode.removeChild(removed);
+                                doIt();
+                            })
+                        )
+                    ))
+                }
             }
+            doIt();
         },
         _scaleTo: function (sprite, width, height) {
             sprite.scaleY = height / sprite.height;
