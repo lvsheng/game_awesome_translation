@@ -68,12 +68,13 @@ define([
         },
         _animate: function () {
             var dialogLayer = this._dialogLayer;
-            dialogLayer.scale = 0.4;
+            var winSize = cc.director.getWinSize();
+            //var destinationY = dialogLayer.y;
+            //dialogLayer.y = winSize.height;
+            dialogLayer.x = -dialogLayer.width / 2;
             dialogLayer.runAction(new cc.Sequence(
-                new cc.ScaleTo(0.1, 0.1),
-                //(new cc.ScaleTo(1, 1)).easing(cc.easeElasticOut(0.5))
-                (new cc.ScaleTo(0.3, 1)).easing(cc.easeElasticOut(1))
-                //new cc.ScaleTo(0.2, 1).easing(cc.easeBackIn())//.easing(cc.easeCircleActionIn(.3))
+                //new cc.MoveTo(0.6, this.x, destinationY).easing(cc.easeBounceOut(20))
+                (new cc.MoveTo(0.3, this.x, this.y)).easing(cc.easeIn(20)).easing(cc.easeBezierAction(.5, -1, 1.8, 1))
             ));
         }
     });
