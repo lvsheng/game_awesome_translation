@@ -54,7 +54,8 @@ define({
             textFont: 'res/common/resultLayer/textFont_fnt.txt',
             tip: 'res/common/resultLayer/tip.png',
             okButton: 'res/common/resultLayer/okButton.png',
-            zhangzishi: 'res/common/resultLayer/zhangzishi.png'
+            zhangzishi: 'res/common/resultLayer/zhangzishi.png',
+            zhangzishiHover: 'res/common/resultLayer/zhangzishiHover.png'
         }
     },
     loading: {
@@ -73,6 +74,7 @@ define({
         bg: 'res/home/bg.png',
         board: 'res/home/board.png',
         button: 'res/home/button.png',
+        buttonHover: 'res/home/buttonHover.png',
         horn: 'res/home/horn.png',
         leftPerson: 'res/home/leftPerson.png',
         pen: 'res/home/pen.png',

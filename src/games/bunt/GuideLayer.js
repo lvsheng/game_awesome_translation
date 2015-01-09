@@ -20,7 +20,7 @@ define([
             self.init();
 
             self.addChild(new GuideDialog(
-                getGameTitle("bunt"),
+                getGameTitle("bunt") + "！",
                 getGameTip("bunt"),
                 function(){ self._startGame(); }
             ));

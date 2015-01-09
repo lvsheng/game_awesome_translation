@@ -7,7 +7,6 @@ define([
     './getResultText',
     './getGameTitle'
 ], function (getResultText, getGameTitle) {
-    var weiboTopic = "#贴吧神翻译# 谁玩谁流弊！";
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
@@ -25,37 +24,37 @@ define([
         game: {
             gather: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“爱情had found”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("gather") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“打个大导演”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("hit") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“我的机器人女友”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("pipeline") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“撕逼强，找蓝翔！”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("bunt") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“鉴婊师训练营”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("find") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“凹凸曼大战零零后”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("avoid") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
@@ -82,6 +81,7 @@ define([
         }
     };
 
+    var title = "贴吧神翻译 谁玩谁流弊！";
     function shareFriend(onFail) {
         if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('sendAppMessage',{
@@ -91,7 +91,7 @@ define([
             "img_height": "200",
             "link": sharedContent.url,
             "desc": sharedContent.content,
-            "title": sharedContent.content
+            "title": title
         }, onFail);
     }
     function shareTimeline(onFail) {
@@ -101,7 +101,6 @@ define([
             "img_width": "200",
             "img_height": "200",
             "link": sharedContent.url,
-            "desc": sharedContent.content,
             "title": sharedContent.content
         }, onFail);
     }
@@ -195,7 +194,7 @@ define([
             resultText = resultText.substring(0, removedIndex);
             var lastChar = resultText.charAt(resultText.length - 1);
             if (lastChar === "，" || lastChar === ",") { resultText = resultText.substring(0, resultText.length - 1); }//统一结尾
-            return "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle(gameName) + "”游戏！"
+            return "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle(gameName) + "”！"
                 + resultText + "，敢不敢来挑战我？";
         }
     };

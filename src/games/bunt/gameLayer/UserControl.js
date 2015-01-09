@@ -11,7 +11,7 @@ define([
             var self = this;
             var winSize = cc.director.getWinSize();
             self._super(); self.init();
-            self.setPosition(winSize.width - 88, winSize.height - 563);
+            self.setPosition(winSize.width - 130, 135);
 
             var button = new cc.Sprite(resourceFileMap.bunt.button);
             var button_hover = new cc.Sprite(resourceFileMap.bunt.button_hover);

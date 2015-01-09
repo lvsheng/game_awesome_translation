@@ -11,7 +11,7 @@ define([
 
             var buttonMenu = new cc.Menu(new cc.MenuItemSprite(
                 new cc.Sprite(resourceFileMap.home.button),
-                new cc.Sprite(resourceFileMap.home.button),
+                new cc.Sprite(resourceFileMap.home.buttonHover),
                 null,
                 startCallback,
                 null
@@ -31,7 +31,7 @@ define([
             this._startAnimation();
 
             //TODO: for test
-            startCallback();
+            //startCallback();
         },
         _startAnimation: function () {
             var layer = this;
