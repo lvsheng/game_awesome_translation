@@ -68,8 +68,6 @@ define([
 
             this.addChild(this._timer = (new TimerNode()).start());
             this.schedule(_.bind(this._judgeCrash, this));
-            //TODO: for debug
-            window.avoidLayer = this;
         },
 
         _launchUltramanList: function () {

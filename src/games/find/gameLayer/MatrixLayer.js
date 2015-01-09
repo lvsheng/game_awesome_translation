@@ -18,11 +18,19 @@ define([
                 startY: 35
             };
             this._fengjieRect = cc.rect();
+
+            var spriteBatchNode = this._spriteBatchNode = new cc.SpriteBatchNode(resourceFileMap.find.fanbingbing, 100);
+            this.addChild(spriteBatchNode);
+
+            this._matrixSpriteList = [];
+
+            this.bake();
         },
         /**
          * @param size 规模，所生成方阵为几乘几的
          */
         generate: function (size) {
+            this._removeOldMatrixSprites();
             var imgWidth = this._conf.width / size;
             var imgHeight = this._conf.height / size;
             var fengjiePosition = {
@@ -37,20 +45,31 @@ define([
                     if (iRow === fengjiePosition.iRow && iCol === fengjiePosition.iCol) {
                         sprite = new cc.Sprite(resourceFileMap.find.fengjie);
                         this._fengjieRect = cc.rect(x, y, imgWidth, imgHeight);
+                        this.addChild(sprite);
                     } else {
-                        sprite = new cc.Sprite(resourceFileMap.find.fanbingbing);
+                        //sprite = new cc.Sprite(resourceFileMap.find.fanbingbing);
+                        sprite = new cc.Sprite(this._spriteBatchNode.getTexture());
+                        this._spriteBatchNode.addChild(sprite);
                     }
                     sprite.attr({anchorX: 0, anchorY: 0, x: x, y: y});
                     this._scaleTo(sprite, imgWidth, imgHeight);
-                    this.addChild(sprite);
+
+                    this._matrixSpriteList.push(sprite);
                 }
             }
+        },
+        _removeOldMatrixSprites: function () {
+            for (var i = 0; i < this._matrixSpriteList.length; ++i) {
+                this.removeChild(this._matrixSpriteList[i]);
+            }
+            this._matrixSpriteList = [];
         },
         whetherFind: function (position) {
             if (this._endding) { return false; }
             return cc.rectContainsPoint(this._fengjieRect, position);
         },
         preEnd: function (endCallback) {
+            this.unbake(); //开始放动画，故取消bake
             this._endding = true;
             var action = new cc.Sequence(
                 new cc.Blink(0.3, 2),
