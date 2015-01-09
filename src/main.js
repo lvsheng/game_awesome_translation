@@ -61,6 +61,11 @@ require([
             return;
         }
 
+        if (window.justAfterWeixinShareOnHorizontal) {
+            window.justAfterWeixinShareOnHorizontal = false;
+            return;
+        }
+
         judgeHorizontal();
 
         $.stats.myTrack("window.resize事件");

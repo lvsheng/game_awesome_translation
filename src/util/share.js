@@ -115,19 +115,23 @@ define([
     function bindWeixin() {
         // 发送给好友
         window.WeixinJSBridge.on('menu:share:appmessage', function(argv){
+            window.justAfterWeixinShareOnHorizontal = isHorizontal();
             shareFriend();
             $.stats.myTrack("微信分享给好友-" + sharedContent._position);
         });
         // 分享到朋友圈
         window.WeixinJSBridge.on('menu:share:timeline', function(argv){
+            window.justAfterWeixinShareOnHorizontal = isHorizontal();
             shareTimeline();
             $.stats.myTrack("微信分享到朋友圈-" + sharedContent._position);
         });
         // 分享到微博
         window.WeixinJSBridge.on('menu:share:weibo', function(argv){
+            window.justAfterWeixinShareOnHorizontal = isHorizontal();
             shareWeibo();
             $.stats.myTrack("微信分享到微博-" + sharedContent._position);
         });
+        function isHorizontal () { return window.innerWidth > window.innerHeight; }
     }
     if (window.WeixinJSBridge) {
         //防止本文件执行时事件已经触发过，这里手动调用一次
