@@ -7,7 +7,7 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.45; //两个小人之间初始距离
     //TODO
-    //var INIT_DISTANCE = 0.95; //两个小人之间初始距离
+    var INIT_DISTANCE = 0.01; //两个小人之间初始距离
     var hear_confs = [
         //amount, lifeTime, closeUpDistance
         [5, 1.5, 0.04],
@@ -53,6 +53,8 @@ define([
             self._tint = _.bind(self._couple.tint, self._couple);
             self._timer = (new TimerNode()).start();
             self._gatherAmount = 0;
+            //TODO: for debug
+            //self._gatherAmount = 10;
             self._dropAmount = 0;
             self._hitNothingAmount = 0;
             self._reactTime = [];
@@ -122,7 +124,6 @@ define([
             heart.closeUpDistance = conf.closeUpDistance;
             heart.createTime = (new Date).getTime();
             this._hitNothingSeparateDistance = conf.closeUpDistance * 1.5;
-            ++this._gatherAmount;
 
             this._hearts.push(heart);
             this.addChild(heart);
@@ -130,6 +131,7 @@ define([
             if (AUTO_HIT_FOR_DEBUG) { this.scheduleOnce(function(){ this._heartHit(heart); }, AUTO_HIT_REACT_TIME) }
         },
         _heartHit: function (heart) {
+            ++this._gatherAmount;
             this._reactTime.push((new Date()).getTime() - heart.createTime);
             this._couple.closeUp(heart.closeUpDistance);
             this._removeHeart(heart, true);
