@@ -68,7 +68,7 @@ define([
             //TODO: 换用图片字体
             //var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
             var titleLabel = new cc.LabelTTF(score, "FZMiaoWuS-GB", 65);
-            titleLabel.setPosition(center.x + 118, winSize.height - 175);
+            titleLabel.setPosition(center.x + 118, winSize.height - 175 + 26);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
@@ -76,7 +76,7 @@ define([
             //var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
             var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
             textLabel.attr({anchorX: 0.5, anchorY: 1});
-            textLabel.setPosition(center.x + 120, winSize.height - 221);
+            textLabel.setPosition(center.x + 120, winSize.height - 221 + 40);
             textLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(textLabel);
 
