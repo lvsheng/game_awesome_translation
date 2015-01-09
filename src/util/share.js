@@ -131,14 +131,17 @@ define([
         // 发送给好友
         window.WeixinJSBridge.on('menu:share:appmessage', function(argv){
             shareFriend();
+            $.stats.myTrack("微信分享给好友");
         });
         // 分享到朋友圈
         window.WeixinJSBridge.on('menu:share:timeline', function(argv){
             shareTimeline();
+            $.stats.myTrack("微信分享到朋友圈");
         });
         // 分享到微博
         window.WeixinJSBridge.on('menu:share:weibo', function(argv){
             shareWeibo();
+            $.stats.myTrack("微信分享到微博");
         });
     }
     if (window.WeixinJSBridge) {
@@ -152,8 +155,10 @@ define([
     return {
         tryWeixinShare: function (onFail) {
             shareTimeline(onFail);
+            $.stats.myTrack("分享到微信按钮");
         },
         weiboShare: function () {
+            $.stats.myTrack("微博分享");
             window.location.href =
                 'http://service.weibo.com/share/share.php'
                 + '?url=' + sharedContent.url

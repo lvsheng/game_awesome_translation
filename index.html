@@ -64,6 +64,84 @@
         })();
 
     </script>
+    <script>
+        (function () {
+            if (!window.$) { window.$ = {}; }
+            /**
+             * 统计相关
+             * 从devplatcommon下拷贝而来，仅保留了track统计
+             * 为了统计更多信息，在页面初始便加载
+             * @namespace
+             */
+            $.stats = {
+                /**
+                 * 通过pv.gif发送统计请求
+                 * @param {String} params 统计参数信息
+                 */
+                sendRequest : function(params){
+                    if (document.images) {//document.images永远为true，判断对img或者js的支持吗
+                        var img = new Image();
+                        window["bd_pv_" + (new Date().getTime())] = img;
+                        img.src = "http://static."+"tieba.baidu.com/tb/img/pv.gif?" + params + "&t=" + new Date().getTime();
+                        img=null;
+                    }
+                },
+                /**
+                 * 新统计
+                 * @param locate
+                 * @param task
+                 * @param page
+                 * @param type
+                 * @param {Object} extra         扩展对象
+                 */
+                track: function(locate,task,page,type, extra){
+                    if (page && typeof page == 'object') { extra = page; page = ''; }
+                    if (type && typeof type == 'object') { extra = type; type = ''; }
+                    if (document.images) { //document.images永远为true，判断对img或者js的支持吗
+                        var img = new Image();
+                        window["bd_pv_" + (new Date().getTime())] = img;
+                        var trackUrl = "http://static.tieba."+"baidu.com/tb/img/track.gif?"; //统计发送URL
+                        var paramArr = [
+                            "client_type=pc_web",//普通PC版本
+                            "task=" + (task && encodeURIComponent(task) || ""),//不同的icafe项目
+                            "locate=" + (locate && encodeURIComponent(locate) || ""),//标示参数名称
+                            "type=" + (type && encodeURIComponent(type) || "click"),//如果type为空，则type=click
+                            "url=" + encodeURIComponent(document.location.href),//当前页面URL
+                            "refer=" + encodeURIComponent(document.referrer)//当前页面refer
+                        ];
+                        // 添加扩展属性
+                        for (var i in extra) {
+                            if (extra.hasOwnProperty(i)) {
+                                paramArr.push(i + "=" + encodeURIComponent(extra[i]));
+                            }
+                        }
+
+                        //发送统计参数
+                        trackUrl += paramArr.join("&");
+                        //发送统计
+                        img.src = trackUrl + "&t=" + new Date().getTime();
+                        img = null;
+                    }
+                }
+            };
+        })();
+
+        (function () {
+            /**
+             * 在$.stats.track基础上加默认的task参数（调用时只传入locate即可）
+             */
+            $.stats.myTrack = function (locate) {
+                $.stats.track(locate, "贴吧神翻译第二季-小游戏集");
+            }
+        })();
+
+        (function () {
+            $.stats.myTrack("访问页面");
+            if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
+                $.stats.myTrack("访问页面-微信");
+            }
+        })();
+    </script>
 </head>
 <body>
 

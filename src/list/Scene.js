@@ -40,6 +40,7 @@ define([
         onEnter: function () {
             var self = this;
             self._super();
+            $.stats.myTrack("游戏列表页");
 
             share.setShareResult("wholeGame");
 

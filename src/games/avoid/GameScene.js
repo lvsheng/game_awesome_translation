@@ -15,9 +15,11 @@ define([
             var self = this;
             self._super();
 
+            $.stats.myTrack("进入游戏-avoid");
             self.addChild(new BackgroundLayer());
             self.addChild(new GuideLayer(function(){
                 // 用户确认开始游戏的回调
+                $.stats.myTrack("开始游戏-avoid");
                 self.addChild(new GameLayer(function(result){
                     self.addChild(new ResultLayer(result.passedAmount, result, 'avoid'));
                 }));

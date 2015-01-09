@@ -41,9 +41,14 @@ define([], function () {
                 target._selectedItem.setNodeDirty();
                 if (Math.abs(target.touchPY2 - target.touchPY1) <= 5) {
                     target._selectedItem.activate();
+                    $.stats.myTrack("列表页点按钮");
                 }
             }
             target._state = cc.MENU_STATE_WAITING;
+
+            if (Math.abs(target.touchPY2 - target.touchPY1) > 5) {
+                $.stats.myTrack("列表页滚动");
+            }
             return true;
         },
         _onTouchCancelled: function (touch, event) {

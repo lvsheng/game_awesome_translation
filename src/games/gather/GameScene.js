@@ -16,9 +16,11 @@ define([
             var self = this;
             self._super();
 
+            $.stats.myTrack("进入游戏-gather");
             self._backgroundLayer = new BackgroundLayer();
             self.addChild(self._backgroundLayer);
             self.addChild(new GuideLayer(function(){
+                $.stats.myTrack("开始游戏-gather");
                 self.addChild(new GameLayer(function(result){
                     self.addChild(new ResultLayer(result.gather, result, 'gather'));
                 }));

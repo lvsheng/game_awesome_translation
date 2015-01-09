@@ -83,23 +83,29 @@ define([
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
 
         _retry: function () {
+            $.stats.myTrack("侧边栏重玩-" + require("../list/Scene").getInstance().getCurGame().name);
             var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
+            $.stats.myTrack("侧边栏返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
             cc.director.runScene(require('../list/Scene').getInstance());
         },
         _share: function () {
+            $.stats.myTrack("侧边栏分享-" + require("../list/Scene").getInstance().getCurGame().name);
+            //TODO: 加分享正确调用
             share();
         },
 
         pauseGame: function () {
+            $.stats.myTrack("暂停游戏-" + require("../list/Scene").getInstance().getCurGame().name);
             this._showLeftMenu();
             pauseGame.pauseGame();
             self._paused = true;
         },
         resumeGame: function () {
+            $.stats.myTrack("恢复游戏-" + require("../list/Scene").getInstance().getCurGame().name);
             if (self._paused) {
                 this._hideLeftMenu();
                 pauseGame.resumeGame();

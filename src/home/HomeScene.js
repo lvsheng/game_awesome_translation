@@ -12,6 +12,7 @@ define([
 ], function (resourceFileList, preload, listScene, AnimateLayer, BackgroundLayer) {
     return cc.Scene.extend({
         onEnter: function () {
+            $.stats.myTrack("首页");
             //alert('home scene enter');
             var canvas = document.getElementById("gameCanvas");
             //var winSize = cc.director.getWinSize();

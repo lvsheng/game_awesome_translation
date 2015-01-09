@@ -8,6 +8,7 @@ require([
     './home/HomeScene',
     './list/Scene'
 ], function (resourceFileList, preload, share, HomeScene) {
+    $.stats.myTrack("进入到main.js");
     share.setShareResult('wholeGame');
 
     var launchHalf = false; //为true时表示是已经cc.game.run()了，但onStart还没有被执行，不能再次cc.game.run()
@@ -50,6 +51,7 @@ require([
             element.style.right = "-" + window.innerWidth + "px";
             element.className = "rotate";
             window.rotatedTouchPositionTransformer.setRotated(true);
+            $.stats.myTrack("竖屏玩");
         }
 
         if (!launchHalf) { //launch一半时不再再次run
@@ -66,6 +68,8 @@ require([
         }
 
         judgeHorizontal();
+
+        $.stats.myTrack("window.resize事件");
     });
     judgeHorizontal();
 

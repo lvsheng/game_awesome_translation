@@ -107,11 +107,13 @@ define([
         },
         _rePlay: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; } //尝试在shadow上阻止事件向下传递，但没成功，先用这种比较挫的标记方法。。。
+            $.stats.myTrack("结果页重玩-" + require("../list/Scene").getInstance().getCurGame().name);
             var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
+            $.stats.myTrack("结果页返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
             cc.director.runScene(require('../list/Scene').getInstance());
         },
@@ -144,6 +146,7 @@ define([
         },
         _jumpToOther: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            $.stats.myTrack("结果页涨姿势链接-" + require("../list/Scene").getInstance().getCurGame().name);
             //向其他地方导流
             window.location.href = "http://events.we4media.com/bdck/mobile-flip/?nsukey=gre04mvq50qZwsOPu%2FwkUGqICYExaE%2BP5DV7EZU0gLnfwoZyzUh%2B5mH%2BT0WpZINW5quHDc1xFl%2BspcLKI2861Q%3D%3D";
         }
