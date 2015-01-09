@@ -4,12 +4,14 @@
  * @date 2015/1/6
  */
 define([
-], function () {
-    var weiboTopic = "#贴吧神翻译#";
+    './getResultText'
+], function (getResultText) {
+    var weiboTopic = "#贴吧神翻译# 谁玩谁流弊！";
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
-        imgUrl: '',
+        weixinImgUrl: '',
+        weiboImgUrl: 'http://tb1.bdstatic.com/tb/二维码海报.jpg',
         _position: 'whole' //'whole'|gameName|gameName-result
     };
     var SHARE_CONTENT_MAP = {
@@ -17,82 +19,64 @@ define([
             content: [
                 "贴吧神翻译-学渣好得意，谁玩谁流弊！"
             ].join(''),
-            imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/whole.jpg'
+            weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/whole.jpg'
         },
         game: {
             gather: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“爱情had found”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“打个大导演”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“我的机器人女友”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“撕逼强，找蓝翔！”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“鉴婊师训练营”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“凹凸曼大战零零后”游戏！敢不敢来挑战我？"
                 ].join(''),
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
         },
         gameResult: {
             gather: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
-                getContent: function (result) {
-
-                },
-                imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
         }
     };
@@ -101,7 +85,7 @@ define([
         if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('sendAppMessage',{
             "appid": '',
-            "img_url": sharedContent.imgUrl,
+            "img_url": sharedContent.weixinImgUrl,
             "img_width": "200",
             "img_height": "200",
             "link": sharedContent.url,
@@ -112,7 +96,7 @@ define([
     function shareTimeline(onFail) {
         if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('shareTimeline',{
-            "img_url": sharedContent.imgUrl,
+            "img_url": sharedContent.weixinImgUrl,
             "img_width": "200",
             "img_height": "200",
             "link": sharedContent.url,
@@ -170,9 +154,9 @@ define([
             $.stats.myTrack("微博分享-" + sharedContent._position);
             window.location.href =
                 'http://service.weibo.com/share/share.php'
-                + '?url=' + sharedContent.url
-                + '&title=' + sharedContent.content
-                + '&pic=' + sharedContent.imgUrl
+                + '?url=' + encodeURIComponent(sharedContent.url)
+                + '&title=' + encodeURIComponent(weiboTopic + sharedContent.content)
+                + '&pic=' + encodeURIComponent(sharedContent.weiboImgUrl)
                 + '&appkey=2285628874&ralateUid=1673450172';
         },
 
@@ -190,11 +174,29 @@ define([
                 sharedContent._position = gameName;
             } else if (type === 'gameResult') {
                 sharedContent = _.extend(sharedContent, {
-                    imgUrl: SHARE_CONTENT_MAP.gameResult[gameName].imgUrl,
-                    content: SHARE_CONTENT_MAP.gameResult[gameName].getContent(gameResult)
+                    weixinImgUrl: SHARE_CONTENT_MAP.gameResult[gameName].weixinImgUrl,
+                    content: this._getResultShareContent(gameName, gameResult)
                 });
                 sharedContent._position = gameName + "-result";
             }
+        },
+
+        _getResultShareContent: function (gameName, gameResult) {
+            var resultText = getResultText(gameName, gameResult);
+            resultText = resultText.replace("你", "我").replace('\n', ' ');
+            var removedIndex = resultText.lastIndexOf("快");
+            if (removedIndex === -1) {
+                removedIndex = resultText.lastIndexOf("赶");
+            }
+            --removedIndex; //跳过\n
+            resultText = resultText.substring(0, removedIndex);
+            var lastChar = resultText.charAt(resultText.length - 1);
+            if (lastChar === "，" || lastChar === ",") {
+                resultText = resultText.substring(0, resultText.length - 1);
+            }
+            resultText += "，敢不敢来挑战我?"
+            alert(resultText);
+            return resultText;
         }
     };
 });
