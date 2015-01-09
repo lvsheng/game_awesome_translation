@@ -11,8 +11,9 @@ define([
     '../util/resourceFileMap',
     '../util/pauseGame',
     '../util/share',
+    '../util/isWeixin',
     '../list/Scene'
-], function (require, resourceFileMap, pauseGame, share) {
+], function (require, resourceFileMap, pauseGame, share, isWeixin) {
     return cc.Layer.extend({
         ctor: function () {
             var self = this;
@@ -78,24 +79,27 @@ define([
             leftBar.addChild(leftMenu);
 
             self.bake();
+
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: false,
+                onTouchBegan: _.bind(self._removeShadowLayer, self)
+            }, self);
         },
 
         isMenuLayer: true, //用于pauseGame作为不暂停的判定条件
 
         _retry: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             $.stats.myTrack("侧边栏重玩-" + require("../list/Scene").getInstance().getCurGame().name);
             var mainScene = require('../list/Scene').getInstance();
             var curGame = mainScene.getCurGame();
             mainScene.enterAGame(curGame.name);
         },
         _returnHome: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             $.stats.myTrack("侧边栏返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
             cc.director.runScene(require('../list/Scene').getInstance());
-        },
-        _share: function () {
-            $.stats.myTrack("侧边栏分享-" + require("../list/Scene").getInstance().getCurGame().name);
-            //TODO: 加分享正确调用
-            share();
         },
 
         pauseGame: function () {
@@ -105,6 +109,7 @@ define([
             self._paused = true;
         },
         resumeGame: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
             $.stats.myTrack("恢复游戏-" + require("../list/Scene").getInstance().getCurGame().name);
             if (self._paused) {
                 this._hideLeftMenu();
@@ -124,6 +129,47 @@ define([
                     self.bake()
                 })
             ));
+        },
+
+        _share: function () {
+            if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            $.stats.myTrack("侧边栏分享-" + require("../list/Scene").getInstance().getCurGame().name);
+            if (isWeixin()) {
+                this._shareWeixin();
+            } else {
+                this._shareWeibo();
+            }
+        },
+        _shareWeibo: function () {
+            share.weiboShare();
+        },
+        _shareWeixin: function () {
+            var self = this;
+            share.tryWeixinShare(function(){
+                var winSize = cc.director.getWinSize();
+                var center = cc.p(winSize.width / 2, winSize.height / 2);
+
+                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 125), winSize.width, winSize.height);
+                self.addChild(shadowLayer);
+
+                var tipSprite = new cc.Sprite(resourceFileMap.common.resultLayer.tip);
+                tipSprite.setPosition(center.x + 58, 640 - 233.5);
+                shadowLayer.addChild(tipSprite);
+
+                var buttonSprite = new cc.Sprite(resourceFileMap.common.resultLayer.okButton);
+                buttonSprite.setPosition(center.x + 35, 640 - 530);
+                shadowLayer.addChild(buttonSprite);
+
+                shadowLayer.bake();
+
+                self._shadowLayer = shadowLayer;
+            });
+        },
+        _removeShadowLayer: function () {
+            if (this._shadowLayer) {
+                this.removeChild(this._shadowLayer);
+                this._shadowLayer = null;
+            }
         }
     });
 });
