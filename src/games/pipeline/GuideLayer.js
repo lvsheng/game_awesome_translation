@@ -2,9 +2,9 @@
  * 引导层、提示用户本游戏的玩法
  */
 define([
+    '../../util/resourceFileMap',
     '../../util/getGameTitle',
     '../../util/getGameTip',
-    '../../util/resourceFileMap',
     '../../commonClass/GuideDialog'
 ], function (resourceFileMap, getGameTitle, getGameTip, GuideDialog) {
     return cc.Layer.extend({

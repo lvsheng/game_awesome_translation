@@ -37,7 +37,8 @@ define([
             //TODO: 换用图片字体
             //var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.guideDialog.titleFont);
             var titleLabel = new cc.LabelTTF(title, "FZMiaoWuS-GB", 43);
-            titleLabel.setPosition(center.x, winSize.height - 164);
+            //titleLabel.setPosition(center.x - 17, winSize.height - 164);
+            titleLabel.setPosition(center.x - 12, winSize.height - 164);
             dialogLayer.addChild(titleLabel);
 
             //TODO: 换用图片字体
