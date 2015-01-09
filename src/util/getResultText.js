@@ -44,7 +44,7 @@ define([], function () {
         },
         bunt: function (result) {
             var info = "";
-            if (result.winning) {
+            if (result.winAmount > 0) {
                 info = _.template([
                     "你以<%= rate %>下/秒的手速",
                     "点击了<%= time %>秒，",
@@ -52,14 +52,14 @@ define([], function () {
                     "赢得了第<%= winAmount %>轮的胜利！",
                     "赶紧补充姿势，",
                     "再战蓝翔！"
-                ].join(''))(result);
+                ].join('\n'))(result);
             } else {
                 info = _.template([
-                    "你在<%= time %>秒内",
-                    "点击了<%= hitCount %>下却还是输了，",
+                    "你在<%= time %>秒内点击了<%= hitCount %>下",
+                    "却还是输了，",
                     "赶紧补充姿势，",
                     "再战蓝翔！"
-                ].join(''))(result);
+                ].join('\n'))(result);
             }
             return info;
         },
