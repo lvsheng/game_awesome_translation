@@ -67,7 +67,7 @@ define([
 
             //TODO: 换用图片字体
             //var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
-            var titleLabel = new cc.LabelTTF(score, "FZMiaoWuS-GB", 65);
+            var titleLabel = new cc.LabelTTF(score + "", "FZMiaoWuS-GB", 65);
             titleLabel.setPosition(center.x + 118 - 34, winSize.height - 175 + 26 + 48);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
@@ -75,14 +75,14 @@ define([
             //TODO: 换用图片字体
             //var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
             var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
-            textLabel.attr({anchorX: 0.5, anchorY: 1});
-            textLabel.setPosition(center.x + 120 - 20, winSize.height - 221 + 40 + 65);
+            textLabel.attr({anchorX: 0.5, anchorY: 0.5});
+            textLabel.setPosition(center.x + 120 - 20, winSize.height - 235);
             textLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(textLabel);
 
             self._animate();
 
-            share.tryWeixinShare(); //一展示结果就尝试一次分享到微信
+            share.tryWeixinShare(null, true); //一展示结果就尝试一次分享到微信
 
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -127,7 +127,6 @@ define([
         },
         _shareWeixin: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
-            $.stats.myTrack("分享到微信按钮");
             var self = this;
             share.tryWeixinShare(function(){
                 var winSize = cc.director.getWinSize();
