@@ -72,12 +72,14 @@ define([
         _animate: function () {
             var dialogLayer = this._dialogLayer;
             var winSize = cc.director.getWinSize();
-            //var destinationY = dialogLayer.y;
+            var destinationY = dialogLayer.y;
+            var destinationX = dialogLayer.x;
             //dialogLayer.y = winSize.height;
-            dialogLayer.x = -dialogLayer.width / 2;
+            dialogLayer.x = -dialogLayer.width / 2 + winSize.width / 6;
             dialogLayer.runAction(new cc.Sequence(
                 //new cc.MoveTo(0.6, this.x, destinationY).easing(cc.easeBounceOut(20))
-                (new cc.MoveTo(0.3, this.x, this.y)).easing(cc.easeIn(20)).easing(cc.easeBezierAction(.5, -1, 1.8, 1))
+                //(new cc.MoveTo(0.3, this.x, this.y)).easing(cc.easeIn(20)).easing(cc.easeBezierAction(.5, -1, 1.8, 1))
+                (new cc.MoveTo(0.15, destinationX, destinationY)).easing(cc.easeBackIn(20))
             ));
         }
     });

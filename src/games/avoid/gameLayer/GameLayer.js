@@ -58,10 +58,11 @@ define([
             this._passedWave = 0;
             this._endding = false;
 
+            this.addChild(this._teenager = new Teenager());
+
             var spriteBatchNode = this._spriteBatchNode = new cc.SpriteBatchNode(resourceFileMap.avoid.ultraman, 30);
             this.addChild(spriteBatchNode);
 
-            this.addChild(this._teenager = new Teenager());
             this._launchUltramanList();
             this._jumpUltramanOnTouch();
 
