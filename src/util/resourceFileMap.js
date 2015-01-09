@@ -78,6 +78,8 @@ define({
         horn: 'res/home/horn.png',
         leftPerson: 'res/home/leftPerson.png',
         pen: 'res/home/pen.png',
+        cloud: 'res/home/cloud.png',
+        sun: 'res/home/sun.png',
         ribbon: 'res/home/ribbon.png',
         rightPerson: 'res/home/rightPerson.png',
         title: 'res/home/title.png'
