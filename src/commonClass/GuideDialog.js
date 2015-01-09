@@ -34,11 +34,15 @@ define([
             buttonMenu.setPosition(center.x, winSize.height - 488.5);
             dialogLayer.addChild(buttonMenu);
 
-            var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.guideDialog.titleFont);
+            //TODO: 换用图片字体
+            //var titleLabel = new cc.LabelBMFont(title, resourceFileMap.common.guideDialog.titleFont);
+            var titleLabel = new cc.LabelTTF(title, "FZMiaoWuS-GB", 43);
             titleLabel.setPosition(center.x, winSize.height - 164);
             dialogLayer.addChild(titleLabel);
 
-            var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.guideDialog.textFont);
+            //TODO: 换用图片字体
+            //var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.guideDialog.textFont);
+            var textLabel = new cc.LabelTTF(text, "FZMiaoWuS-GB", 33);
             textLabel.attr({anchorX: 0.5, anchorY: 0.5});
             textLabel.setPosition(center.x, winSize.height - 300);
             textLabel.color = cc.color(0, 37, 41, 255);
