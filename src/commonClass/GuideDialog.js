@@ -58,13 +58,16 @@ define([
             //var textLabel = new cc.LabelBMFont(text, resourceFileMap.common.guideDialog.textFont);
             var textLabel = new cc.LabelTTF(text, "FZMiaoWuS-GB", 33);
             textLabel.attr({anchorX: 0.5, anchorY: 0.5});
-            textLabel.setPosition(center.x, winSize.height - 300);
+            textLabel.setPosition(center.x, winSize.height - 315);
             textLabel.color = cc.color(0, 37, 41, 255);
             dialogLayer.addChild(textLabel);
 
             dialogLayer.bake();
 
             this._animate();
+
+            //TODO: for debug
+            //onButtonClick();
         },
         _animate: function () {
             var dialogLayer = this._dialogLayer;

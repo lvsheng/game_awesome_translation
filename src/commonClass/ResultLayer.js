@@ -54,7 +54,7 @@ define([
             var weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
             weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
             var linkMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.zhangzishi), new cc.Sprite(imgMap.zhangzishi), null, _.bind(self._jumpToOther, self));
-            linkMenuItem.attr({x: center.x + 120, y: winSize.height - 390});
+            linkMenuItem.attr({x: center.x + 120 - 54, y: winSize.height - 390 - 13});
 
             var menu;
             if (isWeixin()) {
@@ -68,7 +68,7 @@ define([
             //TODO: 换用图片字体
             //var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
             var titleLabel = new cc.LabelTTF(score, "FZMiaoWuS-GB", 65);
-            titleLabel.setPosition(center.x + 118, winSize.height - 175 + 26);
+            titleLabel.setPosition(center.x + 118 - 34, winSize.height - 175 + 26 + 48);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
@@ -76,7 +76,7 @@ define([
             //var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
             var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
             textLabel.attr({anchorX: 0.5, anchorY: 1});
-            textLabel.setPosition(center.x + 120, winSize.height - 221 + 40);
+            textLabel.setPosition(center.x + 120 - 20, winSize.height - 221 + 40 + 65);
             textLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(textLabel);
 
