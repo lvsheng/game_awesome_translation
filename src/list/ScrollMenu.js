@@ -11,6 +11,8 @@ define([], function () {
         },
         _onTouchBegan: function (touch, event) {
             var target = event.getCurrentTarget();
+            target.touchPY1 = touch.getLocation().y;
+
             if (target._state != cc.MENU_STATE_WAITING || !target._visible || !target.enabled)
                 return false;
             for (var c = target.parent; c != null; c = c.parent) {
@@ -28,6 +30,8 @@ define([], function () {
         },
         _onTouchEnded: function (touch, event) {
             var target = event.getCurrentTarget();
+            target.touchPY2 = touch.getLocation().y;
+
             if (target._state !== cc.MENU_STATE_TRACKING_TOUCH) {
                 cc.log("cc.Menu.onTouchEnded(): invalid state");
                 return;
@@ -35,9 +39,12 @@ define([], function () {
             if (target._selectedItem) {
                 target._selectedItem.unselected();
                 target._selectedItem.setNodeDirty();
-                target._selectedItem.activate();
+                if (Math.abs(target.touchPY2 - target.touchPY1) <= 5) {
+                    target._selectedItem.activate();
+                }
             }
             target._state = cc.MENU_STATE_WAITING;
+            return true;
         },
         _onTouchCancelled: function (touch, event) {
             var target = event.getCurrentTarget();
@@ -69,6 +76,7 @@ define([], function () {
                     target._selectedItem.setNodeDirty();
                 }
             }
+            return true;
         }
     });
     ScrollMenu.create = function () {
