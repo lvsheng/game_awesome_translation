@@ -65,22 +65,9 @@ define([], function () {
         },
         _onTouchMoved: function (touch, event) {
             var target = event.getCurrentTarget();
-            if (target._state !== cc.MENU_STATE_TRACKING_TOUCH) {
-                cc.log("cc.Menu.onTouchMoved(): invalid state");
-                return;
-            }
-            var currentItem = target._itemForTouch(touch);
-            if (currentItem != target._selectedItem) {
-                if (target._selectedItem) {
-                    target._selectedItem.unselected();
-                    target._selectedItem.setNodeDirty();
-                }
-                target._selectedItem = currentItem;
-                if (target._selectedItem) {
-                    target._selectedItem.selected();
-                    target._selectedItem.setNodeDirty();
-                }
-            }
+            //cocos原本是在划动时将新被划动到的元素作为当前选中的元素。
+            //但处于scrollView中时，在划出了菜单区域后会引发bug（菜单位置更新失效，导致下次点击时看着点中的菜单项与实际生效的被点中的菜单项出现错位）
+            //并且不需要划动时更新选中元素，而可以直接认为划动了就选中已经失效，故这里不再处理
             return true;
         }
     });
