@@ -62,6 +62,7 @@ define([
         },
         _updateBodyPosition: function (dt) {
             var self = this;
+            if (self._stopped) { return; }
             var delta = self._speed * dt;
             _.forEach(self._bodyList, function (eachBody) { eachBody.setBodyPosition(eachBody.x - delta); });
         },
@@ -121,6 +122,14 @@ define([
             }
             return this._bodyWidth;
         },
-        stopAddBody: function () { this._stopped = true; }
+        stopRun: function () { this._stopped = true; },
+        blink: function (callback) {
+            if (this._bodyList.length === 0) {
+                callback();
+            } else {
+                this._bodyList[0].blink(callback);
+                for (var i = 1; i < this._bodyList.length; ++i) { this._bodyList[i].blink(); }
+            }
+        }
     });
 });

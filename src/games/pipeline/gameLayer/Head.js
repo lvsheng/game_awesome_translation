@@ -34,7 +34,6 @@ define([
                     if (this._positionIsFit(bodyList[i])) {
                         this._assemble(bodyList[i]);
                         assembled = true;
-                        nearestBody = null;
                     }
                 }
                 if (!assembled) {

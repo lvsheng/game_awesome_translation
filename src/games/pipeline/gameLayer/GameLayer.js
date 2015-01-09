@@ -5,10 +5,7 @@ define([
     '../../../util/resourceFileMap',
     '../../../commonClass/TimerNode'
 ], function (Pipeline, Head, pauseGame, resourceFileMap, TimerNode) {
-    var GAME_TIME = 30;
-
-    //TODO: for debug
-    //var GAME_TIME = 3;
+    //var GAME_TIME = 30;
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;
@@ -27,7 +24,7 @@ define([
             self._addNewHead();
 
             //游戏定时结束
-            self.scheduleOnce(function(){ self._pipeline.stopAddBody(); }, GAME_TIME);
+            //self.scheduleOnce(function(){ self._pipeline.stopAddBody(); }, GAME_TIME);
 
             self.schedule(function () {
                 if (this._pipeline.getBodyList().length === 0) {
@@ -40,9 +37,23 @@ define([
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: function(){
-                    var assembled = self._head.tryAssemble(function(){ self._addNewHead(); });
-                    if (assembled) { ++self._assembledAmount }
-                    else { ++self._dropedAmount; }
+                    if (!self._head) { return; }
+
+                    var assembled = self._head.tryAssemble(function(){
+                        if (assembled) {
+                            ++self._assembledAmount;
+                            self._addNewHead();
+                        }
+                        else {
+                            ++self._dropedAmount;
+                            if (self._dropedAmount < 3) {
+                                self._addNewHead();
+                            } else {
+                                self._endGame();
+                            }
+                        }
+                    });
+                    self._head = null;
                 }
             }, self);
         },
@@ -51,11 +62,15 @@ define([
             this.addChild(this._head = new Head(this._pipeline), newZIndex);
         },
         _endGame: function () {
-            pauseGame.pauseGame();
-            this._endCallback({
-                assemble: this._assembledAmount,
-                drop: this._dropedAmount,
-                time: Math.round(this._timer.get())
+            var self = this;
+            self._pipeline.stopRun();
+            self._pipeline.blink(function () {
+                pauseGame.pauseGame();
+                self._endCallback({
+                    assemble: self._assembledAmount,
+                    drop: self._dropedAmount,
+                    time: Math.round(self._timer.get())
+                });
             });
         }
     });

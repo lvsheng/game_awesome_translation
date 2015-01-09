@@ -19,6 +19,20 @@ define([
         remove: function () {
             this.parent.removeChild(this);
             this._head && this._head.parent.removeChild(this._head);
+        },
+        /**
+         * @param [callback]
+         */
+        blink: function (callback) {
+            var action = new cc.Sequence(
+                new cc.Blink(0.5, 9),
+                new cc.DelayTime(0.5)
+            );
+            if (this._head) { this._head.runAction(action.clone()); }
+            this.runAction(new cc.Sequence(
+                action.clone(),
+                new cc.CallFunc(callback)
+            ));
         }
     });
 });
