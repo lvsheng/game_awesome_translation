@@ -23,7 +23,7 @@ define([
     var crazy_heart_confs = [
         //amount, lifeTime, closeUpDistance
         //[5, 0.4, 0.15]
-        [5, 0.35, 0.10]
+        [5, 0.4, 0.08]
         //[3, 1.2],
         //[3, 1.0],
         //[5, 0.5, 0.035],
@@ -142,7 +142,13 @@ define([
             this._removeHeart(heart);
         },
         _turnToCrazyMode: function () {
-            this._heartConfs = _.map(crazy_heart_confs, _.clone);
+            var self = this;
+            self._heartConfs = _.map(crazy_heart_confs, _.clone);
+            //self._hearts.length && self._removeHeart(self._hearts[0]);
+            //var hearts = _.clone(self._hearts); //因为遍历的judgeHit中有可能删除_hearts中的元素，复制一份，以使遍历不会乱掉
+            //_.forEach(hearts, function (heart) {
+            //    self._removeHeart(heart);
+            //});
         },
         /**
          * @param winning {boolean}
