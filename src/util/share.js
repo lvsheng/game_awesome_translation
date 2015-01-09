@@ -61,22 +61,40 @@ define([
         },
         gameResult: {
             gather: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png',
+                getContent: function (result) {
+                    return getResultShareContent('gather', result);
+                }
             },
             hit: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png',
+                getContent: function (result) {
+                    return getResultShareContent('hit', result);
+                }
             },
             pipeline: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png',
+                getContent: function (result) {
+                    return getResultShareContent('pipeline', result);
+                }
             },
             bunt: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png',
+                getContent: function (result) {
+                    return getResultShareContent('bunt', result);
+                }
             },
             find: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png',
+                getContent: function (result) {
+                    return getResultShareContent('find', result);
+                }
             },
             avoid: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
+                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png',
+                getContent: function (result) {
+                    return getResultShareContent('avoid', result);
+                }
             }
         }
     };
@@ -175,28 +193,28 @@ define([
             } else if (type === 'gameResult') {
                 sharedContent = _.extend(sharedContent, {
                     weixinImgUrl: SHARE_CONTENT_MAP.gameResult[gameName].weixinImgUrl,
-                    content: this._getResultShareContent(gameName, gameResult)
+                    content: SHARE_CONTENT_MAP.gameResult[gameName].getContent(gameResult)
                 });
                 sharedContent._position = gameName + "-result";
             }
-        },
-
-        _getResultShareContent: function (gameName, gameResult) {
-            var resultText = getResultText(gameName, gameResult);
-            resultText = resultText.replace("你", "我").replace('\n', ' ');
-            var removedIndex = resultText.lastIndexOf("快");
-            if (removedIndex === -1) {
-                removedIndex = resultText.lastIndexOf("赶");
-            }
-            --removedIndex; //跳过\n
-            resultText = resultText.substring(0, removedIndex);
-            var lastChar = resultText.charAt(resultText.length - 1);
-            if (lastChar === "，" || lastChar === ",") {
-                resultText = resultText.substring(0, resultText.length - 1);
-            }
-            resultText += "，敢不敢来挑战我?"
-            alert(resultText);
-            return resultText;
         }
     };
+
+    function getResultShareContent (gameName, gameResult) {
+        var resultText = getResultText(gameName, gameResult);
+        resultText = resultText.replace("你", "我").replace('\n', ' ');
+        var removedIndex = resultText.lastIndexOf("快");
+        if (removedIndex === -1) {
+            removedIndex = resultText.lastIndexOf("赶");
+        }
+        --removedIndex; //跳过\n
+        resultText = resultText.substring(0, removedIndex);
+        var lastChar = resultText.charAt(resultText.length - 1);
+        if (lastChar === "，" || lastChar === ",") {
+            resultText = resultText.substring(0, resultText.length - 1);
+        }
+        resultText += "，敢不敢来挑战我?";
+        //alert(resultText);
+        return resultText;
+    }
 });
