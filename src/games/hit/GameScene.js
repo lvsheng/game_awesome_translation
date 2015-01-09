@@ -20,8 +20,8 @@ define([
             self.addChild(new GuideLayer(function(){
                 $.stats.myTrack("开始游戏-hit");
                 self.addChild(new GameLayer(function(result){
-                    result = {amount: scoreManager.getScore()};
-                    self.addChild(new ResultLayer(result.amount, result, 'hit'));
+                    result = scoreManager.getResult();
+                    self.addChild(new ResultLayer(result.score, result, 'hit'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

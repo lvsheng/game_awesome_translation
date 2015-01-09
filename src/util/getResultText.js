@@ -5,67 +5,75 @@
 define([], function () {
     var generatorMap = {
         gather: function (result) {
-            var info = '你以';
-
-            if (result.minReactTime && result.averageReactTime) {
-                info += "平均" + result.minReactTime/1000 + "s的反应时间，";
-            }
-            info += result.rightRate + "%的正确率\n";
-            info += "在" + result.time + "s内";
-            info += "成功收集了" + result.gather + "颗心,\n";
-
+            var info;
             if (result.winning) {
-                info += "终于成功挽救了单身狗，使他与女神相遇了！"
+                info = _.template([
+                    "通过你坚持不懈的",
+                    "<%=gather%>个爱心收集，",
+                    "屌丝终于和女神",
+                    "幸福地生活在了一起！",
+                    "赶紧补充姿势，",
+                    "让世界充满爱！"
+                ].join('\n'))(result);
             } else {
-                info += [
-                    "但还不足以挽留住女神~"
-                ].join('\n');
+                info = _.template([
+                    "寻爱之路好幸苦，",
+                    "屌丝垂泪低头lu，",
+                    "赶紧补充姿势，",
+                    "让世界充满爱！"
+                ].join('\n'))(result);
             }
+
             return info;
         },
         hit: function (result) {
-            return "你成功打掉了" + result.amount + "个地鼠";
+            return _.template([
+                "你已成功打倒了<%=amount%>个大导演，",
+                "误伤了<%=loverAmount%>个女演员，",
+                "快继续补充姿势，",
+                "娱乐圈的规则将因你而改写！"
+            ].join('\n'))(result);
         },
         pipeline: function (result) {
-            return '你在' + result.time + 's内成功装配成功了' + result.assemble + '个机器人女友！';
+            return _.template([
+                "你已经送给了技术宅",
+                "<%=assemble%>个机器人女友，",
+                "快再补充点姿势，",
+                "要不怎么跟技术宅玩耍！"
+            ].join('\n'))(result);
         },
         bunt: function (result) {
-            return _.template([
-                "<% if (!winning) { %>",
-                "<% } %>",
-                "以<%= rate %>下/秒的手速狂点了<%= hitCount %>下，",
-                "<% if (winning) { %>",
-                "终于赢了~",
-                "<% } else { %>",
-                "你坚持了<%= time %>s却还是输了..",
-                "<% } %>"
-            ].join(''))(result);
+            var info = "";
+            if (result.winning) {
+                info = _.template([
+                    "你以<%= rate %>下/秒的手速",
+                    "点击了<%= time %>秒，",
+                    "在蓝翔挖掘机撕逼战中",
+                    "赢得了第<%= winAmount %>轮的胜利！",
+                    "赶紧补充姿势，",
+                    "再战蓝翔！"
+                ].join(''))(result);
+            } else {
+                info = _.template([
+                    "你在<%= time %>秒内",
+                    "点击了<%= hitCount %>下却还是输了，",
+                    "赶紧补充姿势，",
+                    "再战蓝翔！"
+                ].join(''))(result);
+            }
+            return info;
         },
         find: function (result) {
-            return "你在" + result.time + "s内成功找到" + result.amount + "个凤姐，鉴婊能力超强~！";
+            return _.template("在<%= fanbingbingAmount %>个范冰冰里面找到<%= hitCount %>个\n凤姐的脸都不算事儿！\n快来补充姿势，\n争当专业鉴婊师！")(result);
         },
         avoid: function (result) {
-            var info;
-            if (result.winning) {
-                info = "这绝对是一个值得纪念的时刻！\n" +
-                "你成功避开了总共" + result.passedAmount + "个00后，\n" +
-                "拯救了" + result.passedWave + "波奥特曼，\n" +
-                "赢得了最终的胜利！"
-            } else if (result.remainedWave === 0) {
-                info = "共成功避开了" + result.passedAmount + "个00后！\n" +
-                "拯救完最后一波奥特曼就可以取得最后的胜利！";
-            } else  if (result.passedWave > 1) {
-                info = "共成功避开了" + result.passedAmount + "个00后！\n" +
-                "再拯救" + (result.remainedWave + 1) + "波奥特曼就可以取得最后的胜利";
-            } else if (result.passedAmount < 3) {
-                info = "呃... 你只避开了" + result.passedAmount + "个00后，\n" +
-                "再接再厉~！";
-            } else {
-                info = "成功避开了" + result.passedAmount + "个00后！\n" +
-                "不过还是输了~";
-            }
-
-            return info;
+            return _.template([
+                "<%= passedAmount %>个凹凸曼在你的协助下",
+                "躲过了<%= turn %>轮零零后的攻击，",
+                "赶紧补充姿势，",
+                "把零零后的侵占计划",
+                "扼杀在摇篮！"
+            ].join('\n'))(result);
         }
     };
 

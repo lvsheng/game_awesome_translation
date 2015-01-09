@@ -7,7 +7,7 @@ define([
     //这些参数单位都用比例，在计算精灵位置时再根据屏幕宽度换算成px。这样来达到不同屏幕大小下难度一致
     var INIT_DISTANCE = 0.45; //两个小人之间初始距离
     //TODO
-    var INIT_DISTANCE = 0.01; //两个小人之间初始距离
+    //var INIT_DISTANCE = 0.01; //两个小人之间初始距离
     var hear_confs = [
         //amount, lifeTime, closeUpDistance
         [5, 1.5, 0.04],

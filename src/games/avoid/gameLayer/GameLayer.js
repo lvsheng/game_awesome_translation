@@ -166,7 +166,8 @@ define([
                     time: self._timer.get(),
                     passedAmount: self._passedAmount,
                     remainedWave: self._getRemainedWave(),
-                    passedWave: self._passedWave
+                    passedWave: self._passedWave,
+                    turn: self._teenager.getTurn()
                 });
             }
         },

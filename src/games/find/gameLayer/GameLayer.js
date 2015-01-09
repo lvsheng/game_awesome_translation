@@ -10,6 +10,7 @@ define([
             self._super(); self.init();
 
             self._gameTime = 30;
+            //TODO: for debug
             //self._gameTime = 1;
             self._matrixSizeList = [
                 2,
@@ -33,6 +34,7 @@ define([
             self._endCallback = endCallback;
             self._scale = self._matrixSizeList.shift();
             self._hitCount = 0;
+            self._fanbingbingAmount = 0;
 
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
@@ -50,6 +52,7 @@ define([
                         ++self._hitCount;
                         self._scale = self._matrixSizeList.length > 0 ? self._matrixSizeList.shift() : self._scale;
                         self._matrix.generate(self._scale);
+                        self._fanbingbingAmount += (self._scale * self._scale - 1);
                     }
                 }
             }, self);
@@ -61,13 +64,15 @@ define([
             }, self._gameTime);
 
             self._matrix.generate(self._scale);
+            self._fanbingbingAmount += (self._scale * self._scale - 1);
         },
 
         _endGame: function () {
             pauseGame.pauseGame();
             this._endCallback({
                 time: this._timer.get(),
-                hitCount: this._hitCount
+                hitCount: this._hitCount,
+                fanbingbingAmount: this._fanbingbingAmount
             });
         }
     });

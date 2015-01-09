@@ -39,7 +39,8 @@ define([
                 winning: winning,
                 time: this._timer.get(),
                 hitCount: this._cars.getUserHitCount(),
-                rate: Math.round(this._cars.getUserHitCount() / this._timer.get())
+                rate: Math.round(this._cars.getUserHitCount() / this._timer.get()),
+                winAmount: this._cars.getWinAmount()
             });
         }
     });

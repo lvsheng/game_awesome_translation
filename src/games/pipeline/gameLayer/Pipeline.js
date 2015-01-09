@@ -10,9 +10,6 @@ define([
     var DEFAULT_TIME = 1;
     return cc.Layer.extend({
         ctor: function () {
-            //TODO for debug
-            window.pipeline = this;
-
             var self = this;
             self._super(); self.init();
 

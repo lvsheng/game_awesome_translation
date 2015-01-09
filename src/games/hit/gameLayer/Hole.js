@@ -141,6 +141,7 @@ define([
                 self._poppedMouse.runAction(new cc.Sequence(
                     self._mousePullAction,
                     new cc.CallFunc(function () {
+                        scoreManager.hitLover();
                         var heartNames = ['leftHeart', 'rightHeart'];
                         var animateTime = .3;
                         var rotateTo;

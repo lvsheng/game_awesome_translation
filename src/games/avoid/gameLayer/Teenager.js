@@ -12,6 +12,7 @@ define([
         _innerCrashRect: cc.rect(60, 0, 148, 231), //相对于左下角的一个内部相对坐标的矩形
         _moveDirection: '', //'left' | 'right
         _speed: 0, //px为单位
+        _turn: 0,
 
         ctor: function () {
             this._super(resourceFileMap.avoid.teenager);
@@ -41,15 +42,19 @@ define([
                     self._moveDirection = 'right';
                     self.flippedX = true;
                     self.anchorX = 1 - self.anchorX; //flip只是让绘制的内容翻转、不影响位置与anchor。这里把anchor跟随做翻转
+                    ++self._turn;
                 }),
                 new cc.MoveTo(oneTripTime, self._moveRangeRight, self.y),
                 new cc.CallFunc(function(){
                     self._moveDirection = 'left';
                     self.anchorX = 1 - self.anchorX;
                     self.flippedX = false;
+                    ++self._turn;
                 })
             )));
         },
+
+        getTurn: function () { return this._turn; },
 
         //判断奥特曼是否与自己相撞
         ifCrash: function (ultraman) {
