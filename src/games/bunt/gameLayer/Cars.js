@@ -28,14 +28,14 @@ define([
                 } else if (winner === 'right') { //赢了当前局，进入下一局
                     self.removeChild(self._computerControl);
                     self._userControl.pauseTouch();
+                    self._positionManager.restore();
 
                     self.addChild(self._fasterLayer = new FasterLayer(function(){
                         self.removeChild(self._fasterLayer);
-                        self._positionManager.restore();
                         self._userControl.restoreTouch();
                         ++self._curLevel;
                         self.addChild(self._computerControl = new ComputerControl(self._positionManager, self._curLevel));
-                    }));
+                    }, self._curLevel));
                 } else {
                     self._onWinningOrLoosing(false);
                 }

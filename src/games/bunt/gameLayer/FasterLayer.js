@@ -3,8 +3,8 @@
  * @date 2015/1/8
  */
 define([
-
-], function () {
+    '../../../util/resourceFileMap'
+], function (resourceFileMap) {
     return cc.Layer.extend({
         /**
          * @param endCallback
@@ -19,18 +19,31 @@ define([
             var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 100), winSize.width, winSize.height);
             self.addChild(shadowLayer);
 
-            var fasterText = level === 0 ? 'Faster!' : 'Fasterer!';
-            var label = new cc.LabelTTF(fasterText, "STHeiti", 180, null, cc.TEXT_ALIGNMENT_CENTER);
-            label.attr({
+            var faster = new cc.Sprite(resourceFileMap.bunt.faster);
+            faster.attr({
                 x: center.x,
-                y: center.y,
-                fillStyle: cc.color(255, 255, 255, 255)
+                y: center.y
             });
-            self.addChild(label);
+            faster.scale = 0.6;
+            self.addChild(faster);
 
-            label.runAction(new cc.Sequence(
-                new cc.ScaleBy(0.05, 0.7),
-                new cc.ScaleBy(1, 1.3).easing(cc.easeElasticOut(0.1)),
+            var scaleAction;
+            //faster
+            if (level === 0) {
+                scaleAction = new cc.Sequence(
+                    new cc.ScaleTo(0.05, 0.4),
+                    new cc.ScaleTo(1, 0.7).easing(cc.easeElasticOut(0.1))
+                );
+            }
+            //fasterer
+            else {
+                scaleAction = new cc.Sequence(
+                    new cc.ScaleTo(0.05, 0.4),
+                    new cc.ScaleTo(1, 1).easing(cc.easeElasticOut(0.1))
+                );
+            }
+            faster.runAction(new cc.Sequence(
+                scaleAction,
                 new cc.CallFunc(function () {
                     cc.eventManager.addListener({
                         event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
@@ -42,17 +55,6 @@ define([
                     self.scheduleOnce(endCallback, 1.5);
                 })
             ));
-
-            //吞噬下面层的触摸.. 不成功。。。
-            //function no () { return false; }
-            //cc.eventManager.addListener(cc.EventListener.create({
-            //    event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            //    swallowTouches: true,
-            //    onTouchBegan: no,
-            //    onTouchMoved: no,
-            //    onTouchEnded: no,
-            //    onTouchCancelled: no
-            //}), self);
         }
     });
 });

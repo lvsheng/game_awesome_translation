@@ -67,8 +67,8 @@ define([
 
             //TODO: 换用图片字体
             //var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
-            var titleLabel = new cc.LabelTTF(score + "", "FZMiaoWuS-GB", 65);
-            titleLabel.setPosition(center.x + 118 - 34, winSize.height - 175 + 26 + 48);
+            var titleLabel = new cc.LabelTTF("Score:" + score, "FZMiaoWuS-GB", 55);
+            titleLabel.setPosition(center.x + 118 - 34 - 5, winSize.height - 175 + 26 + 48 + 10);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
