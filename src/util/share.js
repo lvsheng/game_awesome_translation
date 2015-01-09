@@ -9,7 +9,8 @@ define([
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
-        imgUrl: ''
+        imgUrl: '',
+        _position: 'whole' //'whole'|gameName|gameName-result
     };
     var SHARE_CONTENT_MAP = {
         wholeGame: {
@@ -131,17 +132,17 @@ define([
         // 发送给好友
         window.WeixinJSBridge.on('menu:share:appmessage', function(argv){
             shareFriend();
-            $.stats.myTrack("微信分享给好友");
+            $.stats.myTrack("微信分享给好友-" + sharedContent._position);
         });
         // 分享到朋友圈
         window.WeixinJSBridge.on('menu:share:timeline', function(argv){
             shareTimeline();
-            $.stats.myTrack("微信分享到朋友圈");
+            $.stats.myTrack("微信分享到朋友圈-" + sharedContent._position);
         });
         // 分享到微博
         window.WeixinJSBridge.on('menu:share:weibo', function(argv){
             shareWeibo();
-            $.stats.myTrack("微信分享到微博");
+            $.stats.myTrack("微信分享到微博-" + sharedContent._position);
         });
     }
     if (window.WeixinJSBridge) {
@@ -154,11 +155,19 @@ define([
 
     return {
         //其实本来应该在本模块中判断是否为微信环境、然后自动选择平台进行分享的。但加阴影层需要屏蔽底部层的事件、可是时间比较紧，没搞出来T_T
-        tryWeixinShare: function (onFail) {
+        /**
+         * @param onFail
+         * @param [auto] 标志非用户主动点击、而是程序自动调用。用于统计标志
+         */
+        tryWeixinShare: function (onFail, auto) {
             shareTimeline(onFail);
+
+            if (!auto) {
+                $.stats.myTrack("分享到微信按钮-" + sharedContent._position);
+            }
         },
         weiboShare: function () {
-            $.stats.myTrack("微博分享");
+            $.stats.myTrack("微博分享-" + sharedContent._position);
             window.location.href =
                 'http://service.weibo.com/share/share.php'
                 + '?url=' + sharedContent.url
@@ -175,13 +184,16 @@ define([
         setShareResult: function (type, gameName, gameResult) {
             if (type === 'wholeGame') {
                 sharedContent = _.extend(sharedContent, SHARE_CONTENT_MAP.wholeGame);
+                sharedContent._position = "whole";
             } else if (type === 'game') {
                 sharedContent = _.extend(sharedContent, SHARE_CONTENT_MAP.game[gameName]);
+                sharedContent._position = gameName;
             } else if (type === 'gameResult') {
                 sharedContent = _.extend(sharedContent, {
                     imgUrl: SHARE_CONTENT_MAP.gameResult[gameName].imgUrl,
                     content: SHARE_CONTENT_MAP.gameResult[gameName].getContent(gameResult)
                 });
+                sharedContent._position = gameName + "-result";
             }
         }
     };
