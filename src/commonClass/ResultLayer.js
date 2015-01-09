@@ -54,7 +54,7 @@ define([
             var weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
             weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
             var linkMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.zhangzishi), new cc.Sprite(imgMap.zhangzishi), null, _.bind(self._jumpToOther, self));
-            linkMenuItem.attr({x: center.x + 120 - 54, y: winSize.height - 390 - 13});
+            linkMenuItem.attr({x: center.x + 120 - 54, y: winSize.height - 390 - 13 + 15});
 
             var menu;
             if (isWeixin()) {
