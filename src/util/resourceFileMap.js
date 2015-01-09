@@ -8,13 +8,13 @@ define({
         button_hover: 'res/bunt/button_hover.png'
     },
     avoid: {
-        bg: 'res/avoid/bg.png',
+        bg: 'res/avoid/bg.jpg',
         bang: 'res/avoid/bang.png',
         teenager: 'res/avoid/teenager.png',
         ultraman: 'res/avoid/ultraman.png'
     },
     gather: {
-        bg: 'res/gather/bg.png',
+        bg: 'res/gather/bg.jpg',
         heart: 'res/gather/heart.png',
         left: 'res/gather/left.png',
         right: 'res/gather/right.png'
@@ -43,7 +43,7 @@ define({
             textFont: 'res/common/guideDialog/textFont_fnt.txt'
         },
         resultLayer: {
-            bg: 'res/common/resultLayer/bg.png',
+            bg: 'res/common/resultLayer/bg.jpg',
             dialog: 'res/common/resultLayer/dialog.png',
             home: 'res/common/resultLayer/home.png',
             logo: 'res/common/resultLayer/logo.png',
@@ -61,10 +61,10 @@ define({
     loading: {
         loading1: 'res/common/loading_1.png',
         loading2: 'res/common/loading_2.png',
-        loadingBg: 'res/common/loadingBg.png'
+        loadingBg: 'res/common/loadingBg.jpg'
     },
     pipeline: {
-        bg: 'res/pipeline/bg.png',
+        bg: 'res/pipeline/bg.jpg',
         body: 'res/pipeline/body.png',
         head: 'res/pipeline/head.png',
         man: 'res/pipeline/man.png',
@@ -83,7 +83,7 @@ define({
         title: 'res/home/title.png'
     },
     list: {
-        bg: 'res/list/bg.png',
+        bg: 'res/list/bg.jpg',
         button_00: 'res/list/button_00.png',
         button_00_hover: 'res/list/button_00_hover.png',
         button_director: 'res/list/button_director.png',
@@ -102,7 +102,7 @@ define({
         person: 'res/list/person.png'
     },
     hit: {
-        background_png: 'res/hit/background.png',
+        background_png: 'res/hit/background.jpg',
         hammer_png: 'res/hit/hammer.png',
         timer_png: 'res/hit/timer.png',
 
@@ -118,9 +118,9 @@ define({
         uncle_png: 'res/hit/hole/uncle.png'
     },
     find: {
-        bg: 'res/find/bg.png',
-        fanbingbing: 'res/find/fanbingbing.png',
-        fengjie: 'res/find/fengjie.png',
+        bg: 'res/find/bg.jpg',
+        fanbingbing: 'res/find/fanbingbing.jpg',
+        fengjie: 'res/find/fengjie.jpg',
         person: 'res/find/person.png'
     }
 });
