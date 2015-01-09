@@ -21,37 +21,37 @@ define([
         game: {
             gather: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“爱情had found”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“爱情had found”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“打个大导演”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“打个大导演”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“我的机器人女友”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“我的机器人女友”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“撕逼强，找蓝翔！”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“撕逼强，找蓝翔！”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“鉴婊师训练营”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“鉴婊师训练营”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
                 content: [
-                    "我在玩“贴吧神翻译-谁玩谁流弊”中的“凹凸曼大战零零后”游戏！敢不敢来挑战我？"
+                    "我在“贴吧神翻译-谁玩谁流弊”玩“凹凸曼大战零零后”游戏！敢不敢来挑战我？"
                 ].join(''),
                 imgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
