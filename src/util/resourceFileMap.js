@@ -37,6 +37,8 @@ define({
             bg: 'res/common/guideDialog/bg.png',
             button: 'res/common/guideDialog/button.png',
             button_hover: 'res/common/guideDialog/button_hover.png',
+            homeButton: 'res/common/guideDialog/homeButton.png',
+            homeButtonHover: 'res/common/guideDialog/homeButtonHover.png',
             titleFont: 'res/common/guideDialog/titleFont_fnt.txt',
             textFont: 'res/common/guideDialog/textFont_fnt.txt'
         },

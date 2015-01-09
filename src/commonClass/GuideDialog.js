@@ -3,8 +3,10 @@
  * @date 2015/1/5
  */
 define([
-    '../util/resourceFileMap'
-], function (resourceFileMap) {
+    'require',
+    '../util/resourceFileMap',
+    '../list/Scene'
+], function (require, resourceFileMap) {
     return cc.Layer.extend({
         ctor: function (title, text, onButtonClick) {
             this._super(); this.init();
@@ -29,7 +31,18 @@ define([
                 onButtonClick,
                 null
             );
-            var buttonMenu = new cc.Menu(buttonMenuItem);
+            var homeButtonMenuItem = new cc.MenuItemSprite(
+                new cc.Sprite(resourceFileMap.common.guideDialog.homeButton),
+                new cc.Sprite(resourceFileMap.common.guideDialog.homeButtonHover),
+                null,
+                function () {
+                    $.stats.myTrack("引导层返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
+                    cc.director.runScene(require('../list/Scene').getInstance());
+                },
+                null
+            );
+            homeButtonMenuItem.attr({x: -115});
+            var buttonMenu = new cc.Menu(buttonMenuItem, homeButtonMenuItem);
             buttonMenu.height = buttonMenuItem.height; //cc.Menu的高度默认为占满整个屏幕的高，这里强制改为按钮的高
             buttonMenu.setPosition(center.x, winSize.height - 488.5);
             dialogLayer.addChild(buttonMenu);
