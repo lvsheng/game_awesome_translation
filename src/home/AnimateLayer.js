@@ -31,7 +31,7 @@ define([
             this._startAnimation();
 
             //TODO: for test
-            startCallback();
+            //startCallback();
         },
         _startAnimation: function () {
             var layer = this;
@@ -124,12 +124,6 @@ define([
                     (new cc.MoveTo(0.3, center.x, button.height / 2)).easing(cc.easeQuadraticActionOut(10)),
                     (new cc.MoveTo(0.05, endPositionMap.button)).easing(cc.easeQuadraticActionIn(10)).easing(cc.easeIn(15)),
                     new cc.Spawn(
-                        //new cc.CallFunc(function (){
-                        //    button.runAction(new cc.Sequence(
-                        //        new cc.TintTo(0.5, 255, 200, 200),
-                        //        new cc.TintTo(0.5, 255, 255, 255)
-                        //    ))
-                        //}),
                         new cc.CallFunc(function(){
                             var distance = 30;
                             layer.runAction(new cc.Sequence(

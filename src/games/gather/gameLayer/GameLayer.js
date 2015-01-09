@@ -22,7 +22,8 @@ define([
     ];
     var crazy_heart_confs = [
         //amount, lifeTime, closeUpDistance
-        [5, 0.4, 0.15]
+        //[5, 0.4, 0.15]
+        [5, 0.35, 0.10]
         //[3, 1.2],
         //[3, 1.0],
         //[5, 0.5, 0.035],

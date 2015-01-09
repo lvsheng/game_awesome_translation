@@ -14,12 +14,8 @@ require([
     var launchHalf = false; //为true时表示是已经cc.game.run()了，但onStart还没有被执行，不能再次cc.game.run()
     cc.game.onStart = function(){
         launchHalf = false;
-        //showWidthHeight('before\n');
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
-        //showWidthHeight('after\n');
-        //就是在这里把canvas的宽高扩大了将近3倍~
         cc.view.resizeWithBrowserSize(true);
-        cc._loaderImage = null;
 
         preload(resourceFileList['home'], function () {
             //alert("run home:");
@@ -30,8 +26,6 @@ require([
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
-        //showWidthHeight('judge');
-
         var element = document.documentElement;
 
         if (isHorizontal()) {
@@ -72,12 +66,4 @@ require([
         $.stats.myTrack("window.resize事件");
     });
     judgeHorizontal();
-
-    window.showWidthHeight = function (key) {
-        alert(
-            (key ? key : '') +
-            'canvas, w:' + document.getElementById("gameCanvas").width + '\n' +
-            'h:' + document.getElementById("gameCanvas").height
-        );
-    };
 });

@@ -9,6 +9,8 @@ define([
     //var SPEED_MAP = {10: B, 9: B - 0.2, 8: B - 0.15, 7: B - 0.1, 6: B - 0.05, 5: B, 4: B, 3: B + 0.15, 2: B + 0.25, 1: B + 0.3, 0: 0};
     var B = 0.05;
     var SPEED_MAP = {10: B - 0.04, 9: B - 0.03, 8: B - 0.02};
+    var CRAZY_B = 0.15;
+    var CRAZY_SPEED_MAP = {10: CRAZY_B - 0.08, 9: CRAZY_B - 0.04, 8: CRAZY_B - 0.02};
 
     return cc.Node.extend({
         /**
@@ -36,13 +38,24 @@ define([
             self._updatePosition();
 
             self.schedule(function (dt) {
-                var speed = SPEED_MAP[Math.ceil((self._distance - self._getMeetDistance()) * 10)] || B;
-                if(self._inCrazyMode) { speed += 0.3; }
+                var map = self._inCrazyMode ? CRAZY_SPEED_MAP : SPEED_MAP;
+                var b = self._inCrazyMode ? CRAZY_B : B;
+                var speed = map[Math.ceil((self._distance  - self._getMeetDistance()) * 10)] || b;
                 self.separate(speed * dt);
             });
         },
 
-        closeUp: function (distance) { this._setDistance(this._distance - distance); },
+        closeUp: function (distance) {
+            var self = this;
+            self._setDistance(self._distance - distance);
+            if (self._distance - self._getMeetDistance() <= 0.065 && !self._inCrazyMode) {
+                //启动疯狂模式
+                self.tint();
+                self._inCrazyMode = true;
+                self._distance += 0.18;
+                self._turnToCrazyMode();
+            }
+        },
         separate: function (distance) {
             if (this._endding) { return; }
             this._setDistance(this._distance + distance);
@@ -110,13 +123,6 @@ define([
             var offset = self._distance / 2 * winWidth;
             self._left.x = centerX - offset;
             self._right.x = centerX + offset;
-
-            if (self._distance - self._getMeetDistance() <= 0.065 && !self._inCrazyMode) {
-                //启动疯狂模式
-                self.tint();
-                self._inCrazyMode = true;
-                self._turnToCrazyMode();
-            }
         },
         /**
          * @param result {string} 'out'|'meet'
