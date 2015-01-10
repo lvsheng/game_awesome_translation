@@ -39,7 +39,6 @@ define([], function () {
             this._hasSharedCallback = callback;
         },
         unListenShared: function () {
-            alert("TODO: 验证一下真的注销了对已分享的监听~");
             this._hasSharedCallback = null;
         },
 

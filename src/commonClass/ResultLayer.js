@@ -129,7 +129,7 @@ define([
         _rePlay: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; } //尝试在shadow上阻止事件向下传递，但没成功，先用这种比较挫的标记方法。。。
             $.stats.myTrack("结果页重玩-" + require("../util/myDirector").getCurGame().name);
-            require('../util/myDirector').reloadCurrentScene();
+            require('../util/myDirector').enterAGame(dataStorage.getLastResult().gameName);
         },
         _returnHome: function () {
             $.stats.myTrack("结果页返回首页-" + require("../util/myDirector").getCurGame().name);
