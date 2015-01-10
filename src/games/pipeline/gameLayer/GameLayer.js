@@ -67,7 +67,7 @@ define([
 
             self.runAction(new cc.Sequence(
                 new cc.Sequence(
-                    new cc.Blink(0.5, 9),
+                    new cc.Blink(0.3, 3),
                     new cc.DelayTime(0.5)
                 ),
                 new cc.CallFunc(function () {
