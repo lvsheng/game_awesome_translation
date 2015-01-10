@@ -28,10 +28,13 @@ define([
                 _.bind(self.pauseGame, self),
                 null
             );
-            pauseMenuItem.attr({ x: 87.5, y: 532.5 });
             var pauseMenu = new cc.Menu(pauseMenuItem);
             pauseMenu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             self.addChild(pauseMenu);
+
+            var x = 87.5, y = 532.5;
+            pauseMenuItem.setPosition(x, cc.director.getWinSize().height + pauseMenuItem.height / 2);
+            pauseMenuItem.runAction((new cc.MoveTo(0.3, x, y)).easing(cc.easeBounceOut()));
 
             var leftBar = self._leftBar = new cc.Sprite(resourceFileMap.common.leftBar.bg);
             leftBar.attr({ x: -leftBar.width, y: 0, anchorX: 0, anchorY: 0 });
