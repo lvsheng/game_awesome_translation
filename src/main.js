@@ -71,4 +71,14 @@ require([
         $.stats.myTrack("window.resize事件");
     });
     judgeHorizontal();
+
+    var curIsHorizontal = isHorizontal();
+    clearInterval(window.judgeRotateScreenInterVal);
+    setInterval(function () {
+        if (isHorizontal() !== curIsHorizontal) {
+            curIsHorizontal = isHorizontal();
+            window.judgeRotateScreen();
+            judgeHorizontal();
+        }
+    }, 200);
 });

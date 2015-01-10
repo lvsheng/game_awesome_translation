@@ -134,7 +134,8 @@
         (function () {
             //尽早旋转以使loading便能以正确方向展现。此处只处理document的旋转，旋转后游戏是否重新开始等业务在main.js中处理
             function isHorizontal () { return window.innerWidth > window.innerHeight; }
-            function judgeRotateScreen () {
+            //用于main.js中调用
+            window.judgeRotateScreen = function () {
                 var element = document.documentElement;
                 if (isHorizontal()) {
                     //取消旋转
@@ -151,13 +152,16 @@
                     element.className = "rotate";
                     $.stats.myTrack("转至竖屏玩");
                 }
-            }
+            };
 
             window.addEventListener("resize", function () {
                 judgeRotateScreen();
                 $.stats.myTrack("window.resize事件");
             });
             judgeRotateScreen();
+
+            //用于main.js中进行取消
+            window.judgeRotateScreenInterVal = setInterval(window.judgeRotateScreen, 200);
         })();
     </script>
 </head>
@@ -231,5 +235,6 @@
 <!--语言增强型基础库，认为还是应该作为全局引入-->
 <script src="underscore.js"></script>
 <script data-main="src/main" src="require.js"></script>
+<script> requirejs.config({urlArgs: 'v=1420913488635'}); </script>
 </body>
 </html>
