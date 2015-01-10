@@ -62,7 +62,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            //require('../util/myDirector').enterAGame("pipeline");
+            require('../util/myDirector').enterAGame("avoid");
         }
     });
 });

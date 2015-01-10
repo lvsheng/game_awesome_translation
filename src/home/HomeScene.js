@@ -4,11 +4,12 @@
  * @date 2015/1/3
  */
 define([
+    'require',
     '../util/preload',
-    '../util/myDirector',
     './AnimateLayer',
-    './BackgroundLayer'
-], function (preload, myDirector, AnimateLayer, BackgroundLayer) {
+    './BackgroundLayer',
+    '../util/myDirector'
+], function (require, preload, AnimateLayer, BackgroundLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             $.stats.myTrack("首页");
@@ -23,7 +24,7 @@ define([
 
             self.addChild(new BackgroundLayer());
             self.addChild(new AnimateLayer(function(){
-                myDirector.enterList()
+                require('../util/myDirector').enterList();
             }));
         }
     });
