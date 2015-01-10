@@ -18,34 +18,20 @@ require([
         cc.view.resizeWithBrowserSize(true);
 
         preload(resourceFileList['home'], function () {
-            //alert("run home:");
-            //showWidthHeight('preload home done');
             cc.director.runScene(new HomeScene());
         }, this);
     };
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
     function judgeHorizontal () {
-        var element = document.documentElement;
-
+        //真正对页面的旋转在index.html已做，这里认为每次resize之后index.html中已正确旋转。
         if (isHorizontal()) {
             //取消旋转
-            element.style.width = window.innerWidth + 'px';
-            element.style.height = window.innerHeight + 'px';
-            element.style.right = "0px";
-            element.className = "";
             window.rotatedTouchPositionTransformer.setRotated(false);
         }
         else {
             //旋转
-            //alert("document.size" + window.screen.width + ', ' + window.screen.height);
-            //alert("window.size" + window.innerWidth + ', ' + window.innerHeight);
-            element.style.width = window.innerHeight + "px";
-            element.style.height = window.innerWidth + "px";
-            element.style.right = "-" + window.innerWidth + "px";
-            element.className = "rotate";
             window.rotatedTouchPositionTransformer.setRotated(true);
-            $.stats.myTrack("竖屏玩");
         }
 
         if (!launchHalf) { //launch一半时不再再次run

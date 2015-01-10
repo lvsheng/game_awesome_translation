@@ -49,21 +49,7 @@
             -webkit-transform: rotateZ(90deg) translateZ(0);
         }
     </style>
-    <script>
-        (function () {
-            //尽早旋转以使loading便能以正确方向展现
-            function isHorizontal () { return window.innerWidth > window.innerHeight; }
-            if (!isHorizontal()) {
-                //旋转
-                var element = document.documentElement;
-                element.style.width = window.innerHeight + "px";
-                element.style.height = window.innerWidth + "px";
-                element.style.right = "-" + window.innerWidth + "px";
-                element.className = "rotate";
-            }
-        })();
 
-    </script>
     <script>
         (function () {
             if (!window.$) { window.$ = {}; }
@@ -140,6 +126,37 @@
             if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger") {
                 $.stats.myTrack("访问页面-微信");
             }
+        })();
+    </script>
+
+    <script>
+        (function () {
+            //尽早旋转以使loading便能以正确方向展现。此处只处理document的旋转，旋转后游戏是否重新开始等业务在main.js中处理
+            function isHorizontal () { return window.innerWidth > window.innerHeight; }
+            function judgeRotateScreen () {
+                var element = document.documentElement;
+                if (isHorizontal()) {
+                    //取消旋转
+                    element.style.width = window.innerWidth + 'px';
+                    element.style.height = window.innerHeight + 'px';
+                    element.style.right = "0px";
+                    element.className = "";
+                }
+                else {
+                    //旋转
+                    element.style.width = window.innerHeight + "px";
+                    element.style.height = window.innerWidth + "px";
+                    element.style.right = "-" + window.innerWidth + "px";
+                    element.className = "rotate";
+                    $.stats.myTrack("转至竖屏玩");
+                }
+            }
+
+            window.addEventListener("resize", function () {
+                judgeRotateScreen();
+                $.stats.myTrack("window.resize事件");
+            });
+            judgeRotateScreen();
         })();
     </script>
 </head>
