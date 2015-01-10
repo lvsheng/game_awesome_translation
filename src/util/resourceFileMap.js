@@ -40,7 +40,9 @@ define({
             homeButton: 'res/common/guideDialog/homeButton.png',
             homeButtonHover: 'res/common/guideDialog/homeButtonHover.png',
             titleFont: 'res/common/guideDialog/titleFont_fnt.txt',
-            textFont: 'res/common/guideDialog/textFont_fnt.txt'
+            textFont: 'res/common/guideDialog/textFont_fnt.txt',
+            titleFont_0_png: 'res/common/guideDialog/titleFont_0.png',
+            textFont_0_png: 'res/common/guideDialog/textFont_0.png'
         },
         resultLayer: {
             bg: 'res/common/resultLayer/bg.jpg',
@@ -52,6 +54,8 @@ define({
             weiboShare: 'res/common/resultLayer/weiboShare.png',
             titleFont: 'res/common/resultLayer/titleFont_fnt.txt',
             textFont: 'res/common/resultLayer/textFont_fnt.txt',
+            titleFont_0_png: 'res/common/resultLayer/titleFont_0.png',
+            textFont_0_png: 'res/common/resultLayer/textFont_0.png',
             tip: 'res/common/resultLayer/tip.png',
             okButton: 'res/common/resultLayer/okButton.png',
             zhangzishi: 'res/common/resultLayer/zhangzishi.png',
