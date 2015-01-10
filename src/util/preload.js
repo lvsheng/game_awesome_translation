@@ -39,10 +39,10 @@ define([
                 var logoWidth = 246;
                 var logoHeight = 272;
                 var fontSize = 14, lblHeight = -logoHeight / 2 - 10;
-                var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
+                var label = self._label = new cc.LabelTTF("0%", "Arial", fontSize);
                 label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
                 label.setColor(cc.color(114, 49, 28));
-                //bgLayer.addChild(this._label, 10);
+                bgLayer.addChild(label, 10);
             })();
             return true;
         },
@@ -78,7 +78,7 @@ define([
         },
         onExit: function () {
             cc.Node.prototype.onExit.call(this);
-            var tmpStr = "Loading... 0%";
+            var tmpStr = "0%";
             this._label.setString(tmpStr);
         },
         initWithResources: function (resources, cb) {
@@ -95,7 +95,7 @@ define([
                 function (result, count, loadedCount) {
                     var percent = (loadedCount / count * 100) | 0;
                     percent = Math.min(percent, 100);
-                    self._label.setString("Loading... " + percent + "%");
+                    self._label.setString("" + percent + "%");
                 }, function () {
                     if (self.cb)
                         self.cb();
