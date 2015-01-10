@@ -64,14 +64,21 @@ define([
         _endGame: function () {
             var self = this;
             self._pipeline.stopRun();
-            self._pipeline.blink(function () {
-                pauseGame.pauseGame();
-                self._endCallback({
-                    assemble: self._assembledAmount,
-                    drop: self._dropedAmount,
-                    time: Math.round(self._timer.get())
-                });
-            });
+
+            self.runAction(new cc.Sequence(
+                new cc.Sequence(
+                    new cc.Blink(0.5, 9),
+                    new cc.DelayTime(0.5)
+                ),
+                new cc.CallFunc(function () {
+                    pauseGame.pauseGame();
+                    self._endCallback({
+                        assemble: self._assembledAmount,
+                        drop: self._dropedAmount,
+                        time: Math.round(self._timer.get())
+                    });
+                })
+            ));
         }
     });
 });

@@ -119,14 +119,6 @@ define([
             }
             return this._bodyWidth;
         },
-        stopRun: function () { this._stopped = true; },
-        blink: function (callback) {
-            if (this._bodyList.length === 0) {
-                callback();
-            } else {
-                this._bodyList[0].blink(callback);
-                for (var i = 1; i < this._bodyList.length; ++i) { this._bodyList[i].blink(); }
-            }
-        }
+        stopRun: function () { this._stopped = true; }
     });
 });
