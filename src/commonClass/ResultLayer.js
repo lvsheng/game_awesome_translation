@@ -127,7 +127,8 @@ define([
         _shareWeixin: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
             var self = this;
-            share.tryWeixinShare(function(){
+            share.tryWeixinShare();
+            (function(){
                 var winSize = cc.director.getWinSize();
                 var center = cc.p(winSize.width / 2, winSize.height / 2);
 
@@ -145,7 +146,7 @@ define([
                 shadowLayer.bake();
 
                 self._shadowLayer = shadowLayer;
-            });
+            })();
         },
         _jumpToOther: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
