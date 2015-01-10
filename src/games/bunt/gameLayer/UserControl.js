@@ -24,8 +24,14 @@ define([
             self.addChild(button);
             self.addChild(button_hover); //button_hover在button之上，出现时将其盖住
 
-            //默认只展示button，点中时展示button_hover
-            button_hover.visible = false;
+            button_hover.runAction(new cc.Sequence(
+                new cc.Blink(0.5, 5),
+                new cc.CallFunc(function(){
+                    //默认只展示button，点中时展示button_hover
+                    button_hover.visible = false;
+                })
+            ));
+
 
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
