@@ -21,16 +21,6 @@ define([
             self._super();
             self.init();
 
-            if (!dataStorage.whetherHasShared()) {
-                //TODO
-                alert("就不给你看分数~ 分享一下再给你看！~\nTODO: 换无结果展示");
-
-                dataStorage.listenShared(function () {
-                    //TODO
-                    alert("你已经分享啦，给你看结果：\n" + JSON.stringify(result) + "\nTODO: 换正常展示");
-                });
-            }
-
             dataStorage.setLastResult(gameName, result);
 
             self._gameResult = result;
@@ -58,15 +48,11 @@ define([
             logo.setPosition(center.x + 375, winSize.height - 414.5);
             bakeLayer.addChild(logo);
 
-            var retryMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.retry), new cc.Sprite(imgMap.retry), null, _.bind(self._rePlay, self));
-            retryMenuItem.attr({ x: center.x - 323, y: 111 });
-            var homeMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.home), new cc.Sprite(imgMap.home), null, _.bind(self._returnHome, self));
-            homeMenuItem.attr({ x: center.x + 20, y: 111 });
-            var weixinShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weixinShare), new cc.Sprite(imgMap.weixinShare), null, _.bind(self._shareWeixin, self));
-            weixinShareMenuItem.attr({ x: center.x + 353, y: 111 });
-            var weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
-            weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
-            var linkMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.zhangzishi), new cc.Sprite(imgMap.zhangzishiHover), null, _.bind(self._jumpToOther, self));
+            var retryMenuItem = self._retryMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.retry), new cc.Sprite(imgMap.retry), null, _.bind(self._rePlay, self));
+            var homeMenuItem = self._homeMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.home), new cc.Sprite(imgMap.home), null, _.bind(self._returnHome, self));
+            var weixinShareMenuItem = self._weixinShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weixinShare), new cc.Sprite(imgMap.weixinShare), null, _.bind(self._shareWeixin, self));
+            var weiboShareMenuItem = self._weiboShareMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.weiboShare), new cc.Sprite(imgMap.weiboShare), null, _.bind(self._shareWeibo, self));
+            var linkMenuItem = self._linkMenuItem = new cc.MenuItemSprite(new cc.Sprite(imgMap.zhangzishi), new cc.Sprite(imgMap.zhangzishiHover), null, _.bind(self._jumpToOther, self));
             linkMenuItem.attr({x: center.x + 120 - 54, y: winSize.height - 390 - 13 + 15});
 
             var menu;
@@ -78,18 +64,33 @@ define([
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
 
-            var titleLabel = new cc.LabelBMFont("Score:" + result.score, resourceFileMap.common.resultLayer.titleFont);
-            //var titleLabel = new cc.LabelTTF("Score:" + result.score, "FZMiaoWuS-GB", 55);
+            var titleLabel = self._titleLabel = new cc.LabelBMFont("Score:" + result.score, resourceFileMap.common.resultLayer.titleFont);
             titleLabel.setPosition(center.x + 118 - 34 - 5, winSize.height - 175 + 26 + 48 + 10);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
-            var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
-            //var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
+            var textLabel = self._textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
             textLabel.attr({anchorX: 0.5, anchorY: 0.5});
             textLabel.setPosition(center.x + 120 - 20, winSize.height - 235);
             textLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(textLabel);
+
+            var noShareTextLabel = self._noShareTextLabel = new cc.LabelBMFont("就不给你看分数~\n分享一下再给你看！", resourceFileMap.common.resultLayer.textFont);
+            noShareTextLabel.attr({anchorX: 0.5, anchorY: 0.5});
+            noShareTextLabel.setPosition(center.x + 120 - 20, winSize.height - 235);
+            noShareTextLabel.color = cc.color(0, 37, 41, 255);
+            bakeLayer.addChild(noShareTextLabel);
+
+            if (dataStorage.whetherHasShared()) {
+                self._switchToShared();
+            } else {
+                self._switchToNoShared();
+
+                dataStorage.listenShared(function () {
+                    self._switchToShared();
+                    self._animate();
+                });
+            }
 
             self._animate();
 
@@ -100,6 +101,43 @@ define([
                 swallowTouches: false,
                 onTouchBegan: _.bind(self._removeShadowLayer, self)
             }, self);
+        },
+
+        _switchToShared: function () {
+            this._bakeLayer.unbake();
+
+            var winSize = cc.director.getWinSize();
+            var center = cc.p(winSize.width / 2, winSize.height / 2);
+            this._retryMenuItem.attr({ x: center.x - 323, y: 111 });
+            this._homeMenuItem.attr({ x: center.x + 20, y: 111 });
+
+            this._weixinShareMenuItem.attr({ x: center.x + 353, y: 111 });
+            this._weiboShareMenuItem.attr({ x: center.x + 353, y: 111 });
+
+            this._linkMenuItem.setVisible(true);
+            this._titleLabel.setVisible(true);
+            this._textLabel.setVisible(true);
+            this._noShareTextLabel.setVisible(false);
+
+            this._bakeLayer.bake();
+        },
+        _switchToNoShared: function () {
+            this._bakeLayer.unbake();
+
+            var winSize = cc.director.getWinSize();
+            var center = cc.p(winSize.width / 2, winSize.height / 2);
+            this._retryMenuItem.attr({ x: center.x - 323 + 260, y: 111 });
+            this._homeMenuItem.attr({ x: center.x + 20 + 260, y: 111 });
+
+            this._weixinShareMenuItem.attr({x: center.x + 120 - 54 + 15, y: winSize.height - 390 - 13 + 15});
+            this._weiboShareMenuItem.attr({x: center.x + 120 - 54 + 15, y: winSize.height - 390 - 13 + 15});
+
+            this._linkMenuItem.setVisible(false);
+            this._titleLabel.setVisible(false);
+            this._textLabel.setVisible(false);
+            this._noShareTextLabel.setVisible(true);
+
+            this._bakeLayer.bake();
         },
 
         onExit: function () {
@@ -118,7 +156,6 @@ define([
             var winSize = cc.director.getWinSize();
             this._bakeLayer.y = winSize.height;
             this._bakeLayer.runAction(new cc.Sequence(
-                //new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
                 (new cc.MoveTo(0.3, this.x, 0)).easing(cc.easeIn(8))
             ));
         },

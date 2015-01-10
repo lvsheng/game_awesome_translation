@@ -95,7 +95,7 @@ define([
             "title": title
         }, onFail);
     }
-    function shareTimeline(onFail) {
+    function shareTimeline(callback) {
         if (!window.WeixinJSBridge) { return; }
         window.WeixinJSBridge.invoke('shareTimeline',{
             "img_url": sharedContent.weixinImgUrl,
@@ -103,9 +103,9 @@ define([
             "img_height": "200",
             "link": sharedContent.url,
             "title": sharedContent.content
-        }, function (ret) {
-            alert(JSON.stringify(ret + "TODO"));
+        }, function () {
             dataStorage.markHasShared();
+            callback && callback();
         });
     }
     function shareWeibo(onFail) {
