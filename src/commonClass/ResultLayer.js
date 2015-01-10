@@ -65,16 +65,14 @@ define([
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
 
-            //TODO: 换用图片字体
-            //var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
-            var titleLabel = new cc.LabelTTF("Score:" + score, "FZMiaoWuS-GB", 55);
+            var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
+            //var titleLabel = new cc.LabelTTF("Score:" + score, "FZMiaoWuS-GB", 55);
             titleLabel.setPosition(center.x + 118 - 34 - 5, winSize.height - 175 + 26 + 48 + 10);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);
 
-            //TODO: 换用图片字体
-            //var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
-            var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
+            var textLabel = new cc.LabelBMFont(getResultText(gameName, result), resourceFileMap.common.resultLayer.textFont);
+            //var textLabel = new cc.LabelTTF(getResultText(gameName, result), "FZMiaoWuS-GB", 36);
             textLabel.attr({anchorX: 0.5, anchorY: 0.5});
             textLabel.setPosition(center.x + 120 - 20, winSize.height - 235);
             textLabel.color = cc.color(0, 37, 41, 255);
