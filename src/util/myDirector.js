@@ -67,11 +67,21 @@ define([
                 cc.game
             );
         },
-        enterResult: function (gameName, result) {
+        /**
+         * @param gameName
+         * @param result
+         * @param [needPreload] 默认为false，在游戏中，进入游戏时应已load过，故不需要再preload。在进入游戏直接进入游戏页的情况下，需要preload
+         */
+        enterResult: function (gameName, result, needPreload) {
             this._curSceneType = 'result';
-            preload(resourceFileList[gameName + 'Background'], function () {
+
+            if (needPreload) {
+                preload(resourceFileList[gameName + 'Background'], function () {
+                    cc.director.runScene(new ResultScene(gameName, result));
+                });
+            } else {
                 cc.director.runScene(new ResultScene(gameName, result));
-            });
+            }
         },
         reloadCurrentScene: function () {
             switch (this._curSceneType) {

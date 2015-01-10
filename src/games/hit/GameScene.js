@@ -3,13 +3,14 @@
  * @date 2015/1/6
  */
 define([
+    'require',
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
     './scoreManager',
-    '../../commonClass/ResultLayer',
-    '../../commonClass/MenuLayer'
-], function (BackgroundLayer, GuideLayer, GameLayer, scoreManager, ResultLayer, MenuLayer) {
+    '../../commonClass/MenuLayer',
+    '../../util/myDirector'
+], function (require, BackgroundLayer, GuideLayer, GameLayer, scoreManager, MenuLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             var self = this;
@@ -21,7 +22,7 @@ define([
                 $.stats.myTrack("开始游戏-hit");
                 self.addChild(new GameLayer(function(result){
                     result = scoreManager.getResult();
-                    self.addChild(new ResultLayer(result, 'hit'));
+                    require('../../util/myDirector').enterResult('hit', result);
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

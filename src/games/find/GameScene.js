@@ -5,12 +5,13 @@
  * (非正常结束包括用户暂停、重玩、回主页面等，无输出结果）
  */
 define([
+    'require',
     './BackgroundLayer',
     './GuideLayer',
     './gameLayer/GameLayer',
-    '../../commonClass/ResultLayer',
-    '../../commonClass/MenuLayer'
-], function (BackgroundLayer, GuideLayer, GameLayer, ResultLayer,MenuLayer) {
+    '../../commonClass/MenuLayer',
+    '../../util/myDirector'
+], function (require, BackgroundLayer, GuideLayer, GameLayer, MenuLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             var self = this;
@@ -24,7 +25,7 @@ define([
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
                     result.score = result.hitCount;
-                    self.addChild(new ResultLayer(result, 'find'));
+                    require('../../util/myDirector').enterResult('find', result);
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

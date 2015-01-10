@@ -3,7 +3,7 @@
  * @date 2015/1/10
  */
 define([
-    './../util/resourceFileMap',
+    '../util/resourceFileMap',
     '../commonClass/ResultLayer',
 
     '../games/avoid/BackgroundLayer',
@@ -14,9 +14,15 @@ define([
     '../games/pipeline/BackgroundLayer'
 ], function (resourceFileMap, ResultLayer, avoidBackgroundLayer, buntBackgroundLayer, findBackgroundLayer, gatherBackgroundLayer, hitBackgroundLayer, pipelineBackgroundLayer) {
     return cc.Scene.extend({
-        onEnter: function (gameName, result) {
+        ctor: function (gameName, result) {
+            this._super();
+            this._gameName = gameName;
+            this._result = result;
+        },
+        onEnter: function () {
             var self = this;
             self._super();
+            var gameName = this._gameName, result = this._result;
 
             var layerClassMap = {
                 avoid: avoidBackgroundLayer,
