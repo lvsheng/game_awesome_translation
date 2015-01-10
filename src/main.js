@@ -24,6 +24,7 @@ require([
             } else {
                 myDirector.enterResult(dataStorage.getLastResult().gameName, dataStorage.getLastResult().result, true);
             }
+            dataStorage.markNeedJumpToResultPage(false);
         } else {
             myDirector.enterHome();
         }

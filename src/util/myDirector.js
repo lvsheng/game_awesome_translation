@@ -76,7 +76,7 @@ define([
             this._curSceneType = 'result';
 
             if (needPreload) {
-                preload(resourceFileList[gameName + 'Background'], function () {
+                preload(resourceFileList[gameName + 'Background'].concat(resourceFileList['common'].resultLayer), function () {
                     cc.director.runScene(new ResultScene(gameName, result));
                 });
             } else {
