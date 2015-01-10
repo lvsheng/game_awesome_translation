@@ -207,7 +207,7 @@ define([
                 + resultText + "，敢不敢来挑战我？";
         }
     };
-
-    //for debug
-    //localStorage.removeItem("hasShared");
 });
+
+//for debug
+//localStorage.removeItem("hasShared");
