@@ -74,18 +74,8 @@ define([
             var winSize = cc.director.getWinSize();
             var destinationY = dialogLayer.y;
             var destinationX = dialogLayer.x;
-            //dialogLayer.y = winSize.height;
-            //dialogLayer.x = -dialogLayer.width / 2 + winSize.width / 6;
-            //dialogLayer.x = -dialogLayer.width / 2;
             dialogLayer.y = winSize.height + dialogLayer.height / 2;
             dialogLayer.runAction(new cc.Sequence(
-                //new cc.MoveTo(0.6, this.x, destinationY).easing(cc.easeBounceOut(20))
-                //(new cc.MoveTo(0.3, this.x, this.y)).easing(cc.easeIn(20)).easing(cc.easeBezierAction(.5, -1, 1.8, 1))
-                //(new cc.MoveTo(0.15, destinationX, destinationY)).easing(cc.easeBackIn(20))
-                //(new cc.MoveTo(0.15, destinationX, destinationY)).easing(cc.easeIn(20))
-                //(new cc.MoveTo(0.3, winSize.width - self.width / 2, destinationY)).easing(cc.easeQuadraticActionOut(10)),
-                //(new cc.MoveTo(0.05, destinationX, destinationY)).easing(cc.easeQuadraticActionIn(10)).easing(cc.easeIn(15))
-                //new cc.DelayTime(0.2),
                 (new cc.MoveTo(0.3, destinationX, destinationY)).easing(cc.easeIn(8))
             ));
         }

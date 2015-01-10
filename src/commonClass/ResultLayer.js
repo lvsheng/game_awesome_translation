@@ -101,7 +101,7 @@ define([
             this._bakeLayer.y = winSize.height;
             this._bakeLayer.runAction(new cc.Sequence(
                 //new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
-                (new cc.MoveTo(0.8, this.x, 0)).easing(cc.easeIn(8))
+                (new cc.MoveTo(0.3, this.x, 0)).easing(cc.easeIn(8))
             ));
         },
         _scaleToFillWindow: function (sprite) {
