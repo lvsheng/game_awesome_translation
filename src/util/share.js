@@ -9,7 +9,7 @@ define([
     './dataStorage'
 ], function (getResultText, getGameTitle, dataStorage) {
     var sharedContent = {
-        url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
+        url: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
         weixinImgUrl: '',
         weiboImgUrl: 'http://tb1.bdstatic.com/tb/二维码海报.jpg',
@@ -20,64 +20,64 @@ define([
             content: [
                 "贴吧神翻译-学渣好得意，谁玩谁流弊！"
             ].join(''),
-            weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/whole.jpg'
+            weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/whole.jpg'
         },
         game: {
             gather: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("gather") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("hit") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("pipeline") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("bunt") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("find") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
                 content: [
                     "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("avoid") + "”！敢不敢来挑战我？"
                 ].join(''),
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
         },
         gameResult: {
             gather: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
-                weixinImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
+                weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
         }
     };
