@@ -11,9 +11,10 @@ require([
     $.stats.myTrack("进入到main.js");
     share.setShareResult('wholeGame');
 
-    var launchHalf = false; //为true时表示是已经cc.game.run()了，但onStart还没有被执行，不能再次cc.game.run()
+    var hasRun = false;
+    var pendingOnRun = false; //为true时表示是已经cc.game.run()了，但onStart还没有被执行，不能再次cc.game.run()
     cc.game.onStart = function(){
-        launchHalf = false;
+        pendingOnRun = false;
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
 
@@ -42,9 +43,14 @@ require([
             window.rotatedTouchPositionTransformer.setRotated(true);
         }
 
-        if (!launchHalf) { //launch一半时不再再次run
-            launchHalf = true;
+        if (!hasRun) {
             cc.game.run("gameCanvas");
+            hasRun = true;
+            pendingOnRun = true;
+        } else if (!pendingOnRun) {
+            myDirector.reloadCurrentScene();
+        } else {
+            //已经调过cc.game.run了，但cocos pending中，静等其run完~
         }
     }
 
