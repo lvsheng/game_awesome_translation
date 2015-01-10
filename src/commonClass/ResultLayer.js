@@ -15,7 +15,7 @@ define([
 ], function (require, resourceFileMap,share, getResultText, isWeixin) {
     return cc.Layer.extend({
         isResultLayer: true,
-        ctor: function (score, result, gameName) {
+        ctor: function (result, gameName) {
             var self = this;
             self._super();
             self.init();
@@ -65,8 +65,8 @@ define([
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
 
-            var titleLabel = new cc.LabelBMFont("Score:" + score, resourceFileMap.common.resultLayer.titleFont);
-            //var titleLabel = new cc.LabelTTF("Score:" + score, "FZMiaoWuS-GB", 55);
+            var titleLabel = new cc.LabelBMFont("Score:" + result.score, resourceFileMap.common.resultLayer.titleFont);
+            //var titleLabel = new cc.LabelTTF("Score:" + result.score, "FZMiaoWuS-GB", 55);
             titleLabel.setPosition(center.x + 118 - 34 - 5, winSize.height - 175 + 26 + 48 + 10);
             titleLabel.color = cc.color(0, 37, 41, 255);
             bakeLayer.addChild(titleLabel);

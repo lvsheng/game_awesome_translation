@@ -21,7 +21,7 @@ define([
                 $.stats.myTrack("开始游戏-hit");
                 self.addChild(new GameLayer(function(result){
                     result = scoreManager.getResult();
-                    self.addChild(new ResultLayer(result.score, result, 'hit'));
+                    self.addChild(new ResultLayer(result, 'hit'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

@@ -22,7 +22,8 @@ define([
             self.addChild(new GuideLayer(function(){
                 $.stats.myTrack("开始游戏-gather");
                 self.addChild(new GameLayer(function(result){
-                    self.addChild(new ResultLayer(result.gather, result, 'gather'));
+                    result.score = result.gather;
+                    self.addChild(new ResultLayer(result, 'gather'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

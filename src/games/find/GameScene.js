@@ -23,7 +23,8 @@ define([
                 $.stats.myTrack("开始游戏-find");
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
-                    self.addChild(new ResultLayer(result.hitCount, result, 'find'));
+                    result.score = result.hitCount;
+                    self.addChild(new ResultLayer(result, 'find'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

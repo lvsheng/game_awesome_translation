@@ -22,7 +22,8 @@ define([
             self.addChild(new GuideLayer(function(){
                 $.stats.myTrack("开始游戏-pipeline");
                 self.addChild(new GameLayer(function(result){
-                    self.addChild(new ResultLayer(result.assemble, result, 'pipeline'));
+                    result.score = result.assemble;
+                    self.addChild(new ResultLayer(result, 'pipeline'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));

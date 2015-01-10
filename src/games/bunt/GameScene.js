@@ -23,7 +23,8 @@ define([
                 $.stats.myTrack("开始游戏-bunt");
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
-                    self.addChild(new ResultLayer(result.winAmount, result, 'bunt'));
+                    result.score = result.winAmount;
+                    self.addChild(new ResultLayer(result, 'bunt'));
                 }));
                 self.addChild(self._menuLayer = new MenuLayer());
             }));
