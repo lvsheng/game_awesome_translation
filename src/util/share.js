@@ -104,7 +104,6 @@ define([
             "link": sharedContent.url,
             "title": sharedContent.content
         }, function () {
-            dataStorage.markHasShared();
             callback && callback();
         });
     }
@@ -127,6 +126,7 @@ define([
         window.WeixinJSBridge.on('menu:share:timeline', function(argv){
             window.justAfterWeixinShareOnHorizontal = isHorizontal();
             shareTimeline();
+            dataStorage.markHasShared();
             $.stats.myTrack("微信分享到朋友圈-" + sharedContent._position);
         });
         // 分享到微博
@@ -207,4 +207,7 @@ define([
                 + resultText + "，敢不敢来挑战我？";
         }
     };
+
+    //for debug
+    //localStorage.removeItem("hasShared");
 });
