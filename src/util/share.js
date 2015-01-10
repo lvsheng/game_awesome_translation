@@ -12,7 +12,7 @@ define([
         url: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
         weixinImgUrl: '',
-        weiboImgUrl: 'http://tb1.bdstatic.com/tb/二维码海报.jpg',
+        weiboImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/poster.jpg',
         _position: 'whole' //'whole'|gameName|gameName-result
     };
     var SHARE_CONTENT_MAP = {
