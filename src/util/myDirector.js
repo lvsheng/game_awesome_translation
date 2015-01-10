@@ -98,6 +98,7 @@ define([
                     this.enterResult(dataStorage.getLastResult().gameName, dataStorage.getLastResult().result); //认为前面进入结果页时一定已存入dataStorage
                     break;
                 default :
+                    this.enterHome();
                     break;
             }
         },

@@ -5,8 +5,9 @@
  */
 define([
     './getResultText',
-    './getGameTitle'
-], function (getResultText, getGameTitle) {
+    './getGameTitle',
+    './dataStorage'
+], function (getResultText, getGameTitle, dataStorage) {
     var sharedContent = {
         url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
@@ -102,7 +103,10 @@ define([
             "img_height": "200",
             "link": sharedContent.url,
             "title": sharedContent.content
-        }, onFail);
+        }, function (ret) {
+            alert(JSON.stringify(ret + "TODO"));
+            dataStorage.markHasShared();
+        });
     }
     function shareWeibo(onFail) {
         if (!window.WeixinJSBridge) { return; }
@@ -156,6 +160,7 @@ define([
         },
         weiboShare: function () {
             $.stats.myTrack("微博分享-" + sharedContent._position);
+            dataStorage.markHasShared();
             window.location.href =
                 'http://service.weibo.com/share/share.php'
                 + '?url=' + encodeURIComponent(sharedContent.url)

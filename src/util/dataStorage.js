@@ -39,6 +39,7 @@ define([], function () {
             this._hasSharedCallback = callback;
         },
         unListenShared: function () {
+            alert("TODO: 验证一下真的注销了对已分享的监听~");
             this._hasSharedCallback = null;
         },
 
@@ -51,7 +52,7 @@ define([], function () {
         },
         _get: function (key) {
             if ("JSON" in window && "localStorage" in window) {
-                return JSON.parse(localStorage[key]);
+                return localStorage[key] ? JSON.parse(localStorage[key]) : undefined;
             } else {
                 return this._cache[key];
             }

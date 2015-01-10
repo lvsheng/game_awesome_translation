@@ -34,7 +34,7 @@ define([
             };
 
             self.addChild(new layerClassMap[gameName]());
-            self.addChild(new ResultLayer(result, gameName));
+            self.addChild(new ResultLayer(gameName, result));
         }
     });
 });

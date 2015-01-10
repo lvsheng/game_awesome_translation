@@ -11,14 +11,27 @@ define([
     '../util/share',
     '../util/getResultText',
     '../util/isWeixin',
+    '../util/dataStorage',
     '../util/myDirector'
-], function (require, resourceFileMap,share, getResultText, isWeixin) {
+], function (require, resourceFileMap,share, getResultText, isWeixin, dataStorage) {
     return cc.Layer.extend({
         isResultLayer: true,
-        ctor: function (result, gameName) {
+        ctor: function (gameName, result) {
             var self = this;
             self._super();
             self.init();
+
+            if (!dataStorage.whetherHasShared()) {
+                //TODO
+                alert("就不给你看分数~ 分享一下再给你看！~\nTODO: 换无结果展示");
+
+                dataStorage.listenShared(function () {
+                    //TODO
+                    alert("你已经分享啦，给你看结果：\n" + JSON.stringify(result) + "\nTODO: 换正常展示");
+                });
+            }
+
+            dataStorage.setLastResult(gameName, result);
 
             self._gameResult = result;
             self._gameName = gameName;
@@ -89,6 +102,11 @@ define([
             }, self);
         },
 
+        onExit: function () {
+            this._super();
+            dataStorage.unListenShared();
+        },
+
         _removeShadowLayer: function () {
             if (this._shadowLayer) {
                 this.removeChild(this._shadowLayer);
@@ -120,6 +138,7 @@ define([
         },
         _shareWeibo: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            dataStorage.markNeedJumpToResultPage(true);
             share.weiboShare();
         },
         _shareWeixin: function () {
@@ -148,6 +167,7 @@ define([
         },
         _jumpToOther: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
+            dataStorage.markNeedJumpToResultPage(true);
             $.stats.myTrack("结果页涨姿势链接-" + require("../util/myDirector").getCurGame().name);
             //向其他地方导流
             window.location.href = "http://events.we4media.com/bdck/mobile-flip/?nsukey=gre04mvq50qZwsOPu%2FwkUGqICYExaE%2BP5DV7EZU0gLnfwoZyzUh%2B5mH%2BT0WpZINW5quHDc1xFl%2BspcLKI2861Q%3D%3D";

@@ -2,11 +2,12 @@
  * 游戏入口
  */
 require([
-    'util/resourceFileList',
-    'util/preload',
-    'util/share',
-    './home/HomeScene'
-], function (resourceFileList, preload, share, HomeScene) {
+    './util/resourceFileList',
+    './util/preload',
+    './util/share',
+    './util/myDirector',
+    './util/dataStorage'
+], function (resourceFileList, preload, share, myDirector, dataStorage) {
     $.stats.myTrack("进入到main.js");
     share.setShareResult('wholeGame');
 
@@ -16,9 +17,16 @@ require([
         cc.view.setDesignResolutionSize(1180, 640, cc.ResolutionPolicy.FIXED_HEIGHT);
         cc.view.resizeWithBrowserSize(true);
 
-        preload(resourceFileList['home'], function () {
-            cc.director.runScene(new HomeScene());
-        }, this);
+        if (dataStorage.whetherNeedJumpToResultPage()) {
+            if (!dataStorage.getLastResult().gameName) {
+                console.error("error~ in main.js, dataStorage.whetherNeedJumpToResultPage() === true but !dataStorage.getLastResult().gameName");
+                myDirector.enterHome();
+            } else {
+                myDirector.enterResult(dataStorage.getLastResult().gameName, dataStorage.getLastResult().result, true);
+            }
+        } else {
+            myDirector.enterHome();
+        }
     };
 
     function isHorizontal () { return window.innerWidth > window.innerHeight; }
