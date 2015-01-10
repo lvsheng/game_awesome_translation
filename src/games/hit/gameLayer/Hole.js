@@ -54,6 +54,8 @@ define([
             var self = this;
             self._super();
 
+            scoreManager.reset();
+
             self._initialView();
             self._initialAction();
         },
