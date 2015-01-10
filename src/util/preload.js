@@ -38,7 +38,7 @@ define([
             (function addLabel () {
                 var logoWidth = 246;
                 var logoHeight = 272;
-                var fontSize = 14, lblHeight = -logoHeight / 2 - 10;
+                var fontSize = 14, lblHeight = -logoHeight / 2 - 15;
                 var label = self._label = new cc.LabelTTF("0%", "Arial", fontSize);
                 label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
                 label.setColor(cc.color(114, 49, 28));
