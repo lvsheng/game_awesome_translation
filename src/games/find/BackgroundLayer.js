@@ -6,7 +6,7 @@ define([
             this._super();
             this.init();
 
-            var backgroundSprite = new cc.Sprite(resourceFileMap.find.bg);
+            var backgroundSprite = new cc.Sprite(resourceFileMap.findBackground.bg);
             backgroundSprite.attr({ anchorX: 0, anchorY: 1, x: 0, y: cc.director.getWinSize().height });
             this._scaleToCoverWindow(backgroundSprite);
             this.addChild(backgroundSprite);

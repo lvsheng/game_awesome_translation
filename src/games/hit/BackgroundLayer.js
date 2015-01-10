@@ -6,7 +6,7 @@ define([
             this._super();
             this.init();
 
-            this._backgroundSprite = new cc.Sprite(resourceFileMap.hit.background_png);
+            this._backgroundSprite = new cc.Sprite(resourceFileMap.hitBackground.background_png);
             var winSize = cc.director.getWinSize();
             this._backgroundSprite.attr({ anchorX: 0.5, anchorY: 1, x: winSize.width / 2, y: winSize.height });
             this._scaleToFillWindow(this._backgroundSprite);

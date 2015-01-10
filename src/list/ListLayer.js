@@ -3,9 +3,11 @@
  * @date 2015/1/3
  */
 define([
+    'require',
     '../util/resourceFileMap',
-    './ScrollMenu'
-], function (resourceFileMap, ScrollMenu) {
+    './ScrollMenu',
+    '../util/myDirector'
+], function (require, resourceFileMap, ScrollMenu) {
     return cc.Layer.extend({
         ctor: function(enterAGame){
             var self = this;
@@ -35,7 +37,7 @@ define([
                     new cc.Sprite(conf.img),
                     new cc.Sprite(conf.imgHover),
                     null,
-                    function(){ enterAGame(conf.gameName); }
+                    function(){ require('../util/myDirector').enterAGame(conf.gameName); }
                 );
                 menuItem.attr({x: currentX, y: currentY});
                 currentY -= menuItemLineHeight;
@@ -60,7 +62,7 @@ define([
             this.addChild(scrollView);
 
             //TODO: for debug
-            enterAGame("pipeline");
+            //require('../util/myDirector').enterAGame("pipeline");
         }
     });
 });

@@ -1,24 +1,65 @@
 define({
-    //TODO: 图片压缩~
+    avoid: {
+        bang: 'res/avoid/bang.png',
+        teenager: 'res/avoid/teenager.png',
+        ultraman: 'res/avoid/ultraman.png'
+    },
+    avoidBackground: {
+        bg: 'res/avoid/bg.jpg'
+    },
     bunt: {
-        bg: 'res/bunt/bg.jpg',
         cars: 'res/bunt/cars.png',
         faster: 'res/bunt/faster.png',
         button: 'res/bunt/button.png',
         button_hover: 'res/bunt/button_hover.png'
     },
-    avoid: {
-        bg: 'res/avoid/bg.jpg',
-        bang: 'res/avoid/bang.png',
-        teenager: 'res/avoid/teenager.png',
-        ultraman: 'res/avoid/ultraman.png'
+    buntBackground: {
+        bg: 'res/bunt/bg.jpg'
+    },
+    find: {
+        fanbingbing: 'res/find/fanbingbing.jpg',
+        fengjie: 'res/find/fengjie.jpg',
+        person: 'res/find/person.png'
+    },
+    findBackground: {
+        bg: 'res/find/bg.jpg'
     },
     gather: {
-        bg: 'res/gather/bg.jpg',
         heart: 'res/gather/heart.png',
         left: 'res/gather/left.png',
         right: 'res/gather/right.png'
     },
+    gatherBackground: {
+        bg: 'res/gather/bg.jpg'
+    },
+    hit: {
+        hammer_png: 'res/hit/hammer.png',
+        timer_png: 'res/hit/timer.png',
+
+        fog_png: 'res/hit/hole/fog.png',
+        heartLeft_png: 'res/hit/hole/heartLeft.png',
+        heartRight_png: 'res/hit/hole/heartRight.png',
+        hitEffect_png: 'res/hit/hole/hitEffect.png',
+        hole_png: 'res/hit/hole/hole.png',
+        lover1_png: 'res/hit/hole/lover1.png',
+        lover2_png: 'res/hit/hole/lover2.png',
+        mask_png: 'res/hit/hole/mask.png',
+        plus_png: 'res/hit/hole/plus.png',
+        uncle_png: 'res/hit/hole/uncle.png'
+    },
+    hitBackground: {
+        background_png: 'res/hit/background.jpg'
+    },
+    pipeline: {
+        body: 'res/pipeline/body.png',
+        head: 'res/pipeline/head.png',
+        man: 'res/pipeline/man.png',
+        bar: 'res/pipeline/bar.png'
+    },
+    pipelineBackground: {
+        bg: 'res/pipeline/bg.jpg'
+    },
+
     common: {
         leftBar: {
             bg: 'res/common/leftBar/bg.png',
@@ -67,13 +108,6 @@ define({
         loading2: 'res/common/loading_2.png',
         loadingBg: 'res/common/loadingBg.jpg'
     },
-    pipeline: {
-        bg: 'res/pipeline/bg.jpg',
-        body: 'res/pipeline/body.png',
-        head: 'res/pipeline/head.png',
-        man: 'res/pipeline/man.png',
-        bar: 'res/pipeline/bar.png'
-    },
     home: {
         bg: 'res/home/bg.png',
         board: 'res/home/board.png',
@@ -106,27 +140,5 @@ define({
         listContainer: 'res/list/listContainer.png',
         logo: 'res/list/logo.png',
         person: 'res/list/person.png'
-    },
-    hit: {
-        background_png: 'res/hit/background.jpg',
-        hammer_png: 'res/hit/hammer.png',
-        timer_png: 'res/hit/timer.png',
-
-        fog_png: 'res/hit/hole/fog.png',
-        heartLeft_png: 'res/hit/hole/heartLeft.png',
-        heartRight_png: 'res/hit/hole/heartRight.png',
-        hitEffect_png: 'res/hit/hole/hitEffect.png',
-        hole_png: 'res/hit/hole/hole.png',
-        lover1_png: 'res/hit/hole/lover1.png',
-        lover2_png: 'res/hit/hole/lover2.png',
-        mask_png: 'res/hit/hole/mask.png',
-        plus_png: 'res/hit/hole/plus.png',
-        uncle_png: 'res/hit/hole/uncle.png'
-    },
-    find: {
-        bg: 'res/find/bg.jpg',
-        fanbingbing: 'res/find/fanbingbing.jpg',
-        fengjie: 'res/find/fengjie.jpg',
-        person: 'res/find/person.png'
     }
 });

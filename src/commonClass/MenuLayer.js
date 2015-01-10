@@ -12,7 +12,7 @@ define([
     '../util/pauseGame',
     '../util/share',
     '../util/isWeixin',
-    '../list/Scene'
+    '../util/myDirector'
 ], function (require, resourceFileMap, pauseGame, share, isWeixin) {
     return cc.Layer.extend({
         ctor: function () {
@@ -91,26 +91,24 @@ define([
 
         _retry: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
-            $.stats.myTrack("侧边栏重玩-" + require("../list/Scene").getInstance().getCurGame().name);
-            var mainScene = require('../list/Scene').getInstance();
-            var curGame = mainScene.getCurGame();
-            mainScene.enterAGame(curGame.name);
+            $.stats.myTrack("侧边栏重玩-" + require("../util/myDirector").getCurGame().name);
+            require('../util/myDirector').reloadCurrentScene();
         },
         _returnHome: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
-            $.stats.myTrack("侧边栏返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
-            cc.director.runScene(require('../list/Scene').getInstance());
+            $.stats.myTrack("侧边栏返回首页-" + require("../util/myDirector").getCurGame().name);
+            require('../util/myDirector').enterList();
         },
 
         pauseGame: function () {
-            $.stats.myTrack("暂停游戏-" + require("../list/Scene").getInstance().getCurGame().name);
+            $.stats.myTrack("暂停游戏-" + require("../util/myDirector").getCurGame().name);
             this._showLeftMenu();
             pauseGame.pauseGame();
             self._paused = true;
         },
         resumeGame: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
-            $.stats.myTrack("恢复游戏-" + require("../list/Scene").getInstance().getCurGame().name);
+            $.stats.myTrack("恢复游戏-" + require("../util/myDirector").getCurGame().name);
             if (self._paused) {
                 this._hideLeftMenu();
                 pauseGame.resumeGame();
@@ -133,7 +131,7 @@ define([
 
         _share: function () {
             if (this._shadowLayer) { this._removeShadowLayer(); return; }
-            $.stats.myTrack("侧边栏分享-" + require("../list/Scene").getInstance().getCurGame().name);
+            $.stats.myTrack("侧边栏分享-" + require("../util/myDirector").getCurGame().name);
             if (isWeixin()) {
                 this._shareWeixin();
             } else {

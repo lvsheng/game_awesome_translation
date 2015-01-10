@@ -4,12 +4,11 @@
  * @date 2015/1/3
  */
 define([
-    '../util/resourceFileList',
     '../util/preload',
-    '../list/Scene',
+    '../util/myDirector',
     './AnimateLayer',
     './BackgroundLayer'
-], function (resourceFileList, preload, listScene, AnimateLayer, BackgroundLayer) {
+], function (preload, myDirector, AnimateLayer, BackgroundLayer) {
     return cc.Scene.extend({
         onEnter: function () {
             $.stats.myTrack("首页");
@@ -24,9 +23,7 @@ define([
 
             self.addChild(new BackgroundLayer());
             self.addChild(new AnimateLayer(function(){
-                preload(resourceFileList['list'], function(){
-                    cc.director.runScene(listScene.getInstance());
-                });
+                myDirector.enterList()
             }));
         }
     });

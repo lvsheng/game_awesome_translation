@@ -5,8 +5,7 @@ require([
     'util/resourceFileList',
     'util/preload',
     'util/share',
-    './home/HomeScene',
-    './list/Scene'
+    './home/HomeScene'
 ], function (resourceFileList, preload, share, HomeScene) {
     $.stats.myTrack("进入到main.js");
     share.setShareResult('wholeGame');

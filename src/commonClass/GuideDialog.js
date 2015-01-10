@@ -5,7 +5,7 @@
 define([
     'require',
     '../util/resourceFileMap',
-    '../list/Scene'
+    '../util/myDirector'
 ], function (require, resourceFileMap) {
     return cc.Layer.extend({
         ctor: function (title, text, onButtonClick) {
@@ -37,8 +37,8 @@ define([
                 new cc.Sprite(resourceFileMap.common.guideDialog.homeButtonHover),
                 null,
                 function () {
-                    $.stats.myTrack("引导层返回首页-" + require("../list/Scene").getInstance().getCurGame().name);
-                    cc.director.runScene(require('../list/Scene').getInstance());
+                    $.stats.myTrack("引导层返回首页-" + require("../util/myDirector").getCurGame().name);
+                    require('../util/myDirector').enterList();
                 },
                 null
             );
