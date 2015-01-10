@@ -99,6 +99,17 @@ define([
             var autoPullTime = (poppedMouse === lover ? self._loverAutoPullTime : self._uncleAutoPullTime);
             self.scheduleOnce(self._autoPullPoppedMouse, autoPullTime);
         },
+        stopGame: function () {
+            this.unschedule(this._autoPullPoppedMouse);
+            this._uncle.stopAllActions();
+            this._lover1.stopAllActions();
+            this._lover2.stopAllActions();
+            this._leftHeart.stopAllActions();
+            this._rightHeart.stopAllActions();
+            this._fog.stopAllActions();
+            this._plusOne.stopAllActions();
+            this._mouseMask.stopAllActions();
+        },
         preHitPoppedMouse: function () {
             var self = this;
 

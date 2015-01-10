@@ -63,15 +63,7 @@ define([
                 self._remainGameTime = 0;
                 self._endding = true;
 
-                var winSize = cc.director.getWinSize();
-                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 0), winSize.width, winSize.height);
-                self.addChild(shadowLayer);
-                shadowLayer.runAction(new cc.Sequence(
-                    //new cc.FadeTo(1, 200).easing(cc.easeOut()),
-                    new cc.CallFunc(function(){
-                        self._endGame();
-                    })
-                ));
+                self._endGame();
             }
         },
 
@@ -99,14 +91,17 @@ define([
                 cc.p(center.x + HORIZONTAL_INTERVAL, center.y - VERTICAL_INTERVAL)
             ];
 
+            var holeLayer = this._holeLayer = new cc.Layer();
+            self.addChild(holeLayer);
             for (var i = 0; i < HOLE_POSITIONS.length; ++i) {
                 var createdHole = new Hole();
                 createdHole.x = HOLE_POSITIONS[i].x;
                 createdHole.y = HOLE_POSITIONS[i].y;
 
                 self._holes.push(createdHole);
-                self.addChild(createdHole);
+                holeLayer.addChild(createdHole);
             }
+
 
             self._hammer = new Hammer();
             self.addChild(self._hammer);
@@ -121,6 +116,7 @@ define([
         },
 
         _onUserTouch: function (touch) {
+            if (this._endding) { return; }
             var self = this;
             var pos = touch.getLocation();
 
@@ -225,10 +221,23 @@ define([
 
         _endGame: function () {
             var self = this;
+            var winSize = cc.director.getWinSize();
             self.unschedule(self._updatePopMouseFactor);
             self.unschedule(self._popMouse);
             self.unschedule(self._updateGameRemainTime);
-            self._endCallback();
+            self.unschedule(self._popMouse);
+            _.forEach(self._holes, function (eachHole) {
+                eachHole.stopGame();
+            });
+
+            var holeLayer = self._holeLayer;
+            holeLayer.runAction(new cc.Sequence(
+                //new cc.MoveTo(0.5, winSize.width + holeLayer.width, holeLayer.y),
+                (new cc.MoveTo(0.3, winSize.width + holeLayer.width / 2, holeLayer.y)).easing(cc.easeBackIn()),
+                new cc.CallFunc(function () {
+                    self._endCallback();
+                })
+            ));
         }
     });
 });
