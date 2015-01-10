@@ -65,7 +65,7 @@ define([
             menu.attr({ x: 0, y: 0, anchorX: 0, anchorY: 0 });
             bakeLayer.addChild(menu);
 
-            var titleLabel = new cc.LabelBMFont(score, resourceFileMap.common.resultLayer.titleFont);
+            var titleLabel = new cc.LabelBMFont("Score:" + score, resourceFileMap.common.resultLayer.titleFont);
             //var titleLabel = new cc.LabelTTF("Score:" + score, "FZMiaoWuS-GB", 55);
             titleLabel.setPosition(center.x + 118 - 34 - 5, winSize.height - 175 + 26 + 48 + 10);
             titleLabel.color = cc.color(0, 37, 41, 255);
@@ -100,7 +100,8 @@ define([
             var winSize = cc.director.getWinSize();
             this._bakeLayer.y = winSize.height;
             this._bakeLayer.runAction(new cc.Sequence(
-                new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
+                //new cc.MoveTo(0.6, this.x, 0).easing(cc.easeBounceOut(7))
+                (new cc.MoveTo(0.8, this.x, 0)).easing(cc.easeIn(8))
             ));
         },
         _scaleToFillWindow: function (sprite) {
