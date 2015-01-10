@@ -27,9 +27,9 @@ define([
                 new cc.Sequence(
                     delay.clone(),
                     new cc.DelayTime(0.5),
-                    new cc.MoveBy(1.5, 0, -25).easing(cc.easeInOut(2)),
+                    new cc.MoveBy(1.5, 0, -35).easing(cc.easeInOut(2)),
                     new cc.DelayTime(1.5),
-                    new cc.MoveBy(1.8, 0, 20).easing(cc.easeInOut(2)),
+                    new cc.MoveBy(1.8, 0, 10).easing(cc.easeInOut(2)),
                     new cc.DelayTime(1.0)
                 )
             ));
@@ -39,9 +39,9 @@ define([
                     new cc.DelayTime(1.5),
 
                     new cc.DelayTime(0.3),
-                    new cc.MoveBy(1.5, -25, -12.5).easing(cc.easeIn(2)),
+                    new cc.MoveBy(1.5, -35, -12.5).easing(cc.easeIn(2)),
                     new cc.DelayTime(1.4),
-                    new cc.MoveBy(1.8, 20, 10).easing(cc.easeOut(1)),
+                    new cc.MoveBy(1.8, 10, 3.57).easing(cc.easeOut(1)),
                     new cc.DelayTime(0.6)
                 )
             ))
