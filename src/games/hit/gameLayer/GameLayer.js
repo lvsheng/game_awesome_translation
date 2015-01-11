@@ -47,11 +47,13 @@ define([
             var self = this;
             self._super();
 
-            self._initView();
-            self._startPop();
-            self._listenEvent();
+            self.scheduleOnce(function () {
+                self._initView();
+                self._startPop();
+                self._listenEvent();
 
-            self.schedule(self._updateGameRemainTime);
+                self.schedule(self._updateGameRemainTime);
+            });
         },
 
         _updateGameRemainTime: function (dt) { //要求每次更新都要调用本方法

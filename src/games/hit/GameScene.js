@@ -23,8 +23,8 @@ define([
                 self.addChild(new GameLayer(function(result){
                     result = scoreManager.getResult();
                     require('../../util/myDirector').enterResult('hit', result);
-                }));
-                self.addChild(self._menuLayer = new MenuLayer());
+                }), 10);
+                self.addChild(self._menuLayer = new MenuLayer(), 100);
             }));
         },
         pauseGame: function () { this._menuLayer && this._menuLayer.pauseGame(); },

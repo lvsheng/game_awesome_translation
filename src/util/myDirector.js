@@ -58,7 +58,7 @@ define([
             pauseGame.resumeGame(); //应对前面在结束上一个小游戏时的pause()
 
             preload(
-                resourceFileList[gameName].concat(resourceFileList['common']).concat(resourceFileList[gameName + 'Background']),
+                resourceFileList[gameName].concat(resourceFileList[gameName + 'Background']).concat(resourceFileList['common']),
                 function () {
                     share.setShareResult("game", gameName);
                     self._curGame = { name: gameName, sceneClass: SceneClass, sceneInstance: new SceneClass() };
