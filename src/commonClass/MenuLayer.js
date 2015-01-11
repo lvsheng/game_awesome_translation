@@ -147,14 +147,21 @@ define([
         },
         _shareWeixin: function () {
             var self = this;
-            share.tryWeixinShare(function(){
+            share.tryWeixinShare();
+            (function(){
                 var winSize = cc.director.getWinSize();
                 var center = cc.p(winSize.width / 2, winSize.height / 2);
 
-                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 125), winSize.width, winSize.height);
+                var shadowLayer = new cc.LayerColor(cc.color(0, 0, 0, 200), winSize.width, winSize.height);
                 self.addChild(shadowLayer);
 
-                var tipSprite = new cc.Sprite(resourceFileMap.common.resultLayer.tip);
+                function isHorizontal () { return window.innerWidth > window.innerHeight; }
+                var tipSprite;
+                if (isHorizontal()) {
+                    tipSprite = new cc.Sprite(resourceFileMap.common.resultLayer.tip);
+                }else { //竖屏玩，菜单在左上角
+                    tipSprite = new cc.Sprite(resourceFileMap.common.resultLayer.tipLeft);
+                }
                 tipSprite.setPosition(center.x + 58, 640 - 233.5);
                 shadowLayer.addChild(tipSprite);
 
@@ -162,10 +169,8 @@ define([
                 buttonSprite.setPosition(center.x + 35, 640 - 530);
                 shadowLayer.addChild(buttonSprite);
 
-                shadowLayer.bake();
-
                 self._shadowLayer = shadowLayer;
-            });
+            })();
         },
         _removeShadowLayer: function () {
             if (this._shadowLayer) {
