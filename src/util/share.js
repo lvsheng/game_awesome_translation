@@ -9,7 +9,7 @@ define([
     './dataStorage'
 ], function (getResultText, getGameTitle, dataStorage) {
     var sharedContent = {
-        url: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/index.html',
+        url: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html',
         content: '',
         weixinImgUrl: '',
         weiboImgUrl: 'http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/share/poster.jpg',
