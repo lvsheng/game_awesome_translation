@@ -94,7 +94,9 @@ define([
 
             self._animate();
 
-            share.tryWeixinShare(null, true); //一展示结果就尝试一次分享到微信
+            if (isWeixin()) {
+                share.tryWeixinShare(true); //一展示结果就尝试一次分享到微信
+            }
 
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
