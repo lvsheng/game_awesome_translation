@@ -107,9 +107,9 @@ define({
         countBoard: './res/common/countBoard.png?v=20151111422'
     },
     loading: {
-        loading1: './res/common/loading_1.png?v=20151111422',
-        loading2: './res/common/loading_2.png?v=20151111422',
-        loadingBg: './res/common/loadingBg.jpg?v=20151111422'
+        loading1: './res/common/loading_1.png',
+        loading2: './res/common/loading_2.png',
+        loadingBg: './res/common/loadingBg.jpg' //为了与html中一致，先不使用时间戳
     },
     home: {
         bg: './res/home/bg.png?v=20151111422',

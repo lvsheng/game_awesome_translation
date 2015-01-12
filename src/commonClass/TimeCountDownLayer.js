@@ -29,10 +29,18 @@ define([
             //label.setPosition(center.x + 120 - 20, winSize.height - 235);
             self.addChild(label);
 
+            self.bake();
             self.schedule(function (dt) {
                 self._remainedTime -= dt;
                 if (self._remainedTime < 0) { self._remainedTime = 0; }
-                label.setString(parseInt(self._remainedTime) + "'", true);
+
+                var newString = parseInt(self._remainedTime) + "'";
+                var oldString = label.getString();
+                if (newString !== oldString) {
+                    self.unbake();
+                    label.setString(parseInt(self._remainedTime) + "'", true);
+                    self.bake();
+                }
             });
         }
     });
