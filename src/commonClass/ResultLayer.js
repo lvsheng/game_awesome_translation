@@ -87,6 +87,10 @@ define([
                 self._switchToNoShared();
 
                 dataStorage.listenShared(function () {
+                    if (self._shadowLayer) {
+                        self.removeChild(self._shadowLayer);
+                        self._shadowLayer = null;
+                    }
                     self._switchToShared();
                     self._animate();
                 });
