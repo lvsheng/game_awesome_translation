@@ -103,7 +103,8 @@ define({
             okButton: 'res/common/resultLayer/okButton.png?v=20151111422',
             zhangzishi: 'res/common/resultLayer/zhangzishi.png?v=20151111422',
             zhangzishiHover: 'res/common/resultLayer/zhangzishiHover.png?v=20151111422'
-        }
+        },
+        countBoard: 'res/common/countBoard.png?v=20151111422'
     },
     loading: {
         loading1: 'res/common/loading_1.png?v=20151111422',

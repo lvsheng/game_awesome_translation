@@ -1,8 +1,9 @@
 define([
     '../../../util/resourceFileMap',
     './Hole',
-    './Hammer'
-], function (resourceFileMap, Hole, Hammer) {
+    './Hammer',
+    '../../../commonClass/TimeCountDownLayer'
+], function (resourceFileMap, Hole, Hammer, TimeCountDownLayer) {
     return cc.Layer.extend({
         _GAME_TIME: 30, //游戏时长，秒为单位
         //TODO: for debug
@@ -104,6 +105,7 @@ define([
                 holeLayer.addChild(createdHole);
             }
 
+            self.addChild(new TimeCountDownLayer(self._gameTime));
 
             self._hammer = new Hammer();
             self.addChild(self._hammer);

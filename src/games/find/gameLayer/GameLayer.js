@@ -2,8 +2,9 @@ define([
     './MatrixLayer',
     '../../../util/pauseGame',
     '../../../util/resourceFileMap',
-    '../../../commonClass/TimerNode'
-], function (MatrixLayer, pauseGame, resourceFileMap, TimerNode) {
+    '../../../commonClass/TimerNode',
+    '../../../commonClass/TimeCountDownLayer'
+], function (MatrixLayer, pauseGame, resourceFileMap, TimerNode, TimeCountDownLayer) {
     return cc.Layer.extend({
         ctor: function (endCallback) {
             var self = this;
@@ -44,7 +45,6 @@ define([
             self.addChild(self._matrix = new MatrixLayer());
             self.addChild(self._timer = (new TimerNode()).start());
 
-            self.bake();
             cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE, //这里的ONE_BY_ONE指的是多个手指时
                 swallowTouches: false,
@@ -52,16 +52,13 @@ define([
                     if (self._matrix.whetherFind(touch.getLocation())) {
                         ++self._hitCount;
                         self._scale = self._matrixSizeList.length > 0 ? self._matrixSizeList.shift() : self._scale;
-                        self.unbake();
                         self._matrix.generate(self._scale);
-                        self.bake();
                         self._fanbingbingAmount += (self._scale * self._scale - 1);
                     }
                 }
             }, self);
 
             self.schedule(function () {
-                self.unbake(); //结束游戏，有动画，故取消bake
                 self._matrix.preEnd(function(){
                     self._endGame();
                 });
@@ -69,6 +66,8 @@ define([
 
             self._matrix.generate(self._scale);
             self._fanbingbingAmount += (self._scale * self._scale - 1);
+
+            self.addChild(new TimeCountDownLayer(self._gameTime));
         },
 
         _endGame: function () {
