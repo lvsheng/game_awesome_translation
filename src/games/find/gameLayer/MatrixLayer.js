@@ -19,8 +19,11 @@ define([
             };
             this._fengjieRect = cc.rect();
 
+            var bakeLayer = this._bakeLayer = new cc.Layer();
+            this.addChild(bakeLayer);
+
             var spriteBatchNode = this._spriteBatchNode = new cc.SpriteBatchNode(resourceFileMap.find.fanbingbing, 100);
-            this.addChild(spriteBatchNode);
+            bakeLayer.addChild(spriteBatchNode);
 
             this._matrixSpriteList = [];
         },
@@ -28,6 +31,7 @@ define([
          * @param size 规模，所生成方阵为几乘几的
          */
         generate: function (size) {
+            this._bakeLayer.unbake();
             this._removeOldMatrixSprites();
             this._currentSize = size;
             var imgWidth = this._conf.width / size;
@@ -56,6 +60,7 @@ define([
                     this._matrixSpriteList.push(sprite);
                 }
             }
+            this._bakeLayer.bake();
         },
         _removeOldMatrixSprites: function () {
             for (var i = 0; i < this._matrixSpriteList.length; ++i) {

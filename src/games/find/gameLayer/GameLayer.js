@@ -39,9 +39,6 @@ define([
 
             var winSize = cc.director.getWinSize();
             var center = cc.p(winSize.width / 2, winSize.height / 2);
-            var person = new cc.Sprite(resourceFileMap.find.person);
-            person.attr({anchorX: 0.5, anchorY: 0, x: center.x - 323, y: 0});
-            self.addChild(person);
             self.addChild(self._matrix = new MatrixLayer());
             self.addChild(self._timer = (new TimerNode()).start());
 

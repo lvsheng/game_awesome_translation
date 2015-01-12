@@ -6,10 +6,17 @@ define([
             this._super();
             this.init();
 
+            var winSize = cc.director.getWinSize();
+            var center = cc.p(winSize.width / 2, winSize.height / 2);
+
             var backgroundSprite = new cc.Sprite(resourceFileMap.findBackground.bg);
             backgroundSprite.attr({ anchorX: 0, anchorY: 1, x: 0, y: cc.director.getWinSize().height });
             this._scaleToCoverWindow(backgroundSprite);
             this.addChild(backgroundSprite);
+
+            var person = new cc.Sprite(resourceFileMap.find.person);
+            person.attr({anchorX: 0.5, anchorY: 0, x: center.x - 323, y: 0});
+            this.addChild(person);
 
             this.bake();
         },
