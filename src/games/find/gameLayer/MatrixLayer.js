@@ -80,13 +80,10 @@ define([
             var self = this;
             var winSize = cc.director.getWinSize();
             self._endding = true;
-            self.removeChild(self._fengjieLayer);
-            self._fanbingbingLayer.runAction(new cc.Sequence(
-                new cc.Blink(0.3, 3),
-                new cc.DelayTime(0.5),
-                new cc.CallFunc(function () {
-                    endCallback();
-                })
+            self.removeChild(self._fanbingbingLayer);
+            self._fengjieLayer.runAction(new cc.Sequence(
+                (new cc.MoveTo(0.3, winSize.width + self.width / 2, self.y)).easing(cc.easeBackIn()),
+                new cc.CallFunc(endCallback)
             ));
         },
         _scaleTo: function (sprite, width, height) {
