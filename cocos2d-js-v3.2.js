@@ -437,6 +437,7 @@ cc.loader = {
         var ext = /(\.png)|(\.jpg)|(\.bmp)|(\.jpeg)|(\.gif)/.exec(url);
         return (ext != null);
     },
+    //by lvsheng  loadimg  在这里
     loadImg: function (url, option, callback) {
         var opt = {
             isCrossOrigin: true
@@ -451,8 +452,11 @@ cc.loader = {
             return img;
         }
         img = new Image();
-        if (opt.isCrossOrigin && location.origin != "file://")
-            img.crossOrigin = "Anonymous";
+        //debugger;
+        if (opt.isCrossOrigin && location.origin != "file://") {
+            //edit by lvsheng 因为要在tieba域下访问tb1的图片，故去掉此项
+            //img.crossOrigin = "Anonymous";
+        }
         var loadCallback = function () {
             this.removeEventListener('load', loadCallback, false);
             this.removeEventListener('error', errorCallback, false);
@@ -474,6 +478,7 @@ cc.loader = {
         img.src = url;
         return img;
     },
+    //by lvsheng 本方法来load内容
     _loadResIterator: function (item, index, cb) {
         var self = this, url = null;
         var type = item.type;
@@ -489,6 +494,7 @@ cc.loader = {
             return cb(null, obj);
         var loader = null;
         if (type) {
+            //by lvsheng 如果是图片，在这里则拿到图片的loader
             loader = self._register[type.toLowerCase()];
         }
         if (!loader) {
@@ -1731,6 +1737,7 @@ cc._jsonLoader = {
 };
 cc.loader.register(["json", "ExportJson"], cc._jsonLoader);
 cc._imgLoader = {
+    //by lvsheng img 的loader
     load : function(realUrl, url, res, cb){
         cc.loader.cache[url] =  cc.loader.loadImg(realUrl, function(err, img){
             if(err)
