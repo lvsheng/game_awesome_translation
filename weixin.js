@@ -3,7 +3,7 @@
 
 var g_sharedContent = {
     appid: '',
-    url: 'tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html?v=1501131119',
+    url: 'tieba.baidu.com/tb/zt/weixingame/awesome_translation/index.html?v=1501131933',
     content: '',
     weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/whole.jpg',
     weiboImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/poster.jpg',
