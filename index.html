@@ -52,6 +52,13 @@
     </style>
 
     <script>
+        if (!/\.html\?t=\d+$/.test(location.href)) {
+            var t = (new Date()).getTime();
+            location.href = location.href.replace(/\.html.*/, '.html?t=' + t);
+        }
+    </script>
+
+    <script>
         /**
          * 本地存储管理
          * 包括对是否需要直接进入结果页、游戏结果、是否分享过数据的存储管理。
@@ -302,10 +309,10 @@
 <!--<script data-main="src/main" src="require.js"></script>-->
 <!-- , baseUrl: "http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/src" -->
 <script>
-    requirejs.config({urlArgs: 'v=1501130913' , baseUrl: "http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/src"  });
+    requirejs.config({urlArgs: 'v=1501130928' , baseUrl: "http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/src"  });
 </script>
 
-<script src="http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/weixin.js?v=1501130913"></script>
+<script src="http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/weixin.js?v=1501130928"></script>
 
 </body>
 </html>
