@@ -18,37 +18,37 @@ define([
         game: {
             gather: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("gather") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("gather") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/gather.png'
             },
             hit: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("hit") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("hit") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/hit.png'
             },
             pipeline: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("pipeline") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("pipeline") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/pipeline.png'
             },
             bunt: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("bunt") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("bunt") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/bunt.png'
             },
             find: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("find") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("find") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/find.png'
             },
             avoid: {
                 content: [
-                    "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle("avoid") + "”！敢不敢来挑战我？"
+                    "我在“贴吧神翻译”玩“" + getGameTitle("avoid") + "”！敢不敢来挑战我？"
                 ].join(''),
                 weixinImgUrl: 'http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/share/avoid.png'
             }
@@ -132,7 +132,7 @@ define([
             resultText = resultText.substring(0, removedIndex);
             var lastChar = resultText.charAt(resultText.length - 1);
             if (lastChar === "，" || lastChar === ",") { resultText = resultText.substring(0, resultText.length - 1); }//统一结尾
-            return "我在“贴吧神翻译-谁玩谁流弊”玩“" + getGameTitle(gameName) + "”！"
+            return "我在“贴吧神翻译”玩“" + getGameTitle(gameName) + "”！"
                 + resultText + "，敢不敢来挑战我？";
         }
     };
