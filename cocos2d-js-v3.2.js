@@ -1769,6 +1769,7 @@ cc._plistLoader = {
     }
 };
 cc.loader.register(["plist"], cc._plistLoader);
+//by lvsheng font loader
 cc._fontLoader = {
     TYPE : {
         ".eot" : "embedded-opentype",
@@ -18994,6 +18995,7 @@ cc.LabelBMFont = cc.SpriteBatchNode.extend({
         }
     },
     ctor: function (str, fntFile, width, alignment, imageOffset) {
+        //debugger;
         cc.SpriteBatchNode.prototype.ctor.call(this);
         this._imageOffset = cc.p(0, 0);
         this._reusedChar = [];
@@ -19492,7 +19494,9 @@ cc._fntLoader = {
         }
         return obj;
     },
+    //by lvsheng  font字体文件的解析
     parseFnt: function (fntStr, url) {
+        //debugger;
         var self = this, fnt = {};
         var infoObj = self._parseStrToObj(fntStr.match(self.INFO_EXP)[0]);
         var paddingArr = infoObj["padding"].split(",");
