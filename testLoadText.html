@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p {
+            height: 200px;
+            overflow: auto;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    function loadText (url, cb) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onload = function () {
+            if (xhr.readyState == 4) {
+                xhr.status == 200 ? cb(xhr.responseText, url) : cb("load faild: " + xhr.status);
+            }
+        };
+        xhr.send(null);
+    }
+
+    function logText (data, url) {
+        var p = document.createElement("p");
+        p.innerHTML = url + ": <br/>" + data;
+        document.body.appendChild(p);
+    }
+    loadText("http://tb1.bdstatic.com/tb/zt/weixingame/awesome_translation/res/common/guideDialog/textFont_fnt.txt", logText);
+    loadText("http://tieba.baidu.com/tb/zt/weixingame/awesome_translation/res/common/guideDialog/textFont_fnt.txt", logText);
+</script>
+</body>
+</html>
