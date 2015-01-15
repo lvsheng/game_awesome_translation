@@ -18,10 +18,12 @@ define([
             self._super();
 
             $.stats.myTrack("进入游戏-find");
+            $.stats.myTrack("进入游戏");
             self.addChild(new BackgroundLayer());
             self.addChild(new GuideLayer(function(){
                 // 用户确认开始游戏的回调
                 $.stats.myTrack("开始游戏-find");
+                $.stats.myTrack("开始游戏");
                 self.addChild(new GameLayer(function(result){
                     // 用户完成游戏的回调
                     result.score = result.hitCount;

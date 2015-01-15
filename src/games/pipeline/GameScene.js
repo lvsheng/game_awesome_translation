@@ -19,10 +19,12 @@ define([
             self._super();
 
             $.stats.myTrack("进入游戏-pipeline");
+            $.stats.myTrack("进入游戏");
             self._backgroundLayer = new BackgroundLayer();
             self.addChild(self._backgroundLayer);
             self.addChild(new GuideLayer(function(){
                 $.stats.myTrack("开始游戏-pipeline");
+                $.stats.myTrack("开始游戏");
                 self.addChild(new GameLayer(function(result){
                     result.score = result.assemble;
                     require('../../util/myDirector').enterResult('pipeline', result);
