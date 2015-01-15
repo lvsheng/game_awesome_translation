@@ -92,7 +92,7 @@ define([
             dataStorage.markHasShared();
             window.location.href =
                 'http://service.weibo.com/share/share.php'
-                + '?url=' + encodeURIComponent(window.g_sharedContent.url)
+                + '?url=' + encodeURIComponent(window.g_sharedContent.weiboUrl)
                 + '&title=' + encodeURIComponent(window.g_sharedContent.content.replace("贴吧神翻译", "#贴吧神翻译#"))
                 + '&pic=' + encodeURIComponent(window.g_sharedContent.weiboImgUrl)
                 + '&appkey=2285628874&ralateUid=1673450172';
