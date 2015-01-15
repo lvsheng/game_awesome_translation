@@ -20,6 +20,8 @@ define([
             var self = this;
             self._super();
             self.init();
+            $.stats.myTrack("进入结果页-" + require("../util/myDirector").getCurGame().name);
+            $.stats.myTrack("进入结果页");
 
             dataStorage.setLastResult(gameName, result);
 
